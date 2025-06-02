@@ -23,6 +23,20 @@
             --form-text-color: #333;
             --footer-text-color: #ccc;
             --hover-orange: #ff4f00;
+            --process-step-bg: rgba(255, 255, 255, 0.05);
+            --process-step-hover-bg: rgba(255, 255, 255, 0.15);
+            --process-step-active-bg: rgba(255, 255, 255, 0.12);
+            --process-detail-bg: rgba(255, 255, 255, 0.03);
+            --faq-item-bg: rgba(255, 255, 255, 0.05);
+            --faq-item-hover-bg: rgba(255, 255, 255, 0.1);
+            --stat-value-color: var(--hover-orange);
+            --hero-headline-bg: rgba(0, 0, 0, 0.3); /* For hero headline background */
+
+            /* New colors for trend compass tabs */
+            --trend-red: rgba(231, 76, 60, 0.2);
+            --trend-blue: rgba(52, 152, 219, 0.2);
+            --trend-green: rgba(46, 204, 113, 0.2);
+            --trend-purple: rgba(155, 89, 182, 0.2);
         }
 
         body.light-theme {
@@ -37,6 +51,20 @@
             --form-text-color: #333;
             --footer-text-color: #666;
             --hover-orange: #e64500; /* Slightly darker for contrast */
+            --process-step-bg: rgba(0, 0, 0, 0.03);
+            --process-step-hover-bg: rgba(0, 0, 0, 0.08);
+            --process-step-active-bg: rgba(0, 0, 0, 0.06);
+            --process-detail-bg: rgba(0, 0, 0, 0.01);
+            --faq-item-bg: #ffffff;
+            --faq-item-hover-bg: #f9f9f9;
+            --stat-value-color: var(--hover-orange);
+            --hero-headline-bg: rgba(255, 255, 255, 0.3); /* Lighter bg for light theme */
+
+            /* New colors for trend compass tabs - Light Theme */
+            --trend-red: rgba(231, 76, 60, 0.1);
+            --trend-blue: rgba(52, 152, 219, 0.1);
+            --trend-green: rgba(46, 204, 113, 0.1);
+            --trend-purple: rgba(155, 89, 182, 0.1);
         }
 
         /* Base styles */
@@ -50,11 +78,9 @@
             line-height: 1.6;
             color: var(--text-color);
             background: var(--bg-color);
-            /* Initial state for full page fade-in */
             opacity: 0;
             transition: opacity 1s ease-out, background-color 0.5s ease, color 0.5s ease;
         }
-        /* Class added by JS for full page fade-in */
         body.loaded {
             opacity: 1;
         }
@@ -92,7 +118,7 @@
         }
         .header-nav {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem; /* Adjusted gap */
         }
         .nav-item {
             color: var(--text-color);
@@ -100,6 +126,7 @@
             font-weight: 500;
             transition: color 0.3s ease;
             position: relative;
+            padding: 0.25rem 0; /* Added padding for better click area */
         }
         .nav-item:hover, .nav-item.active {
             color: var(--hover-orange);
@@ -121,6 +148,7 @@
             visibility: hidden;
             transform: translateY(-10px);
             transition: all 0.3s ease;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
         .has-dropdown:hover .dropdown-menu {
             opacity: 1;
@@ -132,15 +160,16 @@
             padding: 0.5rem 1rem;
             color: var(--text-color);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, background-color 0.2s ease;
         }
         .dropdown-menu a:hover {
             color: var(--hover-orange);
+            background-color: rgba(255,255,255,0.05);
         }
         .header-actions {
             display: flex;
             gap: 1rem;
-            align-items: center; /* Align toggle button */
+            align-items: center;
         }
         .action-icon {
             background: none;
@@ -170,7 +199,6 @@
             color: var(--hover-orange);
         }
 
-
         /* Mobile Navigation */
         .mobile-nav {
             position: fixed;
@@ -183,6 +211,7 @@
             padding: 2rem;
             transition: right 0.3s ease;
             z-index: 1001;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
         }
         .mobile-nav.active {
             right: 0;
@@ -214,9 +243,13 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            justify-content: center; /* Ensure content is centered */
             position: relative;
             overflow: hidden;
+            padding-top: 80px; /* Account for fixed header */
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); /* Initial gradient */
+            background-size: 400% 400%; /* Larger background to allow movement */
+            animation: heroBackgroundCycle 15s ease infinite alternate; /* Animated background */
         }
         .hero-section::before {
             content: '';
@@ -228,7 +261,6 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%23ff4f00" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ff4f00" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="200" r="300" fill="url(%23a)"/><circle cx="800" cy="800" r="400" fill="url(%23a)"/></svg>');
             opacity: 0.3;
         }
-        /* 3D Robot Canvas */
         #robot3DCanvas {
             position: absolute;
             top: 0;
@@ -236,47 +268,63 @@
             width: 100%;
             height: 100%;
             z-index: 1;
-            mix-blend-mode: lighten; /* Blend with background */
-            opacity: 0.6; /* Subtle */
+            mix-blend-mode: lighten;
+            opacity: 0.6;
         }
         .hero-content-wrapper-centered {
             text-align: center;
             position: relative;
             z-index: 2;
-            width: 100%; /* Ensure it takes full width for text centering */
+            width: 100%;
+            display: flex; /* For centering content vertically if needed */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
+
         .hero-main-headline {
-            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-size: clamp(2.5rem, 5vw, 3.8rem);
             font-weight: 800;
             color: var(--heading-color);
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            white-space: nowrap; /* Prevent text wrapping during animation */
-            display: inline-block; /* Allow individual span animation */
-            overflow: hidden; /* Hide overflow during slide */
+            white-space: nowrap;
+            display: inline-block;
+            overflow: hidden;
+            padding: 0.3rem 0.8rem;
+            border-radius: 8px;
         }
+         /* Style for the final animated headline text */
+        #final-charanx-text {
+            display: inline-block;
+            background-color: var(--hero-headline-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
         .highlight-text {
             color: var(--hover-orange);
             position: relative;
         }
-        .highlight-x { /* New style for the unique 'X' */
-            font-weight: 900; /* Even bolder */
-            color: var(--hover-orange); /* Orange color */
-            display: inline-block; /* Ensure it respects transform/animation if applied */
+        .highlight-x {
+            font-weight: 900;
+            color: var(--hover-orange);
+            display: inline-block;
         }
         .hero-supporting-headline {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-color);
             margin-bottom: 2rem;
-            max-width: 600px;
+            max-width: 580px;
             margin-left: auto;
             margin-right: auto;
-            opacity: 0; /* Initially hidden, controlled by JS animation */
-            transform: translateY(30px); /* Initially translated, controlled by JS animation */
+            opacity: 0;
+            transform: translateY(30px);
         }
         .hero-cta-button {
-            opacity: 0; /* Initially hidden, controlled by JS animation */
-            transform: translateY(30px); /* Initially translated, controlled by JS animation */
+            opacity: 0;
+            transform: translateY(30px);
         }
         .btn {
             display: inline-flex;
@@ -324,18 +372,12 @@
 
         /* Services Section */
         #services {
-            background: var(--card-bg); /* Use card background for section */
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
         }
         .grid {
             display: grid;
             gap: 2rem;
-        }
-        .md\:grid-cols-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .lg\:grid-cols-3 {
-            grid-template-columns: repeat(3, 1fr);
         }
         .service-card {
             background: var(--card-bg);
@@ -345,15 +387,14 @@
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid var(--card-border);
-            opacity: 0; /* Initial state for scroll animation */
-            transform: translateY(30px); /* Initial state for scroll animation */
+            opacity: 0;
+            transform: translateY(30px);
         }
-        /* Enhanced Service Card Hover Effect */
         .service-card:hover {
-            transform: translateY(-15px) scale(1.03); /* More pronounced lift and slight scale */
-            background: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 20px var(--hover-orange); /* Stronger shadow + subtle glow */
-            border-color: var(--hover-orange); /* Border highlights */
+            transform: translateY(-15px) scale(1.03);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 20px var(--hover-orange);
+            border-color: var(--hover-orange);
         }
         .service-card i {
             font-size: 3rem;
@@ -371,7 +412,7 @@
 
         /* Work Showcase */
         #work-showcase {
-            background: var(--bg-color); /* Use main background for this section */
+            background: var(--bg-color);
         }
         .content-card {
             background: var(--card-bg);
@@ -433,7 +474,7 @@
 
         /* Blog Section */
         #blog {
-            background: var(--bg-color); /* Use main background for this section */
+            background: var(--bg-color);
         }
         .blog-post-card {
             background: var(--card-bg);
@@ -459,27 +500,29 @@
 
         /* Contact Section */
         #contact {
-            background: var(--card-bg); /* Use card background for section */
+            background: var(--card-bg);
         }
-        #contact .content-card {
+        #contact .content-card { 
             display: flex;
-            flex-direction: column;
+            flex-direction: column; 
             opacity: 1;
             transform: none;
-            animation: none;
-            background: var(--card-bg); /* Ensure consistent background */
+            animation: none; 
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
         }
         .contact-info {
-            background: var(--bg-color); /* Darker background for info */
+            background: var(--bg-color);
             color: var(--heading-color);
             padding: 2.5rem;
-            border-radius: 12px 12px 0 0;
+            border-radius: 12px 12px 0 0; 
         }
         .contact-form {
             padding: 2.5rem;
-            background: var(--card-bg); /* Form background matches cards */
-            color: var(--form-text-color); /* Text color for form elements */
+            background: var(--card-bg);
+            color: var(--form-text-color);
+            border-radius: 0 0 12px 12px; 
         }
         .form-label {
             display: block;
@@ -525,173 +568,63 @@
                 transform: translateY(0);
             }
         }
-
-        /* Headline specific animations */
         @keyframes slideInLeft {
-            0% {
-                transform: translateX(-100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            0% { transform: translateX(-100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
         }
-
         @keyframes slideInRight {
-            0% {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            100% {
-                transform: translateX(0);
-                opacity: 1;
-            }
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
         }
-
-        /* New animation for CharanX Solutions to slide down and fade in */
         @keyframes slideDownFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-
-        /* New animation for service cards to pop up and fade in */
         @keyframes popInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px) scale(0.9);
-            }
-            75% {
-                transform: translateY(-10px) scale(1.02);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+            0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+            75% { transform: translateY(-10px) scale(1.02); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-
-        /* Apply animations to headline parts */
-        #strategy-text {
-            animation: slideInLeft 1.5s ease-out 0.5s forwards; /* Slower duration */
-            opacity: 0; /* Initially hidden */
-        }
-
-        #success-text {
-            animation: slideInRight 1.5s ease-out 0.8s forwards; /* Slower duration and slightly delayed */
-            opacity: 0; /* Initially hidden */
-        }
-
-        /* Hide the original main headline until the new one appears */
         .hero-main-headline .fade-in-element {
             opacity: 0;
-            transform: translateY(30px); /* Keep original animation for other elements */
+            transform: translateY(30px);
         }
-
-        /* Scroll-triggered animations for #services section */
-        /* Initial state for elements within #services to be animated on scroll */
         #services .section-heading,
         #services .section-subheading,
         #services .service-card {
             opacity: 0;
             transform: translateY(30px);
         }
-
-        /* When the #services section is in view, apply animations */
         #services.in-view .section-heading,
         #services.in-view .section-subheading {
             animation: fadeInUp 0.8s ease forwards;
         }
-
-        /* Specific styling for the line under highlight-text in #services */
-        #services .section-heading .highlight-text {
-            position: relative; /* Needed for pseudo-element positioning */
-            display: inline-block; /* Ensure it wraps content properly */
-        }
-
         #services .section-heading .highlight-text::after {
             content: '';
             position: absolute;
             left: 0;
-            bottom: -5px; /* Adjust position as needed */
-            width: 0; /* Initial state, will be animated */
-            height: 3px; /* Thickness of the line */
-            background: var(--hover-orange); /* Orange color */
-            opacity: 0; /* Initially hidden */
+            bottom: -5px;
+            width: 0;
+            height: 3px;
+            background: var(--hover-orange);
+            opacity: 0;
         }
-
-        /* Animate the line when the section is in view */
         #services.in-view .section-heading .highlight-text::after {
-            animation: expandLine 1s ease-out 0.5s forwards; /* Delay the line animation slightly */
+            animation: expandLine 1s ease-out 0.5s forwards;
         }
-
-        /* Animation for expanding line */
         @keyframes expandLine {
-            0% {
-                width: 0;
-                opacity: 0;
-            }
-            100% {
-                width: 100%;
-                opacity: 1;
-            }
+            0% { width: 0; opacity: 0; }
+            100% { width: 100%; opacity: 1; }
         }
-
-        /* Apply individual delays and the new popInUp animation to service cards when section is in view */
         #services.in-view .service-card {
-            animation: popInUp 0.8s ease forwards; /* Apply popInUp animation */
+            animation: popInUp 0.8s ease forwards;
         }
-
         #services.in-view .service-card:nth-child(1) { animation-delay: 0.2s; }
         #services.in-view .service-card:nth-child(2) { animation-delay: 0.3s; }
         #services.in-view .service-card:nth-child(3) { animation-delay: 0.4s; }
         #services.in-view .service-card:nth-child(4) { animation-delay: 0.5s; }
         #services.in-view .service-card:nth-child(5) { animation-delay: 0.6s; }
         #services.in-view .service-card:nth-child(6) { animation-delay: 0.7s; }
-
-        /* Client Logos Section */
-        #client-logos {
-            background: var(--bg-color);
-            padding: 5rem 0;
-        }
-        .logo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            justify-items: center;
-            align-items: center;
-        }
-        .logo-item {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-            filter: grayscale(100%); /* Grayscale by default */
-            transition: filter 0.3s ease;
-        }
-        .logo-item:hover {
-            filter: grayscale(0%); /* Color on hover */
-        }
-        .logo-item img {
-            max-width: 150px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        #client-logos.in-view .logo-item {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        #client-logos.in-view .logo-item:nth-child(1) { animation-delay: 0.1s; }
-        #client-logos.in-view .logo-item:nth-child(2) { animation-delay: 0.2s; }
-        #client-logos.in-view .logo-item:nth-child(3) { animation-delay: 0.3s; }
-        #client-logos.in-view .logo-item:nth-child(4) { animation-delay: 0.4s; }
-        #client-logos.in-view .logo-item:nth-child(5) { animation-delay: 0.5s; }
-        #client-logos.in-view .logo-item:nth-child(6) { animation-delay: 0.6s; }
-
 
         /* Why Choose Us Section */
         #why-choose-us {
@@ -706,6 +639,11 @@
             text-align: center;
             opacity: 0;
             transform: translateY(30px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .feature-card:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         .feature-card i {
             font-size: 3rem;
@@ -746,246 +684,961 @@
             transform: translateY(0);
         }
 
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 90px; /* Position above sticky CTA */
+            right: 20px;
+            z-index: 998; /* Below sticky CTA, above other content */
+            background: var(--hover-orange);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 79, 0, 0.4);
+            transition: transform 0.3s ease, background 0.3s ease, opacity 0.5s ease;
+            opacity: 0; /* Hidden by default */
+            transform: translateY(20px);
+        }
+        #scrollToTopBtn.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+            transform: translateY(-2px) scale(1.05);
+            background: linear-gradient(135deg, #e64500, #ff6b35);
+        }
+
+
+        /* --- NEW SECTIONS CSS --- */
+
+        /* Interactive "Our Process" Section */
+        #our-process {
+            background: var(--bg-color); 
+        }
+        .process-steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem; /* Reduced gap for tighter look */
+            margin-top: 2rem;
+        }
+        .process-step-wrapper { /* Wrapper for individual step + details */
+            opacity: 0; /* Initial state for scroll animation */
+            transform: translateX(-30px); /* Initial state for scroll animation */
+            transition: opacity 0.4s ease, transform 0.4s ease; /* For radial focus */
+        }
+        #our-process.in-view .process-step-wrapper {
+            animation: slideInFromLeftStaggered 0.6s ease-out forwards;
+        }
+        /* Staggering applied via JS to .process-step-wrapper */
+
+        .process-step {
+            background: var(--process-step-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 1.25rem 1.5rem; /* Adjusted padding */
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* To push icon to the right */
+            gap: 1.5rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        .process-step:hover {
+            background: var(--process-step-hover-bg);
+            transform: translateX(3px); /* Subtle hover movement */
+        }
+        .process-step-main-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .process-step-number {
+            background-color: var(--hover-orange);
+            color: white;
+            min-width: 40px; 
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            flex-shrink: 0; 
+        }
+        .process-step-text h3 {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem; /* Reduced margin */
+        }
+        .process-step-text p.short-desc { /* Style for the short description visible initially */
+            color: var(--text-color);
+            font-size: 0.95rem;
+            margin:0; /* Remove default p margin */
+        }
+        .process-step-icon {
+            font-size: 1.2rem;
+            color: var(--hover-orange);
+            transition: transform 0.3s ease-in-out;
+        }
+        .process-step-wrapper.active .process-step {
+            background-color: var(--process-step-active-bg);
+            border-bottom-left-radius: 0; /* Flatten bottom when open */
+            border-bottom-right-radius: 0;
+            border-color: var(--hover-orange); /* Highlight active */
+            transform: scale(1.02); /* Slightly enlarge active step */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .process-step-wrapper.active .process-step-icon {
+            transform: rotate(180deg);
+        }
+        .process-details {
+            background: var(--process-detail-bg);
+            border: 1px solid var(--card-border);
+            border-top: none; /* Avoid double border */
+            border-radius: 0 0 10px 10px;
+            padding: 0 1.5rem; /* Initial padding for transition */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+        .process-step-wrapper.active .process-details {
+            padding: 1.5rem 1.5rem 2rem; /* Full padding when active */
+            border-color: var(--hover-orange);
+            border-top: 1px dashed var(--card-border); /* Separator line */
+        }
+        .process-details ul {
+            list-style: none; /* Remove default bullets */
+            padding-left: 0;
+        }
+        .process-details ul li {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            padding: 0.5rem 0 0.5rem 1.5rem; /* Add padding for custom bullet */
+            position: relative;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .process-details ul li:last-child {
+            border-bottom: none;
+        }
+        .process-details ul li::before {
+            content: "\f138"; /* FontAwesome check-circle or similar */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--hover-orange);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+        }
+
+        /* Radial Focus for Our Process */
+        .process-steps-container.radial-focus .process-step-wrapper:not(.active) {
+            opacity: 0.6;
+            transform: scale(0.98) translateX(-10px); /* Slightly shrink and move back */
+        }
+
+
+        @keyframes slideInFromLeftStaggered {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+
+        /* "Idea Spark" Mini-Tool */
+        #idea-spark-tool {
+            background: var(--card-bg); 
+            backdrop-filter: blur(10px);
+        }
+        .idea-spark-card {
+            background: var(--bg-color); 
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        #idea-spark-tool.in-view .idea-spark-card {
+            animation: popInUp 0.8s ease forwards 0.2s;
+        }
+        .idea-spark-card label {
+            display: block;
+            font-size: 1.1rem;
+            color: var(--heading-color);
+            margin-bottom: 0.75rem;
+        }
+        .idea-spark-card input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 2px solid var(--form-input-border);
+            background-color: var(--form-input-bg);
+            color: var(--form-text-color);
+            font-size: 1.0rem; /* Adjusted for better readability */
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+        .idea-spark-card input[type="text"]:focus {
+            outline: none;
+            border-color: var(--hover-orange);
+        }
+        .idea-spark-card .btn-secondary { 
+            background: var(--hover-orange);
+            color: white;
+            padding: 0.8rem 1.8rem;
+        }
+        .idea-spark-card .btn-secondary:hover {
+            background: linear-gradient(135deg, #e64500, #ff6b35); 
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(255, 79, 0, 0.3);
+        }
+        #sparkResults {
+            margin-top: 2rem;
+            min-height: 50px; 
+            color: var(--text-color);
+        }
+        .spark-tag {
+            display: inline-block;
+            background-color: var(--hover-orange);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            margin: 0.3rem;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popInTag 0.5s ease forwards;
+        }
+        @keyframes popInTag {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Dynamic Stats/Achievements Counter */
+        #dynamic-stats {
+            background: var(--bg-color); 
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .stat-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(5px);
+            padding: 2rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--card-border);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        #dynamic-stats.in-view .stat-item {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        #dynamic-stats.in-view .stat-item:nth-child(1) { animation-delay: 0.2s; }
+        #dynamic-stats.in-view .stat-item:nth-child(2) { animation-delay: 0.35s; }
+        #dynamic-stats.in-view .stat-item:nth-child(3) { animation-delay: 0.5s; }
+
+        .stat-value {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--stat-value-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--heading-color);
+            font-weight: 500;
+        }
+
+        /* "Meet Our Innovators" Section */
+        #meet-innovators {
+            background: var(--card-bg); 
+            backdrop-filter: blur(10px);
+        }
+        .innovators-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .innovator-card {
+            background: var(--bg-color); 
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .innovator-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+        }
+        #meet-innovators.in-view .innovator-card {
+            animation: popInUp 0.7s ease forwards;
+        }
+        #meet-innovators.in-view .innovator-card:nth-child(1) { animation-delay: 0.2s; }
+        #meet-innovators.in-view .innovator-card:nth-child(2) { animation-delay: 0.35s; }
+        #meet-innovators.in-view .innovator-card:nth-child(3) { animation-delay: 0.5s; }
+
+        .innovator-img-wrapper {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--hover-orange);
+            background-color: var(--card-bg); 
+        }
+        .innovator-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .innovator-card h3 {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+        .innovator-card .role {
+            color: var(--hover-orange);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        .innovator-card .social-links a {
+            color: var(--text-color);
+            margin: 0 0.5rem;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .innovator-card .social-links a:hover {
+            color: var(--hover-orange);
+        }
+
+        /* Interactive FAQ Accordion */
+        #faq-section {
+            background: var(--bg-color);
+        }
+        .faq-accordion {
+            max-width: 800px;
+            margin: 2rem auto 0;
+        }
+        .faq-item {
+            background: var(--faq-item-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        #faq-section.in-view .faq-item {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        #faq-section.in-view .faq-item:nth-child(1) { animation-delay: 0.2s; }
+        #faq-section.in-view .faq-item:nth-child(2) { animation-delay: 0.3s; }
+        #faq-section.in-view .faq-item:nth-child(3) { animation-delay: 0.4s; }
+        #faq-section.in-view .faq-item:nth-child(4) { animation-delay: 0.5s; }
+
+        .faq-question {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--heading-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+        .faq-question:hover {
+            background-color: var(--faq-item-hover-bg);
+        }
+        .faq-question i {
+            transition: transform 0.3s ease;
+            color: var(--hover-orange);
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 1.5rem;
+            color: var(--text-color);
+            transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        .faq-item.active .faq-answer {
+            padding: 0.5rem 1.5rem 1.5rem; 
+        }
+
+        /* Chatbot Widget */
+        .chat-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px; /* Changed from right to left */
+            z-index: 1000;
+        }
+        .chat-toggle-button {
+            background: var(--hover-orange);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 79, 0, 0.4);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .chat-toggle-button:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #e64500, #ff6b35);
+        }
+        .chat-box {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            width: 320px;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: absolute;
+            bottom: calc(100% + 15px); /* Position above the toggle button */
+            left: 0;
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid var(--card-border);
+            backdrop-filter: blur(10px);
+        }
+        .chat-box.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .chat-header {
+            background: var(--hover-orange);
+            color: white;
+            padding: 0.8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            border-radius: 10px 10px 0 0;
+        }
+        .chat-header h3 {
+            color: white;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+        .chat-close-button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+        .chat-body {
+            flex-grow: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            background: var(--bg-color); /* Matches background */
+        }
+        .chat-message {
+            max-width: 80%;
+            padding: 0.7rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .chat-message.bot {
+            background-color: var(--hover-orange);
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        .chat-message.user {
+            background-color: var(--card-bg); /* Darker background for user */
+            color: var(--text-color);
+            align-self: flex-end;
+            border: 1px solid var(--card-border);
+            border-bottom-right-radius: 5px;
+        }
+        .chat-input {
+            display: flex;
+            padding: 0.8rem 1rem;
+            border-top: 1px solid var(--card-border);
+            gap: 0.5rem;
+            background: var(--card-bg); /* Matches card background */
+        }
+        .chat-input input {
+            flex-grow: 1;
+            padding: 0.6rem 0.8rem;
+            border-radius: 20px;
+            border: 1px solid var(--form-input-border);
+            background-color: var(--form-input-bg);
+            color: var(--form-text-color);
+            font-size: 0.9rem;
+        }
+        .chat-input input:focus {
+            outline: none;
+            border-color: var(--hover-orange);
+        }
+        .chat-input button {
+            background: var(--hover-orange);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .chat-input button:hover {
+            background: linear-gradient(135deg, #e64500, #ff6b35);
+        }
+
+        /* Video Testimonial Enhancements */
+        .testimonial-card.video-card {
+            padding: 0; /* Remove default padding for image/video to fill */
+        }
+        .video-thumbnail-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 12px 12px 0 0;
+            background-color: black; /* Fallback for loading/error */
+        }
+        .video-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 79, 0, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+        .play-button:hover {
+            background-color: var(--hover-orange);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .testimonial-card.video-card:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+        .testimonial-quote-short {
+            font-style: italic;
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+            color: var(--text-color);
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000; /* On top of everything */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        .video-modal-content {
+            position: relative;
+            background-color: var(--bg-color); /* Darker background for modal */
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .video-modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: var(--text-color);
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .video-modal-close:hover,
+        .video-modal-close:focus {
+            color: var(--hover-orange);
+            text-decoration: none;
+        }
+        .video-modal-content iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 300px; /* Base height for small screens */
+            min-width: 400px;
+        }
+
+        /* Trends Compass Tab Styles */
+        .trends-tabs-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+            gap: 0.5rem; /* Space between tabs */
+        }
+        .trend-tab-button {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 0.75rem 1.25rem;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            flex-grow: 1; /* Allow buttons to grow and fill space */
+            text-align: center;
+            min-width: 120px; /* Minimum width for buttons */
+        }
+        .trend-tab-button:hover {
+            background: var(--process-step-hover-bg);
+            color: var(--hover-orange);
+            border-color: var(--hover-orange);
+        }
+        .trend-tab-button.active {
+            background: var(--hover-orange);
+            color: white;
+            border-color: var(--hover-orange);
+            box-shadow: 0 4px 10px rgba(255, 79, 0, 0.3);
+        }
+
+        .trend-tab-pane {
+            display: none; /* Hide by default */
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            text-align: left;
+            min-height: 200px; /* Keep min-height for consistent visual size */
+            flex-direction: column; /* For internal content alignment */
+            justify-content: center;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        .trend-tab-pane.active {
+            display: flex; /* Show the active pane */
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Ensure the parent .content-card adapts its height */
+        #trends-compass .content-card {
+            padding-top: 2rem; /* Adjusted padding to account for tabs now being in normal flow */
+            padding-bottom: 2rem;
+            min-height: auto; /* Allow height to adjust dynamically */
+            display: flex; /* Make content-card a flex container */
+            flex-direction: column; /* Stack tabs and panes vertically */
+        }
+        .trend-panes-wrapper {
+            width: 100%;
+        }
+
+
+        /* Specific background colors for each pane */
+        .trend-tab-pane[data-tab-content="guntur"] {
+            background-color: var(--trend-red);
+        }
+        .trend-tab-pane[data-tab-content="ap"] {
+            background-color: var(--trend-blue);
+        }
+        .trend-tab-pane[data-tab-content="global-video"] {
+            background-color: var(--trend-green);
+        }
+        .trend-tab-pane[data-tab-content="global-ai"] {
+            background-color: var(--trend-purple);
+        }
+
+        .trend-tab-pane h4 {
+            color: var(--heading-color);
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .trend-tab-pane p {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.5rem; /* Added margin for better spacing between paragraphs */
+        }
+        .trend-tab-pane p:last-of-type {
+             margin-bottom: 1rem; /* More space before "Key Trends" heading */
+        }
+        .trend-tab-pane p strong {
+            color: var(--heading-color); /* Ensure bold text is visible */
+        }
+        .trend-tab-pane i {
+            color: var(--hover-orange); /* Consistent icon color */
+            margin-right: 0.5rem;
+        }
+        .trend-tab-pane .list-none {
+            padding-left: 0; /* Ensure no default padding for ul */
+        }
+        .trend-tab-pane .list-none li {
+            padding-left: 0; /* Ensure no default padding for li if any */
+        }
+
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .header-nav {
-                display: none;
+            .header-nav { display: none; }
+            .md\:hidden { display: block; }
+            .grid { grid-template-columns: 1fr; }
+            .hero-main-headline, #final-charanx-text {
+                font-size: 2.2rem;
+                white-space: normal;
+                line-height: 1.3;
+                height: auto;
             }
-            .md\:hidden {
-                display: block;
-            }
-            .grid {
-                grid-template-columns: 1fr;
-            }
-            .hero-main-headline {
-                font-size: 2.5rem;
-                white-space: normal; /* Allow wrapping on small screens */
-                line-height: 1.3; /* Adjust line height for stacked text */
-                height: auto; /* Allow height to adjust dynamically */
-            }
-
-            #strategy-text, #success-text {
-                display: block; /* Stack them vertically */
-                text-align: center; /* Center each line */
-                transform: translateY(0); /* Ensure no initial horizontal transform for mobile */
-                opacity: 0; /* Keep initial opacity 0 for animation */
-                animation: fadeInUp 0.8s ease forwards; /* Use simple fade-in-up for mobile */
-            }
-
-            #strategy-text {
-                animation-delay: 0.5s; /* Keep original delay */
-            }
-            #success-text {
-                animation-delay: 0.7s; /* Keep original delay */
-            }
-            /* The JS will then replace this with #final-charanx-text which has slideDownFadeIn */
             .hero-main-headline #final-charanx-text {
-                animation: slideDownFadeIn 1s ease forwards; /* Use slideDownFadeIn on mobile too */
+                animation: slideDownFadeIn 1s ease forwards;
             }
-            .logo-grid {
-                grid-template-columns: repeat(1, 1fr); /* Stack logos on mobile */
+            .process-step { flex-direction: column; text-align: center; align-items: center; }
+            .process-step-main-content { flex-direction: column; text-align: center; }
+            .process-step-number { margin-bottom: 0.75rem; }
+            .process-step-icon { margin-top: 0.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .innovators-grid { grid-template-columns: 1fr; }
+
+            /* Mobile specific for modals */
+            .chat-box {
+                width: calc(100vw - 40px);
+                height: 70vh;
+                left: 20px;
+                bottom: calc(100% + 15px);
+            }
+            .video-modal-content {
+                width: 95%;
+                min-height: 250px;
+                padding: 10px;
+            }
+            .video-modal-content iframe {
+                width: 100%;
+                height: auto;
+                min-width: unset;
+            }
+            .trends-tabs-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .trend-tab-button {
+                flex-grow: unset;
+                width: 100%;
+            }
+            /* Adjust content-card padding for mobile */
+            #trends-compass .content-card {
+                padding-top: 1rem; /* Less padding on top for mobile */
+                padding-bottom: 1rem;
+                min-height: unset; /* Let height adjust to content */
+            }
+            .trend-tab-pane {
+                padding: 1rem; /* Smaller padding for mobile panes */
             }
         }
+        .hero-cta-button .btn-primary {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  background: linear-gradient(to right, #ff5722, #ff784e);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.hero-cta-button .btn-primary:hover {
+  transform: scale(1.05);
+}
+
+/* Shiny effect */
+.hero-cta-button .btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  animation: shine 2.5s infinite ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-cta-button .btn-primary i {
+  position: relative;
+  z-index: 2;
+}
+
+/* Text inside stays above the shine */
+.hero-cta-button .btn-primary {
+  z-index: 1;
+}
+
         @media (min-width: 769px) {
-            .md\:grid-cols-2 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .md\:hidden {
-                display: none;
-            }
-            #contact .content-card {
-                flex-direction: row;
-            }
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+            .md\:hidden { display: none; }
+            #contact .content-card { flex-direction: row; }
             .contact-info {
                 border-radius: 12px 0 0 12px;
+                width: 45%; 
             }
             .contact-form {
                 border-radius: 0 12px 12px 0;
+                width: 55%; 
             }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); }
+            .innovators-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (min-width: 1024px) {
-            .lg\:grid-cols-3 {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            .logo-grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 columns on larger screens */
-            }
+            .lg\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
         }
 
+
         /* Utility Classes */
-        .bg-white {
-            background: var(--card-bg); /* Adjusted to use variable */
+        .bg-white { background: var(--card-bg); }
+        .text-center { text-align: center; }
+        .max-w-4xl { max-width: 56rem; }
+        .max-w-3xl { max-width: 48rem; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-3 { margin-bottom: 0.75rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-5 { margin-bottom: 1.25rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .p-6 { padding: 1.5rem; }
+        .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
+        .flex { display: flex; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .justify-center { justify-content: center; }
+        .space-x-2 > * + * { margin-left: 0.5rem; }
+        .space-x-4 > * + * { margin-left: 1rem; }
+        .space-x-6 > * + * { margin-left: 1.5rem; }
+        .w-5 { width: 1.25rem; }
+        .w-full { width: 100%; }
+        .mt-1 { margin-top: 0.25rem; }
+        .mt-4 { margin-top: 1rem; }
+        .mt-8 { margin-top: 2rem; }
+        .mr-3 { margin-right: 0.75rem; }
+        .ml-1 { margin-left: 0.25rem; }
+        .ml-2 { margin-left: 0.5rem; }
+        .text-xl { font-size: 1.25rem; }
+        .text-2xl { font-size: 1.5rem; }
+        .text-sm { font-size: 0.875rem; }
+        .text-xs { font-size: 0.75rem; }
+        .text-lg { font-size: 1.125rem; }
+        .font-bold { font-weight: 700; }
+        .font-semibold { font-weight: 600; }
+        .font-medium { font-weight: 500; }
+        .text-gray-600 { color: var(--text-color); }
+        .text-gray-800 { color: var(--heading-color); }
+        .text-gray-400 { color: var(--text-color); }
+        .text-gray-500 { color: var(--text-color); }
+        .text-white { color: var(--heading-color); }
+        .bg-bold-orange { background-color: var(--hover-orange); }
+        .hover-bg-bold-orange:hover { background-color: var(--hover-orange); }
+        .transition { transition: all 0.3s ease; }
+        .duration-300 { transition-duration: 300ms; }
+        .hover\:underline:hover { text-decoration: underline; }
+        .hover\:text-bold-orange:hover { color: var(--hover-orange); }
+        .hover\:opacity-75:hover { opacity: 0.75; }
+        .transition-colors { transition: color 0.3s ease; }
+        .transition-opacity { transition: opacity 0.3s ease; }
+        .rounded-lg { border-radius: 0.5rem; }
+        .rounded-t-xl { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; }
+        .rounded-l-xl { border-top-left-radius: 0.75rem; border-bottom-left-radius: 0.75rem; }
+        .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
+        .px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+        /* Keyframes for Hero Background Cycle */
+        @keyframes heroBackgroundCycle {
+            0% { background-position: 0% 50%; }
+            25% { background-position: 50% 100%; }
+            50% { background-position: 100% 50%; }
+            75% { background-position: 50% 0%; }
+            100% { background-position: 0% 50%; }
         }
-        .text-center {
-            text-align: center;
-        }
-        .max-w-4xl {
-            max-width: 56rem;
-        }
-        .max-w-3xl {
-            max-width: 48rem;
-        }
-        .mx-auto {
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .mb-2 {
-            margin-bottom: 0.5rem;
-        }
-        .mb-3 {
-            margin-bottom: 0.75rem;
-        }
-        .mb-4 {
-            margin-bottom: 1rem;
-        }
-        .mb-5 {
-            margin-bottom: 1.25rem;
-        }
-        .mb-6 {
-            margin-bottom: 1.5rem;
-        }
-        .p-6 {
-            padding: 1.5rem;
-        }
-        .py-16 {
-            padding-top: 4rem;
-            padding-bottom: 4rem;
-        }
-        .flex {
-            display: flex;
-        }
-        .items-center {
-            align-items: center;
-        }
-        .items-start {
-            align-items: flex-start;
-        }
-        .justify-center {
-            justify-content: center;
-        }
-        .space-x-2 > * + * {
-            margin-left: 0.5rem;
-        }
-        .space-x-4 > * + * {
-            margin-left: 1rem;
-        }
-        .space-x-6 > * + * {
-            margin-left: 1.5rem;
-        }
-        .w-5 {
-            width: 1.25rem;
-        }
-        .w-full {
-            width: 100%;
-        }
-        .mt-1 {
-            margin-top: 0.25rem;
-        }
-        .mt-4 {
-            margin-top: 1rem;
-        }
-        .mt-8 {
-            margin-top: 2rem;
-        }
-        .mr-3 {
-            margin-right: 0.75rem;
-        }
-        .ml-1 {
-            margin-left: 0.25rem;
-        }
-        .ml-2 {
-            margin-left: 0.5rem;
-        }
-        .text-xl {
-            font-size: 1.25rem;
-        }
-        .text-2xl {
-            font-size: 1.5rem;
-        }
-        .text-sm {
-            font-size: 0.875rem;
-        }
-        .text-xs {
-            font-size: 0.75rem;
-        }
-        .text-lg {
-            font-size: 1.125rem;
-        }
-        .font-bold {
-            font-weight: 700;
-        }
-        .font-semibold {
-            font-weight: 600;
-        }
-        .font-medium {
-            font-weight: 500;
-        }
-        /* Adjusted colors to use variables */
-        .text-gray-600 {
-            color: var(--text-color);
-        }
-        .text-gray-800 {
-            color: var(--heading-color);
-        }
-        .text-gray-400 {
-            color: var(--text-color);
-        }
-        .text-gray-500 {
-            color: var(--text-color);
-        }
-        .text-white {
-            color: var(--heading-color);
-        }
-        .bg-bold-orange {
-            background-color: var(--hover-orange);
-        }
-        .hover-bg-bold-orange:hover {
-            background-color: var(--hover-orange); /* Keep consistent with var */
-        }
-        .transition {
-            transition: all 0.3s ease;
-        }
-        .duration-300 {
-            transition-duration: 300ms;
-        }
-        .hover\:underline:hover {
-            text-decoration: underline;
-        }
-        .hover\:text-bold-orange:hover {
-            color: var(--hover-orange);
-        }
-        .hover\:opacity-75:hover {
-            opacity: 0.75;
-        }
-        .transition-colors {
-            transition: color 0.3s ease;
-        }
-        .transition-opacity {
-            transition: opacity 0.3s ease;
-        }
-        .rounded-lg {
-            border-radius: 0.5rem;
-        }
-        .rounded-t-xl {
-            border-top-left-radius: 0.75rem;
-            border-top-right-radius: 0.75rem;
-        }
-        .rounded-l-xl {
-            border-top-left-radius: 0.75rem;
-            border-bottom-left-radius: 0.75rem;
-        }
-        .py-3 {
-            padding-top: 0.75rem;
-            padding-bottom: 0.75rem;
-        }
-        .px-6 {
-            padding-left: 1.5rem;
-            padding-right: 1.5rem;
-        }
+
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased"> 
     <header id="mainHeader">
         <div class="header-container container">
             <div class="header-logo">
@@ -1003,11 +1656,20 @@
                     <span>Our Work <i class="fas fa-chevron-down text-xs ml-1"></i></span>
                     <div class="dropdown-menu">
                         <a href="#work-showcase">Case Studies</a>
+                        <a href="#our-process">Our Process</a> 
                         <a href="#">Portfolio (Future)</a>
                     </div>
                 </div>
-                <a href="#about" class="nav-item">About Us</a>
-                <a href="#blog" class="nav-item">Insights</a>
+                <a href="#why-choose-us" class="nav-item">Why Us</a> 
+                <div class="nav-item has-dropdown">
+                    <span>Resources <i class="fas fa-chevron-down text-xs ml-1"></i></span>
+                    <div class="dropdown-menu">
+                        <a href="#blog">Insights Blog</a>
+                        <a href="#micro-learning">Micro-Learning</a>
+                        <a href="#faq-section">FAQ</a>
+                    </div>
+                </div>
+                <a href="#meet-innovators" class="nav-item">Team</a>
                 <a href="#contact" class="nav-item">Contact Us</a>
             </nav>
             <div class="header-actions">
@@ -1018,12 +1680,16 @@
         </div>
     </header>
     <nav id="mobileNav" class="mobile-nav">
-        <button id="closeMobileMenuButton" class="mobile-nav-close">&times;</button>
+        <button id="closeMobileMenuButton" class="mobile-nav-close">×</button>
         <a href="#hero" class="mobile-nav-link">Home</a>
         <a href="#services" class="mobile-nav-link">Services</a>
         <a href="#work-showcase" class="mobile-nav-link">Case Studies</a>
-        <a href="#about" class="mobile-nav-link">About Us</a>
+        <a href="#our-process" class="mobile-nav-link">Our Process</a>
+        <a href="#why-choose-us" class="mobile-nav-link">Why Us</a>
+        <a href="#meet-innovators" class="mobile-nav-link">Team</a>
+        <a href="#faq-section" class="mobile-nav-link">FAQ</a>
         <a href="#blog" class="mobile-nav-link">Insights</a>
+        <a href="#micro-learning" class="mobile-nav-link">Micro-Learning</a>
         <a href="#contact" class="mobile-nav-link">Contact Us</a>
     </nav>
     <main>
@@ -1031,8 +1697,9 @@
             <canvas id="robot3DCanvas"></canvas>
             <div class="hero-content-wrapper-centered container">
                 <h1 class="hero-main-headline">
-                    <span id="strategy-text" style="display: inline-block; overflow: hidden;">Where Strategy&nbsp;</span>
-                    <span id="success-text" class="highlight-text" style="display: inline-block; overflow: hidden;">Meets Success</span>
+                    <span id="final-charanx-text" style="display: inline-block; opacity:0;">
+                        <strong class="highlight-text">Ignite</strong> Your <strong class="highlight-text">Digital</strong> Future
+                    </span>
                 </h1>
                 <p class="hero-supporting-headline">
                     We build your brand's future on a foundation of transparent, data-driven digital marketing that delivers undeniable growth and lasting impact.
@@ -1042,6 +1709,7 @@
                 </div>
             </div>
         </section>
+
         <section id="services" class="py-16">
             <div class="container">
                 <header class="text-center">
@@ -1083,19 +1751,202 @@
             </div>
         </section>
 
-        <section id="client-logos" class="py-16">
+        <section id="our-process" class="py-16">
             <div class="container">
                 <header class="text-center">
-                    <h2 class="section-heading">Trusted by <span class="highlight-text">Leading Brands</span></h2>
-                    <p class="section-subheading">Our commitment to excellence has earned the trust of diverse industry leaders.</p>
+                    <h2 class="section-heading">Our <span class="highlight-text">Path to Success</span></h2>
+                    <p class="section-subheading">Follow our structured approach designed to deliver exceptional results, every step of the way.</p>
                 </header>
-                <div class="logo-grid">
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+A" alt="Client Logo A"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+B" alt="Client Logo B"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+C" alt="Client Logo C"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+D" alt="Client Logo D"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+E" alt="Client Logo E"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+F" alt="Client Logo F"></div>
+                <div class="process-steps-container">
+                    <div class="process-step-wrapper">
+                        <div class="process-step">
+                            <div class="process-step-main-content">
+                                <div class="process-step-number">1</div>
+                                <div class="process-step-text">
+                                    <h3>Discovery & Strategy</h3>
+                                    <p class="short-desc">Understanding your business, goals, and audience.</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-down process-step-icon"></i>
+                        </div>
+                        <div class="process-details">
+                            <ul>
+                                <li>Deep Dive into Your Brand: Understanding your mission, vision, and values.</li>
+                                <li>Market & Competitor Analysis: Identifying opportunities and challenges in your landscape.</li>
+                                <li>Audience Persona Development: Defining your ideal customers for precise targeting.</li>
+                                <li>Goal Setting & KPI Definition: Establishing clear, measurable objectives for success.</li>
+                                <li>Strategic Roadmap Creation: Outlining a comprehensive plan tailored to your business.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="process-step-wrapper">
+                        <div class="process-step">
+                            <div class="process-step-main-content">
+                                <div class="process-step-number">2</div>
+                                <div class="process-step-text">
+                                    <h3>Planning & Design</h3>
+                                    <p class="short-desc">Laying the foundation for impactful campaigns.</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-down process-step-icon"></i>
+                        </div>
+                        <div class="process-details">
+                           <ul>
+                                <li>Content Strategy & Creation Plan: Developing engaging narratives and content pillars.</li>
+                                <li>UX/UI Design & Prototyping: Crafting intuitive and visually appealing user experiences.</li>
+                                <li>Technical SEO & Architecture Planning: Ensuring a solid foundation for search visibility.</li>
+                                <li>Campaign Structure & Ad Creative Concepts: Designing targeted and compelling ad campaigns.</li>
+                                <li>Timeline & Resource Allocation: Setting realistic schedules and assigning expert teams.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="process-step-wrapper">
+                        <div class="process-step">
+                            <div class="process-step-main-content">
+                                <div class="process-step-number">3</div>
+                                <div class="process-step-text">
+                                    <h3>Execution & Launch</h3>
+                                    <p class="short-desc">Bringing the strategy to life with precision.</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-down process-step-icon"></i>
+                        </div>
+                        <div class="process-details">
+                            <ul>
+                                <li>Content Development & Optimization: Producing high-quality, SEO-friendly content.</li>
+                                <li>Platform Setup & Configuration: Expertly configuring all necessary marketing tools.</li>
+                                <li>Campaign Build & Ad Deployment: Launching campaigns across selected channels.</li>
+                                <li>Rigorous Quality Assurance & Testing: Ensuring flawless execution before full rollout.</li>
+                                <li>Go-Live & Initial Monitoring: Successfully launching and closely observing initial performance.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="process-step-wrapper">
+                        <div class="process-step">
+                            <div class="process-step-main-content">
+                                <div class="process-step-number">4</div>
+                                <div class="process-step-text">
+                                    <h3>Analysis & Optimization</h3>
+                                    <p class="short-desc">Ensuring ongoing improvement and ROI.</p>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-down process-step-icon"></i>
+                        </div>
+                        <div class="process-details">
+                            <ul>
+                                <li>Performance Tracking & Data Collection: Continuously monitoring KPIs and gathering insights.</li>
+                                <li>A/B Testing & Experimentation: Iteratively testing variables to improve effectiveness.</li>
+                                <li>Regular Reporting & Insights Review: Providing transparent updates and actionable recommendations.</li>
+                                <li>Strategy Refinement & Adaptation: Adjusting tactics based on data and market changes.</li>
+                                <li>Scaling Success & Exploring New Opportunities: Building on achievements and identifying future growth areas.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="trends-compass" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Social Media <strong class="highlight-text">Trends Compass</strong></h2>
+                    <p class="section-subheading">Navigate the evolving social media landscape in <strong>Guntur</strong>, <strong>Andhra Pradesh</strong>, and <strong>Globally</strong> with our expert insights and strategies.</p>
+                </header>
+                <div class="content-card mx-auto max-w-4xl p-6 text-center">
+                    <h3 class="text-xl font-semibold mb-4 text-heading-color">Key Social Media Trends (Q2 2025)</h3>
+                    <div class="trends-tabs-container">
+                        <button class="trend-tab-button active" data-tab="guntur">Guntur Trends</button>
+                        <button class="trend-tab-button" data-tab="ap">AP Trends</button>
+                        <button class="trend-tab-button" data-tab="global-video">Global Video</button>
+                        <button class="trend-tab-button" data-tab="global-ai">Global AI</button>
+                    </div>
+
+                    <div class="trend-panes-wrapper">
+                        <div id="guntur" class="trend-tab-pane active" data-tab-content="guntur">
+                            <h4><i class="fas fa-map-marker-alt"></i> Hyperlocal Content in Guntur</h4>
+                            <p>Engagement Lift: <span class="font-bold">↑40%</span></p>
+                            <p>Local businesses in Guntur are seeing a surge in engagement through <strong>regional-language Reels</strong> with behind-the-scenes footage and influencer collabs. CharanX helps craft <strong>Guntur-specific campaigns</strong> that resonate with local audiences, driving community engagement and fostering strong community ties.</p>
+                            <h5 class="font-semibold text-heading-color mt-4">Key Trends:</h5>
+                            <ul class="list-none text-sm text-text-color mt-2 space-y-1">
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Instagram Reels for Local Brands</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> WhatsApp Business Adoption</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Telugu Meme Marketing</li>
+                            </ul>
+                        </div>
+                        <div id="ap" class="trend-tab-pane" data-tab-content="ap">
+                            <h4><i class="fas fa-language"></i> Vernacular Content in AP</h4>
+                            <p>Reach Expansion: <span class="font-bold">↑55%</span></p>
+                            <p>There is explosive growth in <strong>Telugu content creators</strong> using Shorts for educational, entertainment, and political content. We specialize in <strong>Telugu content strategies</strong> for Andhra Pradesh, connecting your brand with the regional market through culturally relevant messaging and campaigns.</p>
+                            <h5 class="font-semibold text-heading-color mt-4">Key Trends:</h5>
+                            <ul class="list-none text-sm text-text-color mt-2 space-y-1">
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Hyperlocal Influencer Partnerships</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> YouTube Shorts in Telugu</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Festival Campaign Boosts</li>
+                            </ul>
+                        </div>
+                        <div id="global-video" class="trend-tab-pane" data-tab-content="global-video">
+                            <h4><i class="fas fa-video"></i> Short-Form Video Domination (Global)</h4>
+                            <p>Consumption Growth: <span class="font-bold">↑70%</span></p>
+                            <p>TikTok, Instagram Reels, and YouTube Shorts continue to outperform traditional formats in both reach and watch time. CharanX creates <strong>viral short-form video content</strong> for global platforms like TikTok and Reels, capturing fleeting attention worldwide and driving high engagement rates.</p>
+                            <h5 class="font-semibold text-heading-color mt-4">Key Trends:</h5>
+                            <ul class="list-none text-sm text-text-color mt-2 space-y-1">
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> AI-Generated Avatars</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Vertical Video Domination</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Live Shopping on Social</li>
+                            </ul>
+                        </div>
+                        <div id="global-ai" class="trend-tab-pane" data-tab-content="global-ai">
+                            <h4><i class="fas fa-robot"></i> AI-Driven Personalization (Global)</h4>
+                            <p>Conversion Rate: <span class="font-bold">↑25%</span></p>
+                            <p>AI algorithms are now customizing ads per user behavior in real time, improving CTRs by up to 40%. We leverage <strong>AI tools for personalized social media ads and content delivery</strong>, optimizing global campaigns for maximum impact by reaching the right audience with the right message.</p>
+                            <h5 class="font-semibold text-heading-color mt-4">Key Trends:</h5>
+                            <ul class="list-none text-sm text-text-color mt-2 space-y-1">
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> AI-Driven Content Creation</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> Personalized Ad Targeting</li>
+                                <li><i class="fas fa-check-circle text-hover-orange"></i> AI-Powered Chatbots on Social</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-500 mt-4"><em>These insights are based on current market analysis. CharanX Solutions helps your brand <strong>strategically adapt</strong> to these trends, ensuring your social media efforts drive <strong>real, measurable success</strong>.</em></p>
+                    <a href="#contact" class="btn btn-primary mt-4 btn-small">GET A CUSTOM SOCIAL MEDIA STRATEGY <i class="fas fa-share-alt ml-2"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section id="idea-spark-tool" class="py-16">
+            <div class="container">
+                <div class="idea-spark-card">
+                    <h2 class="section-heading mb-4"><strong class="highlight-text">Generate</strong> Content Ideas!</h2>
+                    <p class="section-subheading" style="margin-bottom: 2rem;">Input your details to spark tailored content strategy ideas for your business.</p>
+                    <form id="contentStrategyForm" class="space-y-4">
+                        <div>
+                            <label for="industryInput" class="form-label">Your Industry / Niche:</label>
+                            <input type="text" id="industryInput" class="form-input" placeholder="e.g., 'SaaS', 'Fashion Retail', 'Local Restaurant'" required>
+                        </div>
+                        <div>
+                            <label for="audienceInput" class="form-label">Target Audience (who are you trying to reach?):</label>
+                            <input type="text" id="audienceInput" class="form-input" placeholder="e.g., 'Small Business Owners', 'Gen Z', 'Parents'" required>
+                        </div>
+                        <div>
+                            <label for="goalInput" class="form-label">Primary Content Goal:</label>
+                            <select id="goalInput" class="form-input" required>
+                                <option value="">Select a Goal</option>
+                                <option value="leads">Lead Generation</option>
+                                <option value="brand">Brand Awareness</option>
+                                <option value="engagement">Audience Engagement</option>
+                                <option value="sales">Direct Sales</option>
+                                <option value="education">Customer Education</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Generate Content Ideas!</button>
+                    </form>
+                    <div id="contentIdeasResults" class="mt-4 p-4 border rounded-lg" style="display: none;">
+                        <h4 class="text-lg font-semibold mb-2 text-heading-color">Here are some ideas for you:</h4>
+                        <ul id="ideaList" class="list-none p-0 m-0 space-y-3">
+                            </ul>
+                        <p class="text-sm text-gray-500 mt-4">*These are AI-generated starter ideas. For a full, tailored strategy, <a href="#contact" class="bold-orange hover:underline">contact our experts</a>.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1103,8 +1954,8 @@
         <section id="why-choose-us" class="py-16">
             <div class="container">
                 <header class="text-center">
-                    <h2 class="section-heading">Why <span class="highlight-text">Choose Us?</span></h2>
-                    <p class="section-subheading">Experience the difference of partnering with a team dedicated to your success.</p>
+                    <h2 class="section-heading">Why <span class="highlight-text">Partner With Us?</span></h2>
+                    <p class="section-subheading">Experience the CharanX difference: innovation, dedication, and results you can measure.</p>
                 </header>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="feature-card">
@@ -1126,10 +1977,66 @@
             </div>
         </section>
 
+        <section id="dynamic-stats" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Our <span class="highlight-text">Impact by Numbers</span></h2>
+                    <p class="section-subheading">We're proud of the milestones we've achieved and the growth we've driven for our clients.</p>
+                </header>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="250">0</div>
+                        <div class="stat-label">Projects Delivered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="180">0</div>
+                        <div class="stat-label">Happy Clients</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" data-target="7">0</div>
+                        <div class="stat-label">Years of Innovation</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="digital-footprint" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Get Your Free <span class="highlight-text">Digital Footprint Analysis</span></h2>
+                    <p class="section-subheading">See where you stand online with a quick, personalized mini-report.</p>
+                </header>
+                <div class="content-card mx-auto max-w-xl p-6 text-center">
+                    <form id="footprintAnalysisForm" class="space-y-4">
+                        <div>
+                            <label for="websiteUrl" class="form-label">Your Website URL:</label>
+                            <input type="url" id="websiteUrl" class="form-input" placeholder="e.g., https://yourcompany.com" required>
+                        </div>
+                        <div>
+                            <label for="footprintEmail" class="form-label">Your Email for the Report:</label>
+                            <input type="email" id="footprintEmail" class="form-input" placeholder="your.email@example.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-secondary">GET MY FREE REPORT <i class="fas fa-paper-plane ml-2"></i></button>
+                    </form>
+                    <div id="footprintResults" class="mt-6 p-4 border rounded-lg" style="display: none;">
+                        <h4 class="text-lg font-semibold mb-2 text-heading-color">Your Mini-Report Snapshot:</h4>
+                        <ul class="list-none p-0 m-0 space-y-2 text-left">
+                            <li class="flex items-center text-text-color"><i class="fas fa-tachometer-alt text-bold-orange mr-2"></i> Website Speed Score: <span id="speedScore" class="font-bold text-heading-color ml-1"></span></li>
+                            <li class="flex items-center text-text-color"><i class="fas fa-search text-bold-orange mr-2"></i> Basic SEO Health: <span id="seoHealth" class="font-bold text-heading-color ml-1"></span></li>
+                            <li class="flex items-center text-text-color"><i class="fas fa-share-alt text-bold-orange mr-2"></i> Social Presence: <span id="socialPresence" class="font-bold text-heading-color ml-1"></span></li>
+                            <li class="flex items-center text-text-color"><i class="fas fa-mobile-alt text-bold-orange mr-2"></i> Mobile Responsiveness: <span id="mobileResponsive" class="font-bold text-heading-color ml-1"></span></li>
+                        </ul>
+                        <p class="text-sm text-gray-500 mt-4"><em>This is a quick overview. A comprehensive analysis will be sent to your email.</em></p>
+                        <a href="#contact" class="btn btn-primary mt-4 btn-small">SCHEDULE A DEEPER ANALYSIS <i class="fas fa-chart-pie ml-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="work-showcase" class="py-16 bg-white">
             <div class="container">
                 <header class="text-center">
-                    <h2 class="section-heading">Proof, Not <span class="highlight-text">Promises</span></h2>
+                    <h2 class="section-heading"><strong class="highlight-text">Proof</strong>, Not Promises</h2>
                     <p class="section-subheading">Explore how we've helped brands like yours achieve remarkable growth. Our results speak for themselves.</p>
                 </header>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -1157,31 +2064,156 @@
                 </div>
             </div>
         </section>
-        <section id="testimonials" class="py-16">
+<section id="meet-innovators" class="py-16">
+  <div class="container">
+    <header class="text-center">
+      <h2 class="section-heading">Meet Our <span class="highlight-text">Innovators</span></h2>
+      <p class="section-subheading">The passionate minds behind CharanX Solutions, dedicated to your digital success.</p>
+    </header>
+
+    <div class="innovators-grid">
+      <!-- Sai Charan -->
+      <div class="innovator-card">
+        <div class="innovator-img-wrapper">
+          <img
+            src="assets/sai_charan.jpg"
+            alt="Team Member Sai Charan"
+            class="clickable-img"
+            onclick="openModal('assets/sai_charan.jpg', 'Sai Charan', 'As the founder of CharanX Solutions, my mission is to deliver powerful digital transformations that connect brands with real results.')"
+            onerror="this.src='https://placehold.co/120x120/CCCCCC/000000?text=Error'; this.alt='Error loading image';"
+          >
+        </div>
+        <h3>Sai Charan.</h3>
+        <p class="role">Founder and Lead Strategist</p>
+        <div class="social-links">
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+
+      <!-- Sai Krishna -->
+      <div class="innovator-card">
+        <div class="innovator-img-wrapper">
+          <img
+            src="assets/krishna.jpg"
+            alt="Team Member Sai Krishna"
+            class="clickable-img"
+            onclick="openModal('assets/krishna.jpg', 'Sai Krishna', 'At CharanX, I transform raw data into powerful business decisions using AI and machine learning.')"
+            onerror="this.src='https://placehold.co/120x120/CCCCCC/000000?text=Error'; this.alt='Error loading image';"
+          >
+        </div>
+        <h3>Sai Krishna.</h3>
+        <p class="role">Data Scientist</p>
+        <div class="social-links">
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+        <section id="video-testimonials" class="py-16">
             <div class="container">
                 <header class="text-center">
-                    <h2 class="section-heading">What Our <span class="highlight-text">Clients Say</span></h2>
-                    <p class="section-subheading">Don't just take our word for it. Hear from our satisfied clients who've experienced real growth.</p>
+                    <h2 class="section-heading">Real <span class="highlight-text">Client Success Stories</span></h2>
+                    <p class="section-subheading">Hear directly from our partners about the impact of CharanX Solutions on their business.</p>
                 </header>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="testimonial-card fade-in-up">
-                        <p class="testimonial-quote">"CharanX Solutions transformed our online presence. Their SEO expertise led to a significant increase in organic traffic and conversions. Highly recommend their transparent and results-driven approach!"</p>
-                        <p class="testimonial-author">Jane Doe</p>
-                        <p class="testimonial-title">CEO, InnovateTech</p>
+                    <div class="testimonial-card video-card fade-in-up">
+                        <div class="video-thumbnail-wrapper">
+                            <img src="https://placehold.co/400x225/FF4F00/FFFFFF?text=Client+Video+1" alt="Video Thumbnail Client 1" class="video-thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x225/1a1a2e/FFFFFF?text=Video+Loading+Error';">
+                            <button class="play-button" data-video-url="https://www.youtube.com/embed/dQw4w9WgXcQ" aria-label="Play video testimonial"> <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <p class="testimonial-author">Priya Sharma, CEO</p>
+                            <p class="testimonial-title">InnovateTech</p>
+                            <p class="testimonial-quote-short">"CharanX transformed our online presence and organic traffic significantly!"</p>
+                        </div>
                     </div>
-                    <div class="testimonial-card fade-in-up" style="animation-delay: 0.1s;">
-                        <p class="testimonial-quote">"The team at CharanX is exceptional. Their PPC campaigns delivered an incredible ROI, far exceeding our expectations. They truly understand digital marketing."</p>
-                        <p class="testimonial-author">John Smith</p>
-                        <p class="testimonial-title">Marketing Director, Global Retail Co.</p>
+                    <div class="testimonial-card video-card fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="video-thumbnail-wrapper">
+                            <img src="https://placehold.co/400x225/FF4F00/FFFFFF?text=Client+Video+2" alt="Video Thumbnail Client 2" class="video-thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x225/1a1a2e/FFFFFF?text=Video+Loading+Error';">
+                            <button class="play-button" data-video-url="https://www.youtube.com/embed/L_LUpnjgPso" aria-label="Play video testimonial"> <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <p class="testimonial-author">Amit Singh, Marketing Director</p>
+                            <p class="testimonial-title">Global Retail Co.</p>
+                            <p class="testimonial-quote-short">"Their PPC campaigns delivered an incredible ROI, exceeding our expectations."</p>
+                        </div>
                     </div>
-                    <div class="testimonial-card fade-in-up" style="animation-delay: 0.2s;">
-                        <p class="testimonial-quote">"We've seen remarkable growth since partnering with CharanX Solutions. Their strategic insights and execution in social media marketing have built a strong community around our brand."</p>
-                        <p class="testimonial-author">Emily White</p>
-                        <p class="testimonial-title">Founder, Artisan Crafts</p>
+                    <div class="testimonial-card video-card fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="video-thumbnail-wrapper">
+                            <img src="https://placehold.co/400x225/FF4F00/FFFFFF?text=Client+Video+3" alt="Video Thumbnail Client 3" class="video-thumbnail" onerror="this.onerror=null; this.src='https://placehold.co/400x225/1a1a2e/FFFFFF?text=Video+Loading+Error';">
+                            <button class="play-button" data-video-url="https://www.youtube.com/embed/3JZ_D3ELwOQ" aria-label="Play video testimonial"> <i class="fas fa-play"></i>
+                            </button>
+                        </div>
+                        <div class="p-4">
+                            <p class="testimonial-author">Sunita Rao, Founder</p>
+                            <p class="testimonial-title">Artisan Crafts</p>
+                            <p class="testimonial-quote-short">"Remarkable growth from their social media marketing and strategic insights!"</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="videoModal" class="video-modal">
+                <div class="video-modal-content">
+                    <span class="video-modal-close">×</span>
+                    <iframe id="videoIframe" width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq-section" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Frequently Asked <span class="highlight-text">Questions</span></h2>
+                    <p class="section-subheading">Have questions? We've got answers. Find quick information about our services and processes.</p>
+                </header>
+                <div class="faq-accordion">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            What types of businesses do you work with?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We work with a diverse range of businesses, from startups and small local companies to established enterprises across various industries. Our strategies are customized to meet the unique needs and goals of each client.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            How long does it take to see results from SEO?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>SEO is a long-term strategy. While some improvements can be seen within a few months (e.g., 3-6 months), significant and sustainable results typically take longer, depending on factors like website authority, competition, and the scope of work. We focus on building a strong foundation for lasting success.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            Do you offer custom packages?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Absolutely! We understand that every business is unique. After our initial consultation and discovery phase, we will propose a custom package of services tailored specifically to your objectives, budget, and target audience.</p>
+                        </div>
+                    </div>
+                     <div class="faq-item">
+                        <div class="faq-question">
+                            How do you measure the success of your campaigns?
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We measure success based on key performance indicators (KPIs) that are relevant to your business goals. These can include website traffic, conversion rates, lead generation, search engine rankings, engagement metrics, and ultimately, return on investment (ROI). We provide regular, transparent reports to track progress.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
         <section id="blog" class="py-16 bg-white">
             <div class="container">
                 <header class="text-center">
@@ -1191,24 +2223,24 @@
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="blog-post-card fade-in-up">
                         <div class="p-6">
-                            <h3>The Future of SEO: What You Need to Know in 2025</h3>
-                            <p class="text-gray-400 text-sm mb-3">May 28, 2025 | SEO, Trends</p>
+                            <h3>The Future of SEO: AI & Voice Search in 2025</h3>
+                            <p class="text-gray-400 text-sm mb-3">June 01, 2025 | SEO, Trends</p>
                             <p class="mb-3">Discover the key shifts and strategies to keep your website ranking high in the evolving search landscape.</p>
                             <a href="#" class="bold-orange hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                         </div>
                     </div>
                     <div class="blog-post-card fade-in-up" style="animation-delay: 0.1s;">
                         <div class="p-6">
-                            <h3>Mastering Social Media Ads: A Beginner's Guide</h3>
-                            <p class="text-gray-400 text-sm mb-3">May 20, 2025 | Social Media, Advertising</p>
+                            <h3>Maximizing ROI with Hyper-Targeted PPC Ads</h3>
+                            <p class="text-gray-400 text-sm mb-3">May 25, 2025 | PPC, Advertising</p>
                             <p class="mb-3">Learn how to create effective social media advertising campaigns that drive engagement and conversions.</p>
                             <a href="#" class="bold-orange hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                         </div>
                     </div>
                     <div class="blog-post-card fade-in-up" style="animation-delay: 0.2s;">
                         <div class="p-6">
-                            <h3>Data-Driven Decisions: Unlocking Growth with Analytics</h3>
-                            <p class="text-gray-400 text-sm mb-3">May 15, 2025 | Analytics, Strategy</p>
+                            <h3>Building Authentic Connections: Social Media in 2025</h3>
+                            <p class="text-gray-400 text-sm mb-3">May 18, 2025 | Social Media, Strategy</p>
                             <p class="mb-3">Understand how to leverage your data to make informed marketing decisions and accelerate business growth.</p>
                             <a href="#" class="bold-orange hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                         </div>
@@ -1216,43 +2248,88 @@
                 </div>
             </div>
         </section>
+
+        <section id="micro-learning" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Skill Up with <span class="highlight-text">CharanX</span></h2>
+                    <p class="section-subheading">Unlock essential digital marketing knowledge with our free micro-learning modules.</p>
+                </header>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="content-card fade-in-up">
+                        <div class="p-6">
+                            <i class="fas fa-bullseye text-bold-orange text-3xl mb-3"></i>
+                            <h3>SEO Basics: Keyword Research</h3>
+                            <p class="mb-3 text-sm text-text-color">Learn how to find the best keywords to drive organic traffic to your website.</p>
+                            <a href="#" class="bold-orange hover:underline text-sm font-medium learn-module-link" data-module="seo-keywords">Start Module <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-up" style="animation-delay: 0.1s;">
+                        <div class="p-6">
+                            <i class="fas fa-money-bill-wave text-bold-orange text-3xl mb-3"></i>
+                            <h3>PPC Fundamentals: Ad Copywriting</h3>
+                            <p class="mb-3 text-sm text-text-color">Craft compelling ad copies that grab attention and drive clicks on Google Ads.</p>
+                            <a href="#" class="bold-orange hover:underline text-sm font-medium learn-module-link" data-module="ppc-copywriting">Start Module <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="p-6">
+                            <i class="fas fa-comments text-bold-orange text-3xl mb-3"></i>
+                            <h3>Social Media: Engagement Hacks</h3>
+                            <p class="mb-3 text-sm text-text-color">Discover proven tactics to boost interaction and build community on social platforms.</p>
+                            <a href="#" class="bold-orange hover:underline text-sm font-medium learn-module-link" data-module="smm-engagement">Start Module <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="moduleModal" class="video-modal"> 
+                    <div class="video-modal-content max-w-2xl">
+                        <span class="video-modal-close module-close-button">×</span>
+                        <h3 id="moduleTitle" class="text-xl font-bold text-heading-color mb-4">Module Title</h3>
+                        <div id="moduleContent" class="text-text-color text-base overflow-y-auto" style="max-height: 350px;">
+                            </div>
+                        <button class="btn btn-primary mt-6 mx-auto" id="completeModuleBtn" style="display: none;">Mark as Complete</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="contact" class="py-16">
             <div class="container">
                 <header class="text-center">
                     <h2 class="section-heading">Ready to <span class="highlight-text">Grow?</span></h2>
                     <p class="section-subheading">Let's discuss your unique business goals and how CharanX Solutions can help you achieve them.</p>
                 </header>
-                <div class="content-card mx-auto max-w-4xl flex-col md:flex-row">
-                    <div class="contact-info p-6 md:w-1/2">
+                <div class="content-card mx-auto max-w-4xl"> 
+                    <div class="contact-info p-6">
                         <h3 class="text-2xl font-bold mb-4">Get in Touch</h3>
                         <p class="text-gray-400 mb-6">We're here to answer your questions and help you start your journey to digital success.</p>
                         <div class="space-y-4">
                             <div class="flex items-center">
                                 <i class="fas fa-map-marker-alt text-bold-orange mr-3"></i>
-                                <p>123 Digital Way, Suite 456, Hyderabad, India</p>
+                                <p>Brodipet 4/10 near to SBI Bank</p>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-phone-alt text-bold-orange mr-3"></i>
-                                <p>+91 98765 43210</p>
+                                <p>+91 9677303310 , 7075012122</p>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-envelope text-bold-orange mr-3"></i>
-                                <p>info@charanxsolutions.com</p>
+                                <p>info@charanx.com</p>
                             </div>
                         </div>
                         <div class="mt-8">
                             <h4 class="text-lg font-semibold mb-3">Follow Us</h4>
                             <div class="flex space-x-4">
-                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="action-icon text-2xl hover:text-bold-orange" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="action-icon text-2xl hover:text-bold-orange" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="action-icon text-2xl hover:text-bold-orange" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#" class="action-icon text-2xl hover:text-bold-orange" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
-                    <div class="contact-form p-6 bg-white md:w-1/2">
+                    <div class="contact-form p-6"> 
                         <h3 class="text-2xl font-bold mb-4 text-gray-800">Send Us a Message</h3>
-                        <form action="#" method="POST" class="space-y-4">
+                        <form action="#" method="POST" class="space-y-4" id="contactForm">
                             <div>
                                 <label for="name" class="form-label">Name</label>
                                 <input type="text" id="name" name="name" class="form-input" placeholder="Your Name" required>
@@ -1271,6 +2348,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-full">SEND MESSAGE <i class="fas fa-paper-plane text-sm ml-2"></i></button>
                         </form>
+                         <div id="form-submission-message" class="mt-4 text-center" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -1280,9 +2358,30 @@
         GET A FREE CONSULTATION <i class="fas fa-paper-plane text-sm ml-2"></i>
     </a>
 
+    <div id="chatWidget" class="chat-widget">
+        <button id="chatToggle" class="chat-toggle-button"><i class="fas fa-comments"></i></button>
+        <div id="chatBox" class="chat-box">
+            <div class="chat-header">
+                <h3>CharanX AI Assistant</h3>
+                <button id="chatClose" class="chat-close-button">×</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message bot">Hello! I'm your CharanX AI Assistant. How can I help you spark success today?</div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Ask a question or describe a challenge...">
+                <button id="chatSend"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <button id="scrollToTopBtn" aria-label="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <footer class="py-16">
         <div class="container">
-            <p>&copy; 2025 CharanX Solutions. All rights reserved.</p>
+            <p>© 2025 CharanX Solutions. All rights reserved.</p>
             <div class="flex justify-center space-x-4 mt-4">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
@@ -1291,295 +2390,875 @@
         </div>
     </footer>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Full page fade-in on load
-            document.body.classList.add('loaded');
+    document.addEventListener('DOMContentLoaded', () => {
+        // Full page fade-in on load
+        document.body.classList.add('loaded');
 
-            // --- Theme Toggle Logic ---
-            const themeToggle = document.getElementById('themeToggle');
-            const storedTheme = localStorage.getItem('theme');
-            const icon = themeToggle.querySelector('i');
+        // --- Theme Toggle Logic ---
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
 
-            // Apply stored theme or default to dark
-            if (storedTheme) {
-                document.body.classList.add(storedTheme);
-                icon.className = storedTheme === 'light-theme' ? 'fas fa-sun' : 'fas fa-moon';
+        const applyTheme = (theme) => {
+            if (theme === 'light-theme') {
+                document.body.classList.add('light-theme');
+                document.body.classList.remove('dark-theme'); 
+                icon.className = 'fas fa-sun';
             } else {
-                document.body.classList.add('dark-theme'); // Default to dark
+                document.body.classList.add('dark-theme'); 
+                document.body.classList.remove('light-theme'); 
                 icon.className = 'fas fa-moon';
             }
+            localStorage.setItem('theme', theme);
+        };
 
-            themeToggle.addEventListener('click', () => {
-                if (document.body.classList.contains('light-theme')) {
-                    document.body.classList.remove('light-theme');
-                    document.body.classList.add('dark-theme');
-                    localStorage.setItem('theme', 'dark-theme');
-                    icon.className = 'fas fa-moon';
-                } else {
-                    document.body.classList.remove('dark-theme');
-                    document.body.classList.add('light-theme');
-                    localStorage.setItem('theme', 'light-theme');
-                    icon.className = 'fas fa-sun';
+        const storedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (storedTheme) {
+            applyTheme(storedTheme);
+        } else if (prefersDark) {
+            applyTheme('dark-theme');
+        } else {
+            applyTheme('dark-theme'); 
+        }
+        
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) { 
+                applyTheme(e.matches ? 'dark-theme' : 'light-theme');
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.body.classList.contains('light-theme') ? 'light-theme' : 'dark-theme';
+            applyTheme(currentTheme === 'light-theme' ? 'dark-theme' : 'light-theme');
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const closeMobileMenuButton = document.getElementById('closeMobileMenuButton');
+        const mobileNav = document.getElementById('mobileNav');
+        
+        if (mobileMenuButton && mobileNav && closeMobileMenuButton) {
+            mobileMenuButton.addEventListener('click', () => mobileNav.classList.add('active'));
+            closeMobileMenuButton.addEventListener('click', () => mobileNav.classList.remove('active'));
+        }
+        
+        // Header scroll effect & Active Nav
+        const mainHeader = document.getElementById('mainHeader');
+        let lastScrollTop = 0;
+        const allNavLinks = document.querySelectorAll('a[href^="#"]'); 
+        const sections = document.querySelectorAll('main section[id]'); 
+
+        const updateHeaderAppearance = (scrollTop) => {
+            if (!mainHeader) return;
+            if (scrollTop > 50) {
+                mainHeader.style.paddingTop = '0.5rem';
+                mainHeader.style.paddingBottom = '0.5rem';
+                mainHeader.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                mainHeader.style.paddingTop = '1rem';
+                mainHeader.style.paddingBottom = '1rem';
+                mainHeader.style.boxShadow = 'none';
+            }
+        };
+
+        const toggleHeaderVisibility = (scrollTop) => {
+            if (!mainHeader) return;
+            if (scrollTop > lastScrollTop && scrollTop > mainHeader.offsetHeight) { 
+                mainHeader.style.top = `-${mainHeader.offsetHeight}px`;
+            } else {
+                mainHeader.style.top = "0";
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; 
+        };
+        
+        const setActiveNav = () => {
+            let currentSectionId = '';
+            const headerHeight = mainHeader ? mainHeader.offsetHeight : 70; 
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - headerHeight - 50; 
+                if (pageYOffset >= sectionTop) {
+                    currentSectionId = section.getAttribute('id');
                 }
             });
-
-            // Mobile menu toggle
-            const mobileMenuButton = document.getElementById('mobileMenuButton');
-            const closeMobileMenuButton = document.getElementById('closeMobileMenuButton');
-            const mobileNav = document.getElementById('mobileNav');
-            const navLinks = document.querySelectorAll('#mobileNav .mobile-nav-link');
-
-            mobileMenuButton.addEventListener('click', () => {
-                mobileNav.classList.add('active');
-            });
-
-            closeMobileMenuButton.addEventListener('click', () => {
-                mobileNav.classList.remove('active');
-            });
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileNav.classList.remove('active');
-                });
-            });
-
-            // Header scroll effect
-            const mainHeader = document.getElementById('mainHeader');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    mainHeader.style.paddingTop = '0.5rem';
-                    mainHeader.style.paddingBottom = '0.5rem';
-                } else {
-                    mainHeader.style.paddingTop = '1rem';
-                    mainHeader.style.paddingBottom = '1rem';
-                }
-            });
-
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-
-            // Headline animation logic
-            const strategyText = document.getElementById('strategy-text');
-            const successText = document.getElementById('success-text');
-            const mainHeadlineElement = document.querySelector('.hero-main-headline');
-            const supportingHeadline = document.querySelector('.hero-supporting-headline');
-            const ctaButton = document.querySelector('.hero-cta-button');
-
-            let animationsCompleted = 0;
-            const totalHeadlineAnimations = 2; // For strategyText and successText
-
-            // Function to handle the end of each headline part animation
-            function handleHeadlinePartAnimationEnd() {
-                animationsCompleted++;
-                if (animationsCompleted === totalHeadlineAnimations) {
-                    // All headline parts have finished sliding in (or fading in on mobile)
-                    // Now, replace the content and animate the final text
-                    mainHeadlineElement.innerHTML = '<span id="final-charanx-text" style="display: inline-block;">Charan<span class="highlight-x">X</span> Solutions</span>';
-                    const finalHeadlineSpan = mainHeadlineElement.querySelector('#final-charanx-text');
-
-                    // Trigger slide-down and fade-in for "CharanX Solutions"
-                    setTimeout(() => {
-                        finalHeadlineSpan.style.animation = 'slideDownFadeIn 1s ease forwards';
-                    }, 100); // Small delay to ensure reflow
-
-                    // Trigger fade-in for supporting headline and CTA button
-                    setTimeout(() => {
-                        supportingHeadline.style.animation = 'fadeInUp 1s ease forwards';
-                        // Reset opacity and transform for animation to re-run
-                        supportingHeadline.style.opacity = '0';
-                        supportingHeadline.style.transform = 'translateY(30px)';
-                    }, 1500); // Adjust delay after headline reveal (after 1.5s initial + 1s final animation)
-
-                    setTimeout(() => {
-                        ctaButton.style.animation = 'fadeInUp 1s ease forwards';
-                        // Reset opacity and transform for animation to re-run
-                        ctaButton.style.opacity = '0';
-                        ctaButton.style.transform = 'translateY(30px)';
-                    }, 1700); // Adjust delay after supporting headline
-                }
+            if (!currentSectionId && sections.length > 0 && pageYOffset < sections[0].offsetTop ) {
+                 currentSectionId = 'hero';
             }
 
-            // Add event listeners for animation end on the headline parts
-            strategyText.addEventListener('animationend', handleHeadlinePartAnimationEnd);
-            successText.addEventListener('animationend', handleHeadlinePartAnimationEnd);
-
-            // Initially hide supporting headline and CTA to be revealed by JS after headline animation
-            supportingHeadline.style.opacity = '0';
-            supportingHeadline.style.transform = 'translateY(30px)';
-            supportingHeadline.style.animation = 'none'; // Disable initial CSS animation
-
-            ctaButton.style.opacity = '0';
-            ctaButton.style.transform = 'translateY(30px)';
-            ctaButton.style.animation = 'none'; // Disable initial CSS animation
+            allNavLinks.forEach(link => {
+                link.classList.remove('active');
+                const parentDropdown = link.closest('.header-nav .has-dropdown');
+                 if (parentDropdown) { // If it's a dropdown item, remove active from parent too
+                    parentDropdown.classList.remove('active');
+                }
 
 
-            // --- Intersection Observers for Scroll-Triggered Animations ---
-            const sectionsToAnimate = [
-                { id: 'services', elements: document.querySelectorAll('#services .service-card') },
-                { id: 'client-logos', elements: document.querySelectorAll('#client-logos .logo-item') },
-                { id: 'why-choose-us', elements: document.querySelectorAll('#why-choose-us .feature-card') }
-            ];
-
-            const observerOptions = {
-                root: null, // viewport
-                rootMargin: '0px',
-                threshold: 0.3 // Trigger when 30% of the section is visible
-            };
-
-            sectionsToAnimate.forEach(sectionData => {
-                const section = document.getElementById(sectionData.id);
-                if (section) {
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('in-view');
-                                // Apply animations to heading and subheading if they exist in this section
-                                const heading = entry.target.querySelector('.section-heading');
-                                const subheading = entry.target.querySelector('.section-subheading');
-                                if (heading) heading.style.animation = 'fadeInUp 0.8s ease forwards';
-                                if (subheading) subheading.style.animation = 'fadeInUp 0.8s ease forwards 0.2s';
-
-                                // Apply specific animations to child elements
-                                sectionData.elements.forEach((el, index) => {
-                                    if (sectionData.id === 'services' || sectionData.id === 'why-choose-us') {
-                                        el.style.animation = `popInUp 0.8s ease forwards ${0.2 + (index * 0.1)}s`;
-                                    } else if (sectionData.id === 'client-logos') {
-                                        el.style.animation = `fadeInUp 0.8s ease forwards ${0.1 + (index * 0.1)}s`;
-                                    }
-                                });
-                                observer.unobserve(entry.target); // Stop observing once animated
-                            }
-                        });
-                    }, observerOptions);
-                    observer.observe(section);
+                if (link.getAttribute('href').substring(1) === currentSectionId) {
+                    link.classList.add('active');
+                     if (parentDropdown) { // If it's a dropdown item, also mark parent as active
+                        parentDropdown.classList.add('active');
+                    }
                 }
             });
+        };
 
-            // --- Sticky CTA Button Logic ---
-            const stickyCta = document.querySelector('.sticky-cta');
-            const heroSection = document.getElementById('hero');
+        window.addEventListener('scroll', () => {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            updateHeaderAppearance(scrollTop);
+            toggleHeaderVisibility(scrollTop);
+            setActiveNav();
+        });
+        
+        updateHeaderAppearance(window.pageYOffset || document.documentElement.scrollTop);
+        setActiveNav();
 
+        allNavLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement && mainHeader) {
+                    const headerOffset = mainHeader.offsetHeight;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+
+                    if (mobileNav && mobileNav.classList.contains('active')) {
+                        mobileNav.classList.remove('active');
+                    }
+                }
+            });
+        });
+        
+        // Headline and Logo animation logic (Adjusted for logo removal)
+        const mainHeadlineElement = document.querySelector('.hero-main-headline');
+        const supportingHeadline = document.querySelector('.hero-supporting-headline');
+        const ctaButton = document.querySelector('.hero-cta-button');
+
+        // Directly animate the final headline and supporting elements
+        setTimeout(() => {
+            if(mainHeadlineElement) {
+                mainHeadlineElement.querySelector('#final-charanx-text').style.opacity = '1';
+                mainHeadlineElement.querySelector('#final-charanx-text').style.animation = 'slideDownFadeIn 1s ease forwards';
+            }
+        }, 500); // Start main headline animation after a short delay
+
+        setTimeout(() => {
+            if(supportingHeadline) {
+                supportingHeadline.style.opacity = '0'; 
+                supportingHeadline.style.transform = 'translateY(30px)'; 
+                supportingHeadline.style.animation = 'fadeInUp 1s ease forwards 0.2s';
+            }
+        }, 1300); // Delay supporting headline
+
+        setTimeout(() => {
+            if(ctaButton) {
+                ctaButton.style.opacity = '0'; 
+                ctaButton.style.transform = 'translateY(30px)'; 
+                ctaButton.style.animation = 'fadeInUp 1s ease forwards 0.4s';
+            }
+        }, 1500); // Delay CTA button
+
+
+        if(supportingHeadline) {
+            supportingHeadline.style.opacity = '0';
+            supportingHeadline.style.transform = 'translateY(30px)';
+            supportingHeadline.style.animation = 'none'; 
+        }
+        if(ctaButton) {
+            ctaButton.style.opacity = '0';
+            ctaButton.style.transform = 'translateY(30px)';
+            ctaButton.style.animation = 'none';
+        }
+
+
+        // --- Intersection Observers for Scroll-Triggered Animations ---
+        const sectionsToObserve = [
+            'services', 'our-process', 'idea-spark-tool', 
+            'why-choose-us', 'dynamic-stats', 'work-showcase', 
+            'meet-innovators', 'faq-section', 'blog', 'contact',
+            'trends-compass', 'digital-footprint', 'video-testimonials', 'micro-learning'
+        ];
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15 
+        };
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    
+                    if (entry.target.id === 'dynamic-stats') {
+                        const statValues = entry.target.querySelectorAll('.stat-value');
+                        statValues.forEach(stat => {
+                            const target = +stat.getAttribute('data-target');
+                            if (parseInt(stat.textContent) !== target) { 
+                                animateCount(stat, target, 1500); 
+                            }
+                        });
+                    }
+                    if (entry.target.id === 'our-process') {
+                        const processSteps = entry.target.querySelectorAll('.process-step-wrapper');
+                        processSteps.forEach((step, index) => {
+                            step.style.animationDelay = `${0.2 + index * 0.15}s`;
+                        });
+                    }
+
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        sectionsToObserve.forEach(id => {
+            const section = document.getElementById(id);
+            if (section) {
+                sectionObserver.observe(section);
+            }
+        });
+        
+        function animateCount(element, target, duration) {
+            let start = 0;
+            const increment = target / (duration / 16); // Aim for ~60fps
+            element.textContent = 0; 
+
+            function updateCount() {
+                start += increment;
+                if (start < target) {
+                    element.textContent = Math.ceil(start);
+                    requestAnimationFrame(updateCount);
+                } else {
+                    element.textContent = target;
+                }
+            }
+            requestAnimationFrame(updateCount);
+        }
+
+
+        // --- Sticky CTA Button Logic ---
+        const stickyCta = document.querySelector('.sticky-cta');
+        const heroSection = document.getElementById('hero');
+
+        if (stickyCta && heroSection) {
             const stickyCtaObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (!entry.isIntersecting) {
+                    if (!entry.isIntersecting && window.scrollY > heroSection.offsetHeight / 2) { 
                         stickyCta.classList.add('show');
                     } else {
                         stickyCta.classList.remove('show');
                     }
                 });
-            }, {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0 // As soon as hero leaves view
+            }, { threshold: 0 });
+            stickyCtaObserver.observe(heroSection);
+        }
+
+
+        // --- Three.js Particle Animation ---
+        const canvas = document.getElementById('robot3DCanvas');
+        let scene, camera, renderer, particles;
+
+        function initThreeJS() {
+            if (!canvas) { return; }
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 1, 8); 
+
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(0x000000, 0);
+
+            const ambientLight = new THREE.AmbientLight(0x555555, 1); 
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2); 
+            directionalLight.position.set(5, 10, 7).normalize();
+            scene.add(directionalLight);
+            const pointLight = new THREE.PointLight(0xff4f00, 0.8, 50, 1); 
+            pointLight.position.set(-5, -2, 5);
+            scene.add(pointLight);
+
+
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = 1800; 
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const sizes = new Float32Array(particleCount); 
+            const color = new THREE.Color();
+
+            for (let i = 0; i < particleCount; i++) {
+                positions[i * 3] = (Math.random() * 2 - 1) * 35; 
+                positions[i * 3 + 1] = (Math.random() * 2 - 1) * 35;
+                positions[i * 3 + 2] = (Math.random() * 2 - 1) * 25; 
+                
+                if (Math.random() > 0.7) { 
+                    color.setHex(0xff4f00);
+                } else { 
+                     color.setHSL(0, 0, Math.random() * 0.3 + 0.7); 
+                }
+                colors[i * 3] = color.r;
+                colors[i * 3 + 1] = color.g;
+                colors[i * 3 + 2] = color.b;
+                sizes[i] = Math.random() * 0.1 + 0.05; 
+            }
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+            // particleGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1)); // three.js PointsMaterial uses 'size' property, not attribute for all points
+
+            const particleMaterial = new THREE.PointsMaterial({
+                 size: 0.1, // Base size, can be adjusted
+                 vertexColors: true, 
+                 transparent: true,
+                 opacity: 0.7, 
+                 blending: THREE.AdditiveBlending, 
+                 sizeAttenuation: true, 
+                 depthWrite: false 
+            });
+            particles = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particles);
+            window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize() {
+            if (camera && renderer) {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }
+        }
+        
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+        });
+
+        function animateScene() {
+            requestAnimationFrame(animateScene);
+            const time = Date.now() * 0.0002; 
+
+            if (particles) {
+                particles.rotation.y = time * 0.3;
+                particles.rotation.x = time * 0.1;
+                
+                particles.position.x += (mouseX * 0.5 - particles.position.x) * 0.02;
+                particles.position.y += (mouseY * 0.5 - particles.position.y) * 0.02;
+            }
+            if (camera) {
+                 camera.position.x += (mouseX * 0.3 - camera.position.x) * 0.01; 
+                 camera.position.y += (-mouseY * 0.3 - camera.position.y) * 0.01;
+                 camera.lookAt(scene.position);
+            }
+
+            if (renderer && scene && camera) {
+                renderer.render(scene, camera);
+            }
+        }
+        if (typeof THREE !== 'undefined') { 
+            initThreeJS();
+            animateScene();
+        } else {
+            console.warn("Three.js library not loaded. Particle animation disabled.");
+        }
+
+        // --- "Idea Spark" Tool Logic (Now Content Strategy Generator) ---
+        const contentStrategyForm = document.getElementById('contentStrategyForm');
+        const contentIdeasResults = document.getElementById('contentIdeasResults');
+        const ideaList = document.getElementById('ideaList');
+
+        if (contentStrategyForm) {
+            contentStrategyForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const industry = document.getElementById('industryInput').value.trim();
+                const audience = document.getElementById('audienceInput').value.trim();
+                const goal = document.getElementById('goalInput').value;
+
+                if (!industry || !audience || !goal) {
+                    alert('Please fill in all fields to generate ideas!');
+                    return;
+                }
+
+                ideaList.innerHTML = '<li class="text-sm text-gray-400">Generating brilliant ideas...</li>';
+                contentIdeasResults.style.display = 'block';
+
+                setTimeout(() => {
+                    ideaList.innerHTML = ''; // Clear loading message
+
+                    const ideas = generateContentIdeas(industry, audience, goal);
+
+                    if (ideas.length > 0) {
+                        ideas.forEach((idea, index) => {
+                            const li = document.createElement('li');
+                            li.className = 'flex items-start text-text-color opacity-0 transform translate-y-5'; // For animation
+                            li.style.animation = `fadeInUp 0.5s ease forwards ${0.1 * index}s`;
+                            li.innerHTML = `<i class="fas fa-lightbulb text-bold-orange mr-3 mt-1"></i> <div><strong class="text-heading-color">${idea.title}</strong><br><span class="text-sm">${idea.description}</span><br><span class="text-xs text-gray-500">Keywords: ${idea.keywords.join(', ')}</span></div>`;
+                            ideaList.appendChild(li);
+                        });
+                    } else {
+                        ideaList.innerHTML = '<li class="text-sm text-gray-400">Could not generate specific ideas. Try different inputs!</li>';
+                    }
+                }, 1000); // Simulate AI generation time
+            });
+        }
+
+        // Mock function to generate content ideas based on inputs
+        function generateContentIdeas(industry, audience, goal) {
+            const commonKeywords = ["digital marketing", "online growth", "brand building", "customer engagement", "SEO", "PPC", "social media"];
+            let ideas = [];
+
+            // Base ideas
+            ideas.push({
+                title: `[Industry] Guide to ${goal === 'leads' ? 'Lead Magnets' : (goal === 'brand' ? 'Brand Storytelling' : 'Audience Engagement')}`,
+                description: `A comprehensive guide on leveraging ${industry} insights for ${audience} to achieve ${goal} via content.`,
+                keywords: [...commonKeywords, `${industry} marketing`, `${audience} content`]
             });
 
-            if (heroSection && stickyCta) {
-                stickyCtaObserver.observe(heroSection);
-            }
-
-
-            // --- Three.js Particle Animation (Robot removed) ---
-            const canvas = document.getElementById('robot3DCanvas');
-            let scene, camera, renderer, particles; // Removed robot variable
-
-            function initThreeJS() {
-                if (!canvas) {
-                    console.error("Canvas element 'robot3DCanvas' not found!");
-                    return; // Stop execution if canvas is missing
-                }
-
-                scene = new THREE.Scene();
-
-                // Camera - Adjusted FOV slightly for better view, and position
-                camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
-                camera.position.set(0, 0, 8); // Move camera back to see more of the scene
-
-                // Renderer
-                renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                renderer.setClearColor(0x000000, 0); // Transparent background
-
-                // Lights (still useful for general scene illumination, even without objects)
-                const ambientLight = new THREE.AmbientLight(0x404040, 2); // Increased intensity
-                scene.add(ambientLight);
-                const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased intensity
-                directionalLight.position.set(5, 5, 5).normalize();
-                scene.add(directionalLight);
-
-                // Particle System (Subtle background effect)
-                const particleGeometry = new THREE.BufferGeometry();
-                const particleCount = 1500; // More particles
-                const positions = new Float32Array(particleCount * 3);
-                const colors = new Float32Array(particleCount * 3);
-                const color = new THREE.Color();
-
-                for (let i = 0; i < particleCount; i++) {
-                    // Position particles randomly in a larger cube
-                    positions[i * 3] = (Math.random() * 2 - 1) * 30; // x
-                    positions[i * 3 + 1] = (Math.random() * 2 - 1) * 30; // y
-                    positions[i * 3 + 2] = (Math.random() * 2 - 1) * 30; // z
-
-                    // Assign subtle colors (e.g., shades of blue/orange)
-                    color.setHSL(Math.random() * 0.1 + 0.5, 0.7, Math.random() * 0.5 + 0.5); // Warm tones
-                    colors[i * 3] = color.r;
-                    colors[i * 3 + 1] = color.g;
-                    colors[i * 3 + 2] = color.b;
-                }
-
-                particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-                particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-
-                const particleMaterial = new THREE.PointsMaterial({
-                    size: 0.15, // Larger particles
-                    vertexColors: true,
-                    transparent: true,
-                    opacity: 0.8, // More visible
-                    blending: THREE.AdditiveBlending, // For glowing effect
-                    sizeAttenuation: true
+            if (goal === 'leads') {
+                ideas.push({
+                    title: `Webinar: How ${industry} Businesses Can Triple Leads in 90 Days`,
+                    description: `Interactive webinar focusing on actionable strategies for ${audience} to generate high-quality leads.`,
+                    keywords: [...commonKeywords, "lead generation", "webinar", "B2B sales"]
                 });
-
-                particles = new THREE.Points(particleGeometry, particleMaterial);
-                scene.add(particles);
-
-                // Handle window resize
-                window.addEventListener('resize', onWindowResize, false);
+            } else if (goal === 'brand') {
+                ideas.push({
+                    title: `Case Study: ${industry} Brand's Journey to Market Leadership`,
+                    description: `Detailed analysis of how a ${industry} brand used strategic content to build a strong presence among ${audience}.`,
+                    keywords: [...commonKeywords, "brand awareness", "brand identity", "success story"]
+                });
+            } else if (goal === 'engagement') {
+                ideas.push({
+                    title: `Interactive Quiz: "What's Your ${industry} Marketing Personality?"`,
+                    description: `A fun, shareable quiz designed to engage ${audience} and provide personalized insights.`,
+                    keywords: [...commonKeywords, "interactive content", "social engagement", "quiz marketing"]
+                });
+            } else if (goal === 'sales') {
+                ideas.push({
+                    title: `Product Demo Series: Showcasing [Product Name] for ${audience}`,
+                    description: `Short video series demonstrating the value proposition of key products/services for ${audience} in the ${industry} sector.`,
+                    keywords: [...commonKeywords, "product marketing", "sales funnel", "demo videos"]
+                });
             }
 
-            function onWindowResize() {
-                if (camera && renderer) { // Check if camera and renderer are initialized
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                    renderer.setSize(window.innerWidth, window.innerHeight);
-                }
+            ideas.push({
+                title: `Blog Post: Top 5 ${industry} Trends for ${new Date().getFullYear()} for ${audience}`,
+                description: `An in-depth look at emerging trends and how ${audience} in ${industry} can capitalize on them.`,
+                keywords: [...commonKeywords, "industry trends", "market analysis", `${industry} insights`]
+            });
+
+            return ideas.slice(0, 3); // Return top 3 for brevity
+        }
+
+        // --- Process Steps Accordion & Radial Focus ---
+        const processStepWrappers = document.querySelectorAll('.process-step-wrapper');
+        const processStepsContainer = document.querySelector('.process-steps-container');
+
+        processStepWrappers.forEach(wrapper => {
+            const stepHeader = wrapper.querySelector('.process-step');
+            const stepDetails = wrapper.querySelector('.process-details');
+
+            if (stepHeader && stepDetails) {
+                stepHeader.addEventListener('click', () => {
+                    const isActive = wrapper.classList.contains('active');
+
+                    processStepWrappers.forEach(otherWrapper => {
+                        if (otherWrapper !== wrapper) {
+                            otherWrapper.classList.remove('active');
+                            const details = otherWrapper.querySelector('.process-details');
+                            if(details) details.style.maxHeight = null;
+                        }
+                    });
+
+                    if (isActive) {
+                        wrapper.classList.remove('active');
+                        stepDetails.style.maxHeight = null;
+                        if(processStepsContainer) processStepsContainer.classList.remove('radial-focus');
+                    } else {
+                        wrapper.classList.add('active');
+                        stepDetails.style.maxHeight = stepDetails.scrollHeight + "px";
+                        if(processStepsContainer) processStepsContainer.classList.add('radial-focus');
+                    }
+                });
             }
-
-            function animateScene() { // Renamed from animateRobot for clarity
-                requestAnimationFrame(animateScene);
-
-                // Animate particles (e.g., subtle movement)
-                if (particles) {
-                    particles.rotation.y += 0.0005;
-                    particles.rotation.x += 0.0002;
-                }
-
-                if (renderer && scene && camera) { // Ensure everything is initialized before rendering
-                    renderer.render(scene, camera);
-                }
-            }
-
-            // Initialize and start Three.js animation after DOM content is loaded
-            initThreeJS();
-            animateScene(); // Call the renamed function
         });
+
+
+        // --- FAQ Accordion Logic ---
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            if (question && answer) {
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                            const otherAnswer = otherItem.querySelector('.faq-answer');
+                            if(otherAnswer) otherAnswer.style.maxHeight = null;
+                        }
+                    });
+                    if (isActive) {
+                        item.classList.remove('active');
+                        answer.style.maxHeight = null;
+                    } else {
+                        item.classList.add('active');
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    }
+                });
+            }
+        });
+        
+        // Contact Form Submission Message (Mock)
+        const contactForm = document.getElementById('contactForm');
+        const formSubmissionMessage = document.getElementById('form-submission-message');
+
+        if (contactForm && formSubmissionMessage) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
+
+                if (name && email && message) {
+                    formSubmissionMessage.textContent = 'Thank you! Your message has been sent successfully.';
+                    formSubmissionMessage.style.color = 'var(--hover-orange)'; 
+                    formSubmissionMessage.style.display = 'block';
+                    contactForm.reset(); 
+                    setTimeout(() => { formSubmissionMessage.style.display = 'none'; }, 5000);
+                } else {
+                    formSubmissionMessage.textContent = 'Please fill out all required fields.';
+                    formSubmissionMessage.style.color = 'red';
+                    formSubmissionMessage.style.display = 'block';
+                }
+            });
+        }
+
+        // --- Chatbot Logic ---
+        const chatToggle = document.getElementById('chatToggle');
+        const chatBox = document.getElementById('chatBox');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSend = document.getElementById('chatSend');
+        const chatBody = document.getElementById('chatBody');
+
+        if (chatToggle && chatBox && chatClose && chatInput && chatSend && chatBody) {
+            chatToggle.addEventListener('click', () => {
+                chatBox.classList.toggle('active');
+                if (chatBox.classList.contains('active')) {
+                    chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom on open
+                }
+            });
+
+            chatClose.addEventListener('click', () => {
+                chatBox.classList.remove('active');
+            });
+
+            const sendMessage = () => {
+                const userMessage = chatInput.value.trim();
+                if (userMessage) {
+                    // Display user message
+                    const userMsgDiv = document.createElement('div');
+                    userMsgDiv.className = 'chat-message user';
+                    userMsgDiv.textContent = userMessage;
+                    chatBody.appendChild(userMsgDiv);
+                    chatInput.value = '';
+                    chatBody.scrollTop = chatBody.scrollHeight;
+
+                    // Simulate bot response
+                    setTimeout(() => {
+                        const botMsgDiv = document.createElement('div');
+                        botMsgDiv.className = 'chat-message bot';
+                        let botResponse = "I'm still learning! For detailed queries, please use our contact form or check our FAQs.";
+
+                        if (userMessage.toLowerCase().includes('seo')) {
+                            botResponse = "For SEO, we focus on data-driven strategies for sustainable rankings and traffic. Check our 'Search Engine Optimization' service card!";
+                        } else if (userMessage.toLowerCase().includes('ppc')) {
+                            botResponse = "Our PPC campaigns maximize ROI by converting prospects efficiently. See our 'PPC Advertising' service for more details.";
+                        } else if (userMessage.toLowerCase().includes('contact')) {
+                            botResponse = "You can find our contact details at the bottom of the page or use the 'Contact Us' section above. We'd love to hear from you!";
+                        } else if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
+                             botResponse = "Hi there! How can I assist you with your digital marketing needs?";
+                        } else if (userMessage.toLowerCase().includes('services')) {
+                            botResponse = "We offer SEO, PPC, Social Media Marketing, Brand Strategy, Web Development, and more! Explore our 'Services' section for details.";
+                        } else if (userMessage.toLowerCase().includes('price')|| userMessage.toLowerCase().includes('cost')) {
+                            botResponse = "Our pricing is customized to your unique needs. Please fill out the contact form for a personalized consultation!";
+                        } else if (userMessage.toLowerCase().includes('process')) {
+                            botResponse = "Our process involves Discovery, Planning, Execution, and Optimization. Each step is designed for maximum impact. Check 'Our Path to Success' section!";
+                        }
+                        
+                        botMsgDiv.textContent = botResponse;
+                        chatBody.appendChild(botMsgDiv);
+                        chatBody.scrollTop = chatBody.scrollHeight;
+                    }, 800);
+                }
+            };
+
+            chatSend.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
+        // --- Video Testimonial Modal Logic ---
+        const playButtons = document.querySelectorAll('.play-button');
+        const videoModal = document.getElementById('videoModal');
+        const videoModalClose = document.querySelector('.video-modal-close');
+        const videoIframe = document.getElementById('videoIframe');
+
+        if (playButtons.length > 0 && videoModal && videoModalClose && videoIframe) {
+            playButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const videoUrl = button.getAttribute('data-video-url');
+                    videoIframe.src = videoUrl;
+                    videoModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+                });
+            });
+
+            videoModalClose.addEventListener('click', () => {
+                videoModal.classList.remove('active');
+                videoIframe.src = ''; // Stop video playback
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+
+            videoModal.addEventListener('click', (e) => {
+                if (e.target === videoModal) {
+                    videoModal.classList.remove('active');
+                    videoIframe.src = '';
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // --- Micro-Learning Modules Logic ---
+        const learnModuleLinks = document.querySelectorAll('.learn-module-link');
+        const moduleModal = document.getElementById('moduleModal');
+        const moduleCloseButton = document.querySelector('.module-close-button');
+        const moduleTitle = document.getElementById('moduleTitle');
+        const moduleContent = document.getElementById('moduleContent');
+        const completeModuleBtn = document.getElementById('completeModuleBtn');
+
+        const modules = {
+            'seo-keywords': {
+                title: 'SEO Basics: Keyword Research',
+                content: `
+                    <p><strong>Step 1: Understand User Intent.</strong> What are people really searching for when they type a query? Are they looking to buy, learn, or compare?</p>
+                    <p><strong>Step 2: Brainstorm Seed Keywords.</strong> Start with broad terms related to your business or industry. Think like your customer.</p>
+                    <p><strong>Step 3: Use Keyword Research Tools.</strong> Tools like Google Keyword Planner, SEMrush, Ahrefs help find related terms, search volume, and competition.</p>
+                    <p><strong>Step 4: Analyze Long-Tail Keywords.</strong> These are longer, more specific phrases that often have lower competition and higher conversion rates.</p>
+                    <p><strong>Step 5: Competitor Keyword Analysis.</strong> See what keywords your competitors are ranking for and identify gaps or opportunities.</p>
+                    <p class="mt-4"><em>Congratulations! You've completed the first module. Stay tuned for more!</em></p>
+                `
+            },
+            'ppc-copywriting': {
+                title: 'PPC Fundamentals: Ad Copywriting',
+                content: `
+                    <p><strong>1. Highlight Your Unique Selling Proposition (USP):</strong> What makes you different? Clearly state your benefits.</p>
+                    <p><strong>2. Use Strong Call-to-Actions (CTAs):</strong> Tell users exactly what to do (e.g., "Shop Now," "Get a Quote," "Learn More").</p>
+                    <p><strong>3. Include Keywords Naturally:</strong> Integrate your target keywords in the ad text for relevance.</p>
+                    <p><strong>4. Address Pain Points:</strong> Show empathy and how your solution solves their problems.</p>
+                    <p><strong>5. A/B Test Everything:</strong> Continuously test different headlines, descriptions, and CTAs to optimize performance.</p>
+                    <p class="mt-4"><em>Well done! Keep practicing your ad copywriting skills.</em></p>
+                `
+            },
+            'smm-engagement': {
+                title: 'Social Media: Engagement Hacks',
+                content: `
+                    <p><strong>1. Ask Questions:</strong> Encourage comments and discussions. Open-ended questions work best.</p>
+                    <p><strong>2. Run Polls & Quizzes:</strong> Interactive content boosts participation and provides insights.</p>
+                    <p><strong>3. Go Live:</strong> Live videos often get higher engagement and allow for real-time interaction.</p>
+                    <p><strong>4. Respond to Comments & DMs:</strong> Show your audience you're listening and value their input.</p>
+                    <p><strong>5. User-Generated Content (UGC):</strong> Encourage customers to share their experiences and feature their content.</p>
+                    <p class="mt-4"><em>Fantastic! You're now equipped with engagement hacks for social media.</em></p>
+                `
+            }
+        };
+
+        if (learnModuleLinks.length > 0 && moduleModal && moduleCloseButton && moduleTitle && moduleContent) {
+            learnModuleLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const moduleId = link.getAttribute('data-module');
+                    const module = modules[moduleId];
+
+                    if (module) {
+                        moduleTitle.textContent = module.title;
+                        moduleContent.innerHTML = module.content;
+                        moduleModal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                        completeModuleBtn.style.display = 'block'; // Show complete button
+                    }
+                });
+            });
+
+            moduleCloseButton.addEventListener('click', () => {
+                moduleModal.classList.remove('active');
+                document.body.style.overflow = '';
+                completeModuleBtn.style.display = 'none'; // Hide button on close
+            });
+
+            moduleModal.addEventListener('click', (e) => {
+                if (e.target === moduleModal) {
+                    moduleModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                    completeModuleBtn.style.display = 'none';
+                }
+            });
+
+            completeModuleBtn.addEventListener('click', () => {
+                alert('Module marked as complete! Look out for more advanced topics coming soon.');
+                moduleModal.classList.remove('active');
+                document.body.style.overflow = '';
+                completeModuleBtn.style.display = 'none';
+            });
+        }
+
+        // --- Interactive Innovator Profiles ---
+        const innovatorCards = document.querySelectorAll('.innovator-card');
+
+        innovatorCards.forEach(card => {
+            // Store original background and border for hover effect restore
+            const originalBg = card.style.backgroundColor;
+            const originalBorder = card.style.borderColor;
+
+            card.addEventListener('mouseenter', () => {
+                // Add a subtle effect on hover for visual feedback
+                card.style.transform = 'translateY(-8px) scale(1.02)';
+                card.style.boxShadow = '0 12px 25px rgba(0,0,0,0.2)';
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Restore original state
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = '0 8px 20px rgba(0,0,0,0.15)';
+            });
+
+            card.addEventListener('click', () => {
+                // In a real scenario, this would open a modal with more details
+                // For now, let's just log and show a subtle alert
+                const name = card.querySelector('h3').textContent;
+                const role = card.querySelector('.role').textContent;
+                
+                // Simulate opening a detailed profile modal/page
+                alert(`Clicked on ${name}, our ${role}.\n\n(This would open a detailed profile page/modal with their full bio, philosophy, and contributions.)`);
+            });
+        });
+
+        // --- Digital Footprint Analysis Logic (Simulated) ---
+        const footprintAnalysisForm = document.getElementById('footprintAnalysisForm');
+        const footprintResults = document.getElementById('footprintResults');
+        const speedScoreSpan = document.getElementById('speedScore');
+        const seoHealthSpan = document.getElementById('seoHealth');
+        const socialPresenceSpan = document.getElementById('socialPresence');
+        const mobileResponsiveSpan = document.getElementById('mobileResponsive');
+
+        if (footprintAnalysisForm && footprintResults) {
+            footprintAnalysisForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                const websiteUrl = document.getElementById('websiteUrl').value.trim();
+                const footprintEmail = document.getElementById('footprintEmail').value.trim();
+
+                if (!websiteUrl || !footprintEmail) {
+                    alert('Please enter your website URL and email.');
+                    return;
+                }
+                
+                footprintResults.style.display = 'none'; // Hide previous results
+                alert('Generating your report. Please check your email in a moment!'); // User friendly message
+
+                // Simulate analysis
+                setTimeout(() => {
+                    const speed = Math.floor(Math.random() * (95 - 60 + 1)) + 60; // 60-95
+                    const seo = ['Good', 'Fair', 'Needs Improvement'][Math.floor(Math.random() * 3)];
+                    const social = ['Active', 'Moderate', 'Limited'][Math.floor(Math.random() * 3)];
+                    const mobile = ['Excellent', 'Good', 'Adequate'][Math.floor(Math.random() * 3)];
+
+                    speedScoreSpan.textContent = `${speed}/100`;
+                    seoHealthSpan.textContent = seo;
+                    socialPresenceSpan.textContent = social;
+                    mobileResponsiveSpan.textContent = mobile;
+
+                    footprintResults.style.display = 'block';
+                    footprintAnalysisForm.reset(); // Clear form
+                }, 1500); // Simulate processing time
+            });
+        }
+
+        // --- Trends Compass Tab Logic ---
+        const trendTabButtons = document.querySelectorAll('.trend-tab-button');
+        const trendTabPanes = document.querySelectorAll('.trend-tab-pane');
+        const trendPanesWrapper = document.querySelector('.trend-panes-wrapper');
+
+
+        function showTrendTab(tabId) {
+            // First, hide all panes and reset their positioning
+            trendTabPanes.forEach(pane => {
+                pane.classList.remove('active');
+                pane.style.display = 'none'; // Hide completely
+                pane.style.opacity = '0'; // Reset opacity for fade-in
+                pane.style.transform = 'translateY(20px)'; // Reset transform for slide-in
+            });
+
+            // Then, show the active pane and make it take up space
+            const activePane = document.getElementById(tabId);
+            if (activePane) {
+                activePane.style.display = 'flex'; // Show it
+                // Force reflow to ensure transition
+                void activePane.offsetWidth; 
+                activePane.classList.add('active'); // Add active class to trigger transitions
+            }
+
+            // Update active button styling
+            trendTabButtons.forEach(button => {
+                if (button.dataset.tab === tabId) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+        // Set initial active tab
+        if (trendTabButtons.length > 0) {
+            showTrendTab(trendTabButtons[0].dataset.tab);
+        }
+
+        trendTabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                showTrendTab(button.dataset.tab);
+            });
+        });
+
+        // --- Scroll to Top Button Logic ---
+        const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { // Show button after scrolling 300px down
+                scrollToTopBtn.classList.add('show');
+            } else {
+                scrollToTopBtn.classList.remove('show');
+            }
+        });
+
+        scrollToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // Smooth scroll to top
+            });
+        });
+
+    });
     </script>
 </body>
 </html>
