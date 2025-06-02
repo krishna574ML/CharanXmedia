@@ -761,25 +761,25 @@
             .hero-main-headline {
                 font-size: 2.5rem;
                 white-space: normal; /* Allow wrapping on small screens */
+                line-height: 1.3; /* Adjust line height for stacked text */
+                height: auto; /* Allow height to adjust dynamically */
             }
-            .hero-supporting-headline {
-                font-size: 1.1rem;
-            }
-            #contact .content-card {
-                flex-direction: column;
-            }
-            .contact-info {
-                border-radius: 12px 12px 0 0;
-            }
+
             #strategy-text, #success-text {
-                display: block; /* Ensure they stack if needed on small screens */
-                text-align: center;
-                /* Adjust transform for mobile if needed for better stacking */
-                transform: translateX(0) !important; /* Override slide animation for stacking */
-                opacity: 1 !important; /* Ensure visibility if stacking */
-                animation: none !important; /* Disable slide animation on small screens */
+                display: block; /* Stack them vertically */
+                text-align: center; /* Center each line */
+                transform: translateY(0); /* Ensure no initial horizontal transform for mobile */
+                opacity: 0; /* Keep initial opacity 0 for animation */
+                animation: fadeInUp 0.8s ease forwards; /* Use simple fade-in-up for mobile */
             }
-            /* Re-enable a simple fade-in for the combined headline on mobile */
+
+            #strategy-text {
+                animation-delay: 0.5s; /* Keep original delay */
+            }
+            #success-text {
+                animation-delay: 0.7s; /* Keep original delay */
+            }
+            /* The JS will then replace this with #final-charanx-text which has slideDownFadeIn */
             .hero-main-headline #final-charanx-text {
                 animation: slideDownFadeIn 1s ease forwards; /* Use slideDownFadeIn on mobile too */
             }
@@ -1380,7 +1380,7 @@
             function handleHeadlinePartAnimationEnd() {
                 animationsCompleted++;
                 if (animationsCompleted === totalHeadlineAnimations) {
-                    // All headline parts have finished sliding in
+                    // All headline parts have finished sliding in (or fading in on mobile)
                     // Now, replace the content and animate the final text
                     mainHeadlineElement.innerHTML = '<span id="final-charanx-text" style="display: inline-block;">Charan<span class="highlight-x">X</span> Solutions</span>';
                     const finalHeadlineSpan = mainHeadlineElement.querySelector('#final-charanx-text');
@@ -1562,10 +1562,8 @@
                 }
             }
 
-            function animateRobot() { // Renamed to animateScene or similar if no robot
-                requestAnimationFrame(animateRobot);
-
-                // Removed robot animation logic
+            function animateScene() { // Renamed from animateRobot for clarity
+                requestAnimationFrame(animateScene);
 
                 // Animate particles (e.g., subtle movement)
                 if (particles) {
@@ -1580,7 +1578,7 @@
 
             // Initialize and start Three.js animation after DOM content is loaded
             initThreeJS();
-            animateRobot();
+            animateScene(); // Call the renamed function
         });
     </script>
 </body>
