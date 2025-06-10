@@ -92,7 +92,7 @@
         /* Card Hover Effect */
         .info-card {
             background: rgba(30, 30, 30, 0.5); /* Darker, less saturated base */
-            border: 1px solid rgba(255, 77, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -101,7 +101,7 @@
         .info-card:hover {
             transform: translateY(-10px) scale(1.02);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.2);
+            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.1);
         }
         
         /* Contact Form Input Styling */
@@ -548,7 +548,7 @@
                 const renderScene = new THREE.RenderPass( scene, camera );
                 const bloomPass = new THREE.UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
                 bloomPass.threshold = 0;
-                bloomPass.strength = 1.2; // The glow intensity
+                bloomPass.strength = 1.0; // Adjusted bloom strength for white
                 bloomPass.radius = 0.5;
                 composer = new THREE.EffectComposer( renderer );
                 composer.addPass( renderScene );
@@ -560,16 +560,15 @@
 
                 // The Core
                 const coreGeometry = new THREE.IcosahedronGeometry(0.5, 1);
-                const coreMaterial = new THREE.MeshBasicMaterial({ color: 0xFF4D00 });
+                const coreMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // CHANGED TO WHITE
                 core = new THREE.Mesh(coreGeometry, coreMaterial);
                 gyroGroup.add(core);
 
                 // The Rings
                 const ringCount = 5;
                 for(let i = 0; i < ringCount; i++) {
-                    const isOrange = i % 2 === 0;
                     const ringGeometry = new THREE.TorusGeometry(2 + i * 0.7, 0.05, 16, 100);
-                    const ringMaterial = new THREE.MeshBasicMaterial({ color: isOrange ? 0xFF4D00 : 0xFFB800 });
+                    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // CHANGED TO WHITE
                     const ring = new THREE.Mesh(ringGeometry, ringMaterial);
                     
                     // Set initial disassembled state
