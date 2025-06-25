@@ -31,20 +31,27 @@
                     <a href="#">DEMO</a>
                 </div>
                 <nav class="main-nav">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#showcase" class="nav-link">Showcase</a>
-                    <a href="#testimonials" class="nav-link">Reviews</a>
-                    
-                    <!-- AMAZING THING #5: MOVED COLOR CUSTOMIZER -->
-                    <div id="color-palette" class="color-palette">
-                        <button class="color-swatch active" data-color="#A855F7" style="background-color: #A855F7;"></button>
-                        <button class="color-swatch" data-color="#EF4444" style="background-color: #EF4444;"></button>
-                        <button class="color-swatch" data-color="#3B82F6" style="background-color: #3B82F6;"></button>
-                        <button class="color-swatch" data-color="#10B981" style="background-color: #10B981;"></button>
-                        <button class="color-swatch" data-color="#F59E0B" style="background-color: #F59E0B;"></button>
-                    </div>
+                    <!-- This container holds all nav elements for mobile styling -->
+                    <div id="nav-content" class="nav-content">
+                        <a href="#features" class="nav-link">Features</a>
+                        <a href="#showcase" class="nav-link">Showcase</a>
+                        <a href="#testimonials" class="nav-link">Reviews</a>
+                        
+                        <!-- AMAZING THING #5: COLOR CUSTOMIZER -->
+                        <div id="color-palette" class="color-palette">
+                            <button class="color-swatch active" data-color="#A855F7" style="background-color: #A855F7;"></button>
+                            <button class="color-swatch" data-color="#EF4444" style="background-color: #EF4444;"></button>
+                            <button class="color-swatch" data-color="#3B82F6" style="background-color: #3B82F6;"></button>
+                            <button class="color-swatch" data-color="#10B981" style="background-color: #10B981;"></button>
+                            <button class="color-swatch" data-color="#F59E0B" style="background-color: #F59E0B;"></button>
+                        </div>
 
-                    <a href="#" class="btn btn-primary nav-btn">Create Your Invite</a>
+                        <a href="#" class="btn btn-primary nav-btn">Create Your Invite</a>
+                    </div>
+                    <!-- MOBILE HAMBURGER MENU BUTTON -->
+                    <button id="menu-toggle" class="menu-toggle" aria-label="Open menu">
+                        <i data-lucide="menu"></i>
+                    </button>
                 </nav>
             </div>
         </div>
@@ -181,7 +188,7 @@
             </div>
             
             <div class="footer-links">
-                 <!-- The theme customizer was here -->
+                 <!-- Empty as the theme customizer was moved -->
             </div>
             
             <div class="footer-social">
