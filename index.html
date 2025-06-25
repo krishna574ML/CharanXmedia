@@ -1,30 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InviteCrafter | The Future of Digital Invitations</title>
-    
-    <!-- Google Fonts: Poppins & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Main Script -->
-    <script src="js/main.js" defer></script>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEMO | Digital Video Invitation Maker</title>
 
-    <!-- ============================================= -->
-    <!-- === HEADER & NAVIGATION === -->
-    <!-- ============================================= -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js" defer></script>
+  </head>
+
+  <body>
     <header class="site-header">
+<<<<<<< HEAD
         <div class="container">
             <div class="header-content">
                 <div class="logo">
@@ -56,10 +52,48 @@
                 </nav>
             </div>
         </div>
+=======
+      <div class="container header-content">
+        <a class="logo" href="#">DEMO</a>
+        <nav class="main-nav">
+          <a class="nav-link" href="#categories">Invitations</a>
+          <a class="nav-link" href="#how-it-works">How It Works</a>
+          <a class="btn btn-primary" href="#video-creator"
+            >Create Your Invitation</a
+          >
+        </nav>
+      </div>
+>>>>>>> temp-latest-code
     </header>
 
-    <main>
+    <section id="hero" class="hero-section">
+      <div class="hero-3d-animation">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            Digital Video Invitation Maker
+          </h1>
+          <p class="hero-subtitle">
+            Create stunning and personalized video invitations and digital cards
+            for your special occasions. Unleash your creativity with our easy to
+            use tools.
+          </p>
+          <a href="#video-creator" class="btn btn-secondary">Get Started</a>
+        </div>
+        <div class="hero-visual">
+          <img src="images/invite-preview.png" alt="Invitation preview" />
+        </div>
+      </div>
+    </section>
 
+<<<<<<< HEAD
         <!-- ============================================= -->
         <!-- === HERO SECTION === -->
         <!-- ============================================= -->
@@ -214,13 +248,116 @@
                     <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
                     <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
                 </div>
+=======
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <header class="section-header">
+                <h2>Browse Most Loved Categories</h2>
+                <p>Use your own photos, texts, and event details. Download and share it with your loved ones.</p>
+            </header>
+            <div class="category-grid">
+                <div class="category-card">Wedding</div>
+                <div class="category-card">Birthday</div>
+                <div class="category-card">House Warming</div>
+                <div class="category-card">Baby Shower</div>
+>>>>>>> temp-latest-code
             </div>
         </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <header class="section-header">
+                <h2>4 Simple Steps to Create Your Video Invitation</h2>
+            </header>
+            <div class="steps-grid">
+                <div class="step">Select a video from 1000+ beautiful designs.</div>
+                <div class="step">Upload your images.</div>
+                <div class="step">Fill in text and event details.</div>
+                <div class="step">Get your video invitation in minutes.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-creator" class="video-creator-section">
+      <div class="container creator-wrapper">
+        <header class="section-header">
+          <h2>Create Your Own Invitation</h2>
+          <p>
+            Fill in the details below to generate a preview of your animated
+            invitation.
+          </p>
+        </header>
+
+        <form class="creator-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="bride-name">Name 1</label>
+            <input type="text" id="bride-name" placeholder="Enter first name" />
+          </div>
+
+          <div class="form-group">
+            <label for="groom-name">Name 2</label>
+            <input type="text" id="groom-name" placeholder="Enter second name" />
+          </div>
+
+          <div class="form-group">
+            <label for="event-date">Event Date</label>
+            <input type="text" id="event-date" placeholder="e.g., December 25, 2025" />
+          </div>
+
+          <button id="generate-video-btn" class="btn btn-primary" type="button">
+            <i data-lucide="play"></i> Generate Preview
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <div id="video-modal" class="video-modal" role="dialog" aria-modal="true">
+      <div class="video-screen">
+        <div id="video-text-bride" class="video-text">Name 1</div>
+        <div id="video-text-groom" class="video-text">Name 2</div>
+        <div id="video-text-date" class="video-text video-text-small">
+          December 25, 2025
+        </div>
+
+        <div class="video-progress-bar">
+          <div id="video-progress" class="video-progress"></div>
+        </div>
+
+        <button
+          id="music-control-btn"
+          class="music-control-btn"
+          aria-label="Mute/Unmute Music"
+        >
+          <i data-lucide="volume-2"></i>
+        </button>
+        <audio
+          id="video-music"
+          src="https://cdn.pixabay.com/audio/2023/02/10/audio_12c6b2b7b6.mp3"
+          preload="auto"
+          loop
+        ></audio>
+      </div>
+
+      <div id="modal-controls" class="modal-controls"></div>
+
+      <button
+        id="modal-close-btn"
+        class="modal-close-btn"
+        aria-label="Close"
+      >
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <footer class="site-footer" id="about">
+      <div class="container footer-content">
+        <p>© 2025 DEMO — Create memorable moments.</p>
+      </div>
     </footer>
 
-    <!-- Initialize Lucide Icons -->
     <script>
-        lucide.createIcons();
+      lucide.createIcons();
     </script>
-</body>
+  </body>
 </html>
