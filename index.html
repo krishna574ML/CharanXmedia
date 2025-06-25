@@ -1,203 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InviteCrafter | The Future of Digital Invitations</title>
-    
-    <!-- Google Fonts: Poppins & Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Lucide Icons -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DEMO | Digital Video Invitation Maker</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Main Script -->
+
+    <link rel="stylesheet" href="css/style.css" />
     <script src="js/main.js" defer></script>
-</head>
-<body>
+  </head>
 
-    <!-- ============================================= -->
-    <!-- === HEADER & NAVIGATION === -->
-    <!-- ============================================= -->
+  <body>
     <header class="site-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="#">InviteCrafter</a>
-                </div>
-                <nav class="main-nav">
-                    <a href="#features" class="nav-link">Features</a>
-                    <a href="#showcase" class="nav-link">Showcase</a>
-                    <a href="#testimonials" class="nav-link">Reviews</a>
-                    
-                    <!-- AMAZING THING #5: MOVED COLOR CUSTOMIZER -->
-                    <div id="color-palette" class="color-palette">
-                        <button class="color-swatch active" data-color="#A855F7" style="background-color: #A855F7;"></button>
-                        <button class="color-swatch" data-color="#EF4444" style="background-color: #EF4444;"></button>
-                        <button class="color-swatch" data-color="#3B82F6" style="background-color: #3B82F6;"></button>
-                        <button class="color-swatch" data-color="#10B981" style="background-color: #10B981;"></button>
-                        <button class="color-swatch" data-color="#F59E0B" style="background-color: #F59E0B;"></button>
-                    </div>
-
-                    <a href="#" class="btn btn-primary nav-btn">Create Your Invite</a>
-                </nav>
-            </div>
-        </div>
+      <div class="container header-content">
+        <a class="logo" href="#">DEMO</a>
+        <nav class="main-nav">
+          <a class="nav-link" href="#categories">Invitations</a>
+          <a class="nav-link" href="#how-it-works">How It Works</a>
+          <a class="btn btn-primary" href="#video-creator"
+            >Create Your Invitation</a
+          >
+        </nav>
+      </div>
     </header>
 
-    <main>
+    <section id="hero" class="hero-section">
+      <div class="hero-3d-animation">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1 class="hero-title">
+            Digital Video Invitation Maker
+          </h1>
+          <p class="hero-subtitle">
+            Create stunning and personalized video invitations and digital cards
+            for your special occasions. Unleash your creativity with our easy to
+            use tools.
+          </p>
+          <a href="#video-creator" class="btn btn-secondary">Get Started</a>
+        </div>
+        <div class="hero-visual">
+          <img src="images/invite-preview.png" alt="Invitation preview" />
+        </div>
+      </div>
+    </section>
 
-        <!-- ============================================= -->
-        <!-- === HERO SECTION === -->
-        <!-- ============================================= -->
-        <section id="hero" class="hero-section">
-            <div class="container hero-container">
-                <div class="hero-content">
-                    <h1 class="hero-title">Design Invitations That Inspire</h1>
-                    <p class="hero-subtitle">Go beyond static cards. Create fluid, animated, and unforgettable digital experiences for your guests.</p>
-                    
-                    <!-- AMAZING THING #1: INTERACTIVE EVENT SELECTOR -->
-                    <div class="event-selector">
-                        <p>What's the occasion?</p>
-                        <div class="event-icons">
-                            <button class="event-icon active" data-event="wedding" data-accent="#A855F7">
-                                <i data-lucide="gem"></i><span>Wedding</span>
-                            </button>
-                            <button class="event-icon" data-event="birthday" data-accent="#EF4444">
-                                <i data-lucide="cake"></i><span>Birthday</span>
-                            </button>
-                            <button class="event-icon" data-event="corporate" data-accent="#3B82F6">
-                                <i data-lucide="briefcase"></i><span>Corporate</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div id="hero-card" class="hero-invitation-card">
-                        <img id="hero-card-image" src="https://placehold.co/400x600/1e1b2f/ffffff?text=Elegant+Wedding" alt="Digital wedding invitation">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================= -->
-        <!-- === AMAZING THING #2: "BEFORE & AFTER" SLIDER === -->
-        <!-- ============================================= -->
-        <section id="showcase" class="showcase-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>From Template to Treasure</h2>
-                    <p>Our intuitive editor lets you transform beautiful templates into personal masterpieces.</p>
-                </div>
-                <div id="comparison-slider" class="comparison-slider">
-                    <div class="comparison-item before">
-                        <img src="https://placehold.co/1200x800/e0e0e0/b0b0b0?text=Generic+Template" alt="Before customization">
-                        <div class="label">Before</div>
-                    </div>
-                    <div class="comparison-item after">
-                        <img src="https://placehold.co/1200x800/2c3e50/ffffff?text=Your+Masterpiece" alt="After customization">
-                        <div class="label">After</div>
-                    </div>
-                    <div class="slider-handle"><i data-lucide="grip-vertical"></i></div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- ============================================= -->
-        <!-- === FEATURES SECTION === -->
-        <!-- ============================================= -->
-        <section id="features" class="features-section">
-            <div class="container features-container">
-                <div class="feature-item">
-                    <i data-lucide="smartphone"></i>
-                    <h3>Fully Responsive Design</h3>
-                    <p>Your invitations look flawless on any device, from large desktops to the smallest phones.</p>
-                </div>
-                <div class="feature-item">
-                    <i data-lucide="calendar-plus"></i>
-                    <h3>One-Click Calendar</h3>
-                    <p>Guests can instantly add your event details to their Google Calendar or iCal.</p>
-                </div>
-                <!-- AMAZING THING #3: LIVE RSVP COUNTER -->
-                <div class="feature-item live-feature">
-                    <div class="live-indicator"></div>
-                    <h3>Live RSVP Tracking</h3>
-                    <p>Watch responses roll in with our real-time dashboard. <span id="rsvp-counter" class="rsvp-counter">142</span> guests attending!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ============================================= -->
-        <!-- === AMAZING THING #4: TESTIMONIALS === -->
-        <!-- ============================================= -->
-        <section id="testimonials" class="testimonials-section">
-            <div class="section-header">
-                <h2>Loved by Event Planners</h2>
-                <p>See what our happy customers have to say about their creations.</p>
-            </div>
-            <div class="testimonial-scroller">
-                <div class="testimonial-track">
-                    <!-- Testimonials will be dynamically duplicated by JS for infinite scroll -->
-                    <div class="testimonial-card">
-                        <p>"The most beautiful and easy-to-use invitation maker I've ever found. Our guests were blown away!"</p>
-                        <span>- Sarah L. | Wedding</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>"Managing RSVPs for our corporate event was a breeze. The live tracking feature is a game-changer."</p>
-                        <span>- David C. | Tech Co.</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>"I'm not a designer, but InviteCrafter made me feel like one. The results were stunning."</p>
-                        <span>- Emily R. | Birthday Party</span>
-                    </div>
-                     <div class="testimonial-card">
-                        <p>"A modern solution for a modern world. Eco-friendly, stylish, and incredibly effective."</p>
-                        <span>- Michael B. | Anniversary</span>
-                    </div>
-                    <div class="testimonial-card">
-                        <p>"Finally, an invitation platform that understands aesthetics. The animations are so fluid and elegant."</p>
-                        <span>- Chloe T. | Art Gala</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ============================================= -->
-    <!-- === FOOTER === -->
-    <!-- ============================================= -->
-    <footer class="site-footer">
-        <div class="container footer-container">
-            <div class="footer-about">
-                <h4>InviteCrafter</h4>
-                <p>Crafting memories, one invitation at a time.</p>
-                <p class="copyright">&copy; 2025 InviteCrafter. All Rights Reserved.</p>
-            </div>
-            
-            <div class="footer-links">
-                 <!-- The theme customizer was here -->
-            </div>
-            
-            <div class="footer-social">
-                <h4>Connect</h4>
-                <div class="social-icons">
-                    <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
-                    <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
-                    <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
-                </div>
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <header class="section-header">
+                <h2>Browse Most Loved Categories</h2>
+                <p>Use your own photos, texts, and event details. Download and share it with your loved ones.</p>
+            </header>
+            <div class="category-grid">
+                <div class="category-card">Wedding</div>
+                <div class="category-card">Birthday</div>
+                <div class="category-card">House Warming</div>
+                <div class="category-card">Baby Shower</div>
             </div>
         </div>
+    </section>
+
+    <section id="how-it-works" class="how-it-works-section">
+        <div class="container">
+            <header class="section-header">
+                <h2>4 Simple Steps to Create Your Video Invitation</h2>
+            </header>
+            <div class="steps-grid">
+                <div class="step">Select a video from 1000+ beautiful designs.</div>
+                <div class="step">Upload your images.</div>
+                <div class="step">Fill in text and event details.</div>
+                <div class="step">Get your video invitation in minutes.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="video-creator" class="video-creator-section">
+      <div class="container creator-wrapper">
+        <header class="section-header">
+          <h2>Create Your Own Invitation</h2>
+          <p>
+            Fill in the details below to generate a preview of your animated
+            invitation.
+          </p>
+        </header>
+
+        <form class="creator-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="bride-name">Name 1</label>
+            <input type="text" id="bride-name" placeholder="Enter first name" />
+          </div>
+
+          <div class="form-group">
+            <label for="groom-name">Name 2</label>
+            <input type="text" id="groom-name" placeholder="Enter second name" />
+          </div>
+
+          <div class="form-group">
+            <label for="event-date">Event Date</label>
+            <input type="text" id="event-date" placeholder="e.g., December 25, 2025" />
+          </div>
+
+          <button id="generate-video-btn" class="btn btn-primary" type="button">
+            <i data-lucide="play"></i> Generate Preview
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <div id="video-modal" class="video-modal" role="dialog" aria-modal="true">
+      <div class="video-screen">
+        <div id="video-text-bride" class="video-text">Name 1</div>
+        <div id="video-text-groom" class="video-text">Name 2</div>
+        <div id="video-text-date" class="video-text video-text-small">
+          December 25, 2025
+        </div>
+
+        <div class="video-progress-bar">
+          <div id="video-progress" class="video-progress"></div>
+        </div>
+
+        <button
+          id="music-control-btn"
+          class="music-control-btn"
+          aria-label="Mute/Unmute Music"
+        >
+          <i data-lucide="volume-2"></i>
+        </button>
+        <audio
+          id="video-music"
+          src="https://cdn.pixabay.com/audio/2023/02/10/audio_12c6b2b7b6.mp3"
+          preload="auto"
+          loop
+        ></audio>
+      </div>
+
+      <div id="modal-controls" class="modal-controls"></div>
+
+      <button
+        id="modal-close-btn"
+        class="modal-close-btn"
+        aria-label="Close"
+      >
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <footer class="site-footer" id="about">
+      <div class="container footer-content">
+        <p>© 2025 DEMO — Create memorable moments.</p>
+      </div>
     </footer>
 
-    <!-- Initialize Lucide Icons -->
     <script>
-        lucide.createIcons();
+      lucide.createIcons();
     </script>
-</body>
+  </body>
 </html>
