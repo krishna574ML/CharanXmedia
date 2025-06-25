@@ -3,410 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CharanX Solutions - Experience the Future of Digital Growth</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- GSAP (GreenSock Animation Platform) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-
-    <!-- Three.js and Post-processing for Bloom Effect (STABLE LOADING METHOD) -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-    
-    <!-- Font Awesome for Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <title>InviteCrafter | The Future of Digital Invitations</title>
     
     <!-- Google Fonts: Poppins & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <style>
-        /* * ==============================================
-         * VISUAL IDENTITY: "Solar Flare"
-         * ==============================================
-        */
-        :root {
-            --bg-primary: #121212;
-            --bg-secondary: #1E1E1E;
-            --accent-primary: #FF4D00;
-            --accent-secondary: #FFB800;
-            --text-primary: #FFFFFF;
-            --text-secondary: #A0AEC0;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-secondary);
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Poppins', sans-serif;
-            color: var(--text-primary);
-            font-weight: 800;
-        }
-        
-        /* Custom animated gradient text */
-        .animated-gradient-text {
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradient-flow 5s linear infinite;
-        }
-
-        @keyframes gradient-flow {
-            to { background-position: 200% center; }
-        }
-        
-        /* 3D Canvas Styling */
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
-        
-        /* Typing cursor for headline */
-        .typing-cursor::after {
-            content: '_';
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        /* Card Hover Effect */
-        .info-card {
-            background: rgba(30, 30, 30, 0.5); /* Darker, less saturated base */
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .info-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--accent-primary);
-            box-shadow: 0 20px 40px rgba(255, 77, 0, 0.1);
-        }
-        
-        /* Contact Form Input Styling */
-        .form-input {
-            background-color: rgba(30, 30, 30, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            transition: border-color 0.3s ease;
-        }
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent-primary);
-        }
-        
-        /* Global CTA Button Styling */
-        .cta-button {
-            position: relative;
-            background: linear-gradient(90deg, var(--accent-secondary), var(--accent-primary));
-            transition: all 0.3s ease;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .cta-button:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: all 0.5s ease;
-            z-index: -1;
-        }
-        .cta-button:hover:before {
-            left: 100%;
-        }
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 77, 0, 0.2);
-        }
-
-        /* Hide scrollbar */
-        body::-webkit-scrollbar {
-            display: none;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Main Script -->
+    <script src="js/main.js" defer></script>
 </head>
-<body class="bg-gray-900 text-gray-300">
+<body>
 
-    <!-- Header -->
-    <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-black text-white">Charan<span class="text-[var(--accent-primary)]">X</span></h1>
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#services" class="hover:text-white transition-colors duration-300">Services</a>
-                <a href="#process" class="hover:text-white transition-colors duration-300">Process</a>
-                <a href="#contact" class="hover:text-white transition-colors duration-300">Contact</a>
-            </nav>
-            <a href="#contact" class="hidden md:inline-block cta-button text-white font-bold py-3 px-6 rounded-lg">
-                Schedule a Call
-            </a>
-            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- ============================================= -->
+    <!-- === HEADER & NAVIGATION === -->
+    <!-- ============================================= -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="#">InviteCrafter</a>
+                </div>
+                <nav class="main-nav">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#showcase" class="nav-link">Showcase</a>
+                    <a href="#testimonials" class="nav-link">Reviews</a>
+                    
+                    <!-- AMAZING THING #5: MOVED COLOR CUSTOMIZER -->
+                    <div id="color-palette" class="color-palette">
+                        <button class="color-swatch active" data-color="#A855F7" style="background-color: #A855F7;"></button>
+                        <button class="color-swatch" data-color="#EF4444" style="background-color: #EF4444;"></button>
+                        <button class="color-swatch" data-color="#3B82F6" style="background-color: #3B82F6;"></button>
+                        <button class="color-swatch" data-color="#10B981" style="background-color: #10B981;"></button>
+                        <button class="color-swatch" data-color="#F59E0B" style="background-color: #F59E0B;"></button>
+                    </div>
+
+                    <a href="#" class="btn btn-primary nav-btn">Create Your Invite</a>
+                </nav>
+            </div>
         </div>
     </header>
-    <!-- Mobile Menu -->
-    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-[var(--bg-primary)] z-50 flex flex-col items-center justify-center space-y-8 transition-transform duration-300 transform -translate-y-full md:hidden">
-        <button id="close-mobile-menu-btn" class="absolute top-8 right-8 text-white text-3xl">&times;</button>
-        <a href="#services" class="text-2xl text-white">Services</a>
-        <a href="#process" class="text-2xl text-white">Process</a>
-        <a href="#contact" class="text-2xl text-white">Contact</a>
-         <a href="#contact" class="inline-block cta-button text-white font-bold py-3 px-8 rounded-lg text-lg">
-            Schedule a Call
-        </a>
-    </div>
 
     <main>
-        <!-- 
-            ==============================================
-            HERO SECTION: The Digital Architect
-            ==============================================
-        -->
-        <section id="hero" class="relative min-h-screen flex items-center justify-center text-center overflow-hidden">
-            <div id="hero-canvas"></div>
-            <div class="relative z-10 px-6">
-                <h1 id="hero-line-1" class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight">
-                   <!-- Text will be typed here by GSAP -->
-                </h1>
-                <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black animated-gradient-text leading-tight hero-line-2">
-                    Dominate.
-                </h1>
-                <p class="mt-6 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-gray-300 hero-subline">
-                    We are CharanX. We architect elite, data-driven digital strategies that deliver not just clicks, but market leadership and measurable growth.
-                </p>
-                <div class="mt-10 hero-subline">
-                    <a href="#contact" class="cta-button text-white font-bold py-3 px-8 text-base sm:py-4 sm:px-10 sm:text-lg rounded-lg">
-                        Claim Your Growth Strategy <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
 
-        <!-- 
-            ==============================================
-            SERVICES SECTION (UPDATED & EXPANDED)
-            ==============================================
-        -->
-        <section id="services" class="py-20 md:py-32 bg-[var(--bg-secondary)]">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="section-heading text-3xl md:text-5xl font-black text-white">Our Arsenal of <span class="animated-gradient-text">Growth</span></h2>
-                    <p class="section-subheading mt-4 max-w-xl mx-auto text-lg">A suite of services precision-engineered to maximize your digital impact.</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Card 1: Digital Strategy -->
-                    <div class="info-card p-8 rounded-2xl text-center">
-                        <i class="fas fa-chess-king text-4xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Full-Funnel Digital Strategy</h3>
-                        <p>We design comprehensive digital marketing blueprints that attract, engage, and convert your target audience at every touchpoint.</p>
-                    </div>
-                    <!-- Card 2: Social Media -->
-                    <div class="info-card p-8 rounded-2xl text-center">
-                         <i class="fab fa-instagram text-4xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Social Media Domination</h3>
-                        <p>Master Instagram, Facebook, and YouTube with algorithm-focused strategies, expert hashtag research, and marketplace integration.</p>
-                    </div>
-                    <!-- Card 3: Video Production -->
-                    <div class="info-card p-8 rounded-2xl text-center">
-                        <i class="fas fa-video text-4xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Video Content Production</h3>
-                        <p>End-to-end video services, from concept and shooting to professional editing for high-impact Reels and YouTube content.</p>
-                    </div>
-                    <!-- Card 4: SEO -->
-                     <div class="info-card p-8 rounded-2xl text-center">
-                        <i class="fas fa-rocket text-4xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">SEO & Authority Building</h3>
-                        <p>Dominate search rankings with data-driven strategies that build sustainable organic traffic and brand authority.</p>
-                    </div>
-                    <!-- Card 5: PPC -->
-                    <div class="info-card p-8 rounded-2xl text-center">
-                         <i class="fas fa-bullseye text-4xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Performance PPC & Ads</h3>
-                        <p>Maximize ROI with hyper-targeted pay-per-click campaigns on Google, Facebook, and other high-value platforms.</p>
-                    </div>
-                    <!-- Card 6: Web Design -->
-                    <div class="info-card p-8 rounded-2xl text-center">
-                        <i class="fas fa-desktop text-4xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Conversion-Focused Websites</h3>
-                        <p>We build stunning, high-performance websites engineered from the ground up to convert visitors into loyal customers.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 
-            ==============================================
-            OUR PROCESS SECTION
-            ==============================================
-        -->
-        <section id="process" class="py-20 md:py-32 bg-[var(--bg-primary)]">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="section-heading text-3xl md:text-5xl font-black text-white">Our Strategic <span class="animated-gradient-text">Process</span></h2>
-                    <p class="section-subheading mt-4 max-w-xl mx-auto text-lg">A transparent, four-step methodology for predictable, powerful results.</p>
-                </div>
-                <div class="relative max-w-4xl mx-auto">
-                    <!-- The connecting line - HIDDEN on mobile -->
-                    <div class="absolute left-1/2 top-0 h-full w-0.5 bg-gray-700 hidden md:block"></div>
-                    <!-- Process Items - Stack vertically on mobile, grid on medium+ -->
-                    <div class="process-item relative md:grid md:grid-cols-2 md:gap-8 items-center mb-16">
-                        <div class="md:text-right md:pr-8 text-center md:text-right">
-                            <div class="text-5xl font-black text-[var(--accent-secondary)]">01</div>
-                            <h3 class="text-3xl font-bold mt-2">Discovery & Strategy</h3>
-                            <p class="mt-2">We dive deep into your brand, market, and objectives to build a bespoke roadmap for success.</p>
-                        </div>
-                        <div class="flex justify-center md:justify-start mt-4 md:mt-0"><i class="fas fa-search-dollar text-7xl text-gray-700"></i></div>
-                    </div>
-                    <div class="process-item relative md:grid md:grid-cols-2 md:gap-8 items-center mb-16">
-                        <div class="flex justify-center md:justify-end mt-4 md:mt-0 md:order-2"><i class="fas fa-cogs text-7xl text-gray-700"></i></div>
-                        <div class="md:text-left md:pl-8 text-center md:text-left md:order-1">
-                            <div class="text-5xl font-black text-[var(--accent-secondary)]">02</div>
-                            <h3 class="text-3xl font-bold mt-2">Precision Execution</h3>
-                            <p class="mt-2">Our specialists execute the plan with meticulous attention to detail, launching campaigns built to perform.</p>
-                        </div>
-                    </div>
-                     <div class="process-item relative md:grid md:grid-cols-2 md:gap-8 items-center mb-16">
-                        <div class="md:text-right md:pr-8 text-center md:text-right">
-                            <div class="text-5xl font-black text-[var(--accent-secondary)]">03</div>
-                            <h3 class="text-3xl font-bold mt-2">Optimization & Analysis</h3>
-                            <p class="mt-2">We continuously monitor, test, and refine every aspect of the campaign, driven by real-time data.</p>
-                        </div>
-                        <div class="flex justify-center md:justify-start mt-4 md:mt-0"><i class="fas fa-chart-line text-7xl text-gray-700"></i></div>
-                    </div>
-                     <div class="process-item relative md:grid md:grid-cols-2 md:gap-8 items-center">
-                        <div class="flex justify-center md:justify-end mt-4 md:mt-0 md:order-2"><i class="fas fa-trophy text-7xl text-gray-700"></i></div>
-                        <div class="md:text-left md:pl-8 text-center md:text-left md:order-1">
-                           <div class="text-5xl font-black text-[var(--accent-secondary)]">04</div>
-                            <h3 class="text-3xl font-bold mt-2">Scale & Dominate</h3>
-                            <p class="mt-2">We leverage success, reinvesting insights to scale your growth and solidify market leadership.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 
-            ==============================================
-            WHY US SECTION
-            ==============================================
-        -->
-        <section id="why-us" class="py-20 md:py-32 bg-[var(--bg-secondary)]">
-             <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="section-heading text-3xl md:text-5xl font-black text-white">The CharanX <span class="animated-gradient-text">Difference</span></h2>
-                    <p class="section-subheading mt-4 max-w-xl mx-auto text-lg">We're not just another agency. We're your strategic growth partner.</p>
-                </div>
-                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div class="info-card p-8 rounded-2xl">
-                        <i class="fas fa-brain text-3xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Data-Driven to the Core</h3>
-                        <p>Every decision, from creative choices to campaign adjustments, is backed by exhaustive data analysis. We eliminate guesswork.</p>
-                    </div>
-                     <div class="info-card p-8 rounded-2xl">
-                        <i class="fas fa-handshake text-3xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Radical Transparency</h3>
-                        <p>You get clear, concise reports and direct access to your team. We believe in partnerships, not smoke and mirrors.</p>
-                    </div>
-                     <div class="info-card p-8 rounded-2xl">
-                        <i class="fas fa-crown text-3xl text-[var(--accent-primary)] mb-4"></i>
-                        <h3 class="text-2xl font-bold mb-3">Obsessed with Results</h3>
-                        <p>We are relentlessly focused on the metrics that matter to your bottom line. Your success is our ultimate KPI.</p>
-                    </div>
-                 </div>
-            </div>
-        </section>
-
-        <!-- 
-            ==============================================
-            CONTACT & INFO SECTION
-            ==============================================
-        -->
-        <section id="contact" class="py-20 md:py-32 bg-[var(--bg-primary)]">
-            <div class="container mx-auto px-6">
-                <div class="text-center mb-16">
-                    <h2 class="section-heading text-3xl md:text-5xl font-black text-white">Ready to <span class="animated-gradient-text">Ascend?</span></h2>
-                    <p class="section-subheading mt-4 max-w-xl mx-auto text-lg">Your journey towards market domination starts here. Let's talk.</p>
-                </div>
-                
-                <div class="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                    <!-- Left Column: Info & Address -->
-                    <div class="contact-info-block">
-                        <h3 class="text-3xl font-bold text-white mb-6">Get In Touch</h3>
-                        <p class="text-lg mb-8">We're ready to build your digital empire. Reach out and let's discuss the future of your brand.</p>
-                        
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <i class="fas fa-map-marker-alt text-2xl text-[var(--accent-primary)] w-8 mt-1"></i>
-                                <div>
-                                    <h4 class="font-bold text-white">Our Headquarters</h4>
-                                    <p>Brodipet 4/10, Near SBI Bank<br>Guntur, Andhra Pradesh</p>
-                                </div>
-                            </div>
-                             <div class="flex items-start">
-                                <i class="fas fa-phone-alt text-2xl text-[var(--accent-primary)] w-8 mt-1"></i>
-                                <div>
-                                    <h4 class="font-bold text-white">Call Us</h4>
-                                    <p>+91 96773 03310</p>
-                                </div>
-                            </div>
-                             <div class="flex items-start">
-                                <i class="fas fa-envelope text-2xl text-[var(--accent-primary)] w-8 mt-1"></i>
-                                <div>
-                                    <h4 class="font-bold text-white">Email Us</h4>
-                                    <p>info@charanx.com</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- ============================================= -->
+        <!-- === HERO SECTION === -->
+        <!-- ============================================= -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Design Invitations That Inspire</h1>
+                    <p class="hero-subtitle">Go beyond static cards. Create fluid, animated, and unforgettable digital experiences for your guests.</p>
                     
-                    <!-- Right Column: Form -->
-                    <div class="contact-form-block">
-                        <form action="#" method="POST" class="space-y-6">
-                            <div>
-                                <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
-                                <input type="text" name="name" id="name" required class="form-input block w-full px-4 py-3 rounded-md text-base" placeholder="John Doe">
-                            </div>
-                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
-                                <input type="email" name="email" id="email" required class="form-input block w-full px-4 py-3 rounded-md text-base" placeholder="you@example.com">
-                            </div>
-                             <div>
-                                <label for="mobile" class="block text-sm font-medium text-gray-300 mb-2">Mobile Number</label>
-                                <input type="tel" name="mobile" id="mobile" required class="form-input block w-full px-4 py-3 rounded-md text-base" placeholder="+91 12345 67890">
-                            </div>
-                             <div>
-                                <label for="message" class="block text-sm font-medium text-gray-300 mb-2">How can we help?</label>
-                                <textarea name="message" id="message" rows="4" class="form-input block w-full px-4 py-3 rounded-md text-base" placeholder="Tell us about your project..."></textarea>
-                            </div>
-                            <div>
-                                <button type="submit" class="cta-button w-full text-white font-bold py-4 px-6 rounded-lg text-lg">
-                                    Send Inquiry
-                                </button>
-                            </div>
-                        </form>
+                    <!-- AMAZING THING #1: INTERACTIVE EVENT SELECTOR -->
+                    <div class="event-selector">
+                        <p>What's the occasion?</p>
+                        <div class="event-icons">
+                            <button class="event-icon active" data-event="wedding" data-accent="#A855F7">
+                                <i data-lucide="gem"></i><span>Wedding</span>
+                            </button>
+                            <button class="event-icon" data-event="birthday" data-accent="#EF4444">
+                                <i data-lucide="cake"></i><span>Birthday</span>
+                            </button>
+                            <button class="event-icon" data-event="corporate" data-accent="#3B82F6">
+                                <i data-lucide="briefcase"></i><span>Corporate</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div id="hero-card" class="hero-invitation-card">
+                        <img id="hero-card-image" src="https://placehold.co/400x600/1e1b2f/ffffff?text=Elegant+Wedding" alt="Digital wedding invitation">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================= -->
+        <!-- === AMAZING THING #2: "BEFORE & AFTER" SLIDER === -->
+        <!-- ============================================= -->
+        <section id="showcase" class="showcase-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>From Template to Treasure</h2>
+                    <p>Our intuitive editor lets you transform beautiful templates into personal masterpieces.</p>
+                </div>
+                <div id="comparison-slider" class="comparison-slider">
+                    <div class="comparison-item before">
+                        <img src="https://placehold.co/1200x800/e0e0e0/b0b0b0?text=Generic+Template" alt="Before customization">
+                        <div class="label">Before</div>
+                    </div>
+                    <div class="comparison-item after">
+                        <img src="https://placehold.co/1200x800/2c3e50/ffffff?text=Your+Masterpiece" alt="After customization">
+                        <div class="label">After</div>
+                    </div>
+                    <div class="slider-handle"><i data-lucide="grip-vertical"></i></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============================================= -->
+        <!-- === FEATURES SECTION === -->
+        <!-- ============================================= -->
+        <section id="features" class="features-section">
+            <div class="container features-container">
+                <div class="feature-item">
+                    <i data-lucide="smartphone"></i>
+                    <h3>Fully Responsive Design</h3>
+                    <p>Your invitations look flawless on any device, from large desktops to the smallest phones.</p>
+                </div>
+                <div class="feature-item">
+                    <i data-lucide="calendar-plus"></i>
+                    <h3>One-Click Calendar</h3>
+                    <p>Guests can instantly add your event details to their Google Calendar or iCal.</p>
+                </div>
+                <!-- AMAZING THING #3: LIVE RSVP COUNTER -->
+                <div class="feature-item live-feature">
+                    <div class="live-indicator"></div>
+                    <h3>Live RSVP Tracking</h3>
+                    <p>Watch responses roll in with our real-time dashboard. <span id="rsvp-counter" class="rsvp-counter">142</span> guests attending!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================= -->
+        <!-- === AMAZING THING #4: TESTIMONIALS === -->
+        <!-- ============================================= -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="section-header">
+                <h2>Loved by Event Planners</h2>
+                <p>See what our happy customers have to say about their creations.</p>
+            </div>
+            <div class="testimonial-scroller">
+                <div class="testimonial-track">
+                    <!-- Testimonials will be dynamically duplicated by JS for infinite scroll -->
+                    <div class="testimonial-card">
+                        <p>"The most beautiful and easy-to-use invitation maker I've ever found. Our guests were blown away!"</p>
+                        <span>- Sarah L. | Wedding</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Managing RSVPs for our corporate event was a breeze. The live tracking feature is a game-changer."</p>
+                        <span>- David C. | Tech Co.</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"I'm not a designer, but InviteCrafter made me feel like one. The results were stunning."</p>
+                        <span>- Emily R. | Birthday Party</span>
+                    </div>
+                     <div class="testimonial-card">
+                        <p>"A modern solution for a modern world. Eco-friendly, stylish, and incredibly effective."</p>
+                        <span>- Michael B. | Anniversary</span>
+                    </div>
+                    <div class="testimonial-card">
+                        <p>"Finally, an invitation platform that understands aesthetics. The animations are so fluid and elegant."</p>
+                        <span>- Chloe T. | Art Gala</span>
                     </div>
                 </div>
             </div>
@@ -414,270 +169,35 @@
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[var(--bg-secondary)] py-12">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2025 CharanX Solutions. All Rights Reserved.</p>
-             <div class="mt-4 flex justify-center space-x-6">
-                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-linkedin fa-lg"></i></a>
-                <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300"><i class="fab fa-twitter fa-lg"></i></a>
+    <!-- ============================================= -->
+    <!-- === FOOTER === -->
+    <!-- ============================================= -->
+    <footer class="site-footer">
+        <div class="container footer-container">
+            <div class="footer-about">
+                <h4>InviteCrafter</h4>
+                <p>Crafting memories, one invitation at a time.</p>
+                <p class="copyright">&copy; 2025 InviteCrafter. All Rights Reserved.</p>
+            </div>
+            
+            <div class="footer-links">
+                 <!-- The theme customizer was here -->
+            </div>
+            
+            <div class="footer-social">
+                <h4>Connect</h4>
+                <div class="social-icons">
+                    <a href="#" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Initialize Lucide Icons -->
     <script>
-        // --- GSAP & ScrollTrigger Registration ---
-        gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-        // --- Main execution block after the window loads ---
-        window.onload = function() {
-            // --- Header Scroll Effect ---
-            const header = document.getElementById('main-header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.style.backgroundColor = 'rgba(18, 18, 18, 0.8)';
-                    header.style.backdropFilter = 'blur(10px)';
-                } else {
-                    header.style.backgroundColor = 'transparent';
-                    header.style.backdropFilter = 'none';
-                }
-            });
-            
-            // --- Mobile Menu Toggle ---
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const closeMobileMenuBtn = document.getElementById('close-mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = mobileMenu.querySelectorAll('a');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.remove('-translate-y-full');
-            });
-
-            closeMobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.add('-translate-y-full');
-            });
-            
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                     mobileMenu.classList.add('-translate-y-full');
-                });
-            });
-
-            // --- GSAP Hero Animation ---
-            gsap.set(".hero-line-2", {y: -50, opacity: 0});
-            gsap.set(".hero-subline", {y: 50, opacity: 0});
-
-            const tl = gsap.timeline({defaults: {ease: "power3.out"}, delay: 0.5});
-            
-            tl.to("#hero-line-1", {
-                text: {
-                    value: "Don't Just Compete.",
-                    newClass: "typing-cursor"
-                },
-                duration: 2,
-                onUpdate: () => {
-                    if(window.chargeCore) window.chargeCore(tl.progress());
-                },
-                onComplete: () => {
-                    document.getElementById('hero-line-1').classList.remove('typing-cursor');
-                    if(window.assembleGyro) window.assembleGyro();
-                }
-            })
-            .to(".hero-line-2", {
-                y: 0,
-                opacity: 1,
-                duration: 1.2,
-                ease: "bounce.out",
-                onStart: () => {
-                    if(window.reactToDominate) window.reactToDominate();
-                }
-            }, "-=0.2")
-            .to(".hero-subline", {
-                y: 0,
-                opacity: 1,
-                duration: 1,
-                stagger: 0.1
-            }, "-=0.5");
-
-
-            // --- GSAP Scroll-Triggered Animations ---
-            gsap.utils.toArray('.section-heading, .section-subheading').forEach(elem => {
-                gsap.from(elem, {
-                    scrollTrigger: { trigger: elem, start: "top 90%", toggleActions: "play none none none" },
-                    opacity: 0, y: 30, duration: 0.8
-                });
-            });
-            gsap.from(".info-card", {
-                scrollTrigger: { trigger: "#services", start: "top 80%", toggleActions: "play none none none" },
-                y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
-            });
-            gsap.from(".process-item", {
-                scrollTrigger: { trigger: "#process", start: "top 70%", toggleActions: "play none none none" },
-                y: 60, opacity: 0, duration: 1, stagger: 0.3, ease: "power3.out"
-            });
-            gsap.from("#why-us .info-card", {
-                scrollTrigger: { trigger: "#why-us", start: "top 80%", toggleActions: "play none none none" },
-                y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out"
-            });
-            gsap.from(".contact-info-block, .contact-form-block", {
-                 scrollTrigger: { trigger: "#contact", start: "top 80%", toggleActions: "play none none none" },
-                y: 50, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out"
-            });
-            
-
-            // --- Three.js Hero Background: The Digital Architect ---
-            let scene, camera, renderer, composer, gyroGroup;
-            let rings = [];
-            let core;
-            let mouseX = 0, mouseY = 0;
-
-            function initThree() {
-                const canvas = document.getElementById('hero-canvas');
-                if (!canvas) return;
-
-                scene = new THREE.Scene();
-                camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-                camera.position.z = 12;
-
-                renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-                renderer.setSize(window.innerWidth, window.innerHeight);
-                renderer.setPixelRatio(window.devicePixelRatio);
-                canvas.appendChild(renderer.domElement);
-
-                // Post-processing for Bloom Effect
-                const renderScene = new THREE.RenderPass( scene, camera );
-                const bloomPass = new THREE.UnrealBloomPass( new THREE.Vector2( window.innerWidth, window.innerHeight ), 1.5, 0.4, 0.85 );
-                bloomPass.threshold = 0;
-                bloomPass.strength = 1.0; // Adjusted bloom strength for white
-                bloomPass.radius = 0.5;
-                composer = new THREE.EffectComposer( renderer );
-                composer.addPass( renderScene );
-                composer.addPass( bloomPass );
-
-                // The Gyroscope
-                gyroGroup = new THREE.Group();
-                scene.add(gyroGroup);
-
-                // The Core
-                const coreGeometry = new THREE.IcosahedronGeometry(0.5, 1);
-                const coreMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // CHANGED TO WHITE
-                core = new THREE.Mesh(coreGeometry, coreMaterial);
-                gyroGroup.add(core);
-
-                // The Rings
-                const ringCount = 5;
-                for(let i = 0; i < ringCount; i++) {
-                    const ringGeometry = new THREE.TorusGeometry(2 + i * 0.7, 0.05, 16, 100);
-                    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff }); // CHANGED TO WHITE
-                    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-                    
-                    // Set initial disassembled state
-                    ring.rotation.x = Math.random() * Math.PI;
-                    ring.rotation.y = Math.random() * Math.PI;
-                    ring.position.x = (Math.random() - 0.5) * 10;
-                    ring.position.y = (Math.random() - 0.5) * 10;
-                    ring.position.z = (Math.random() - 0.5) * 10;
-
-                    rings.push(ring);
-                    gyroGroup.add(ring);
-                }
-                
-                window.addEventListener('resize', onWindowResize, false);
-                document.addEventListener('mousemove', (event) => {
-                    mouseX = (event.clientX - window.innerWidth / 2);
-                    mouseY = (event.clientY - window.innerHeight / 2);
-                });
-
-                animate();
-            }
-            
-            // --- Functions to be called by GSAP ---
-            window.chargeCore = (progress) => {
-                if (core) {
-                    const scale = 1 + progress * 0.5;
-                    core.scale.set(scale, scale, scale);
-                }
-            };
-
-            window.assembleGyro = () => {
-                rings.forEach((ring, i) => {
-                    gsap.to(ring.position, {
-                        x: 0, y: 0, z: 0,
-                        duration: 1.5,
-                        ease: "power4.inOut"
-                    });
-                    gsap.to(ring.rotation, {
-                        x: i % 2 === 0 ? Math.PI / 2 : 0,
-                        y: i % 2 === 0 ? 0 : Math.PI / 2,
-                        z: 0,
-                        duration: 1.5,
-                        ease: "power4.inOut"
-                    });
-                });
-            };
-
-            window.reactToDominate = () => {
-                if(core) {
-                    gsap.to(core.scale, {
-                        x: 3, y: 3, z: 3,
-                        duration: 0.5,
-                        ease: "power3.out",
-                        yoyo: true,
-                        repeat: 1
-                    });
-                }
-                 rings.forEach((ring, i) => {
-                     const targetSpeed = ring.userData.baseRotationSpeed + 1.5;
-                     gsap.to(ring.userData, {
-                         rotationSpeed: targetSpeed,
-                         duration: 0.5,
-                         ease: "power3.out",
-                         onComplete: () => {
-                             gsap.to(ring.userData, {
-                                rotationSpeed: ring.userData.baseRotationSpeed,
-                                duration: 2,
-                                ease: "power3.out"
-                             });
-                         }
-                     });
-                 });
-            }
-
-            function animate() {
-                requestAnimationFrame(animate);
-
-                rings.forEach((ring, i) => {
-                    if(!ring.userData.rotationSpeed) {
-                        ring.userData.baseRotationSpeed = (0.005 + i * 0.002) * (i%2 === 0 ? 1 : -1);
-                        ring.userData.rotationSpeed = ring.userData.baseRotationSpeed;
-                    }
-                    if(i % 2 === 0) {
-                        ring.rotation.x += ring.userData.rotationSpeed;
-                    } else {
-                        ring.rotation.y += ring.userData.rotationSpeed;
-                    }
-                });
-
-                gyroGroup.rotation.y += 0.0005;
-
-                camera.position.x += (mouseX * 0.01 - camera.position.x) * 0.05;
-                camera.position.y += (-mouseY * 0.01 - camera.position.y) * 0.05;
-                camera.lookAt(scene.position);
-                
-                if (composer) composer.render();
-            }
-
-            function onWindowResize() {
-                if (camera) {
-                    camera.aspect = window.innerWidth / window.innerHeight;
-                    camera.updateProjectionMatrix();
-                }
-                if (renderer) renderer.setSize(window.innerWidth, window.innerHeight);
-                if (composer) composer.setSize(window.innerWidth, window.innerHeight);
-            }
-
-            initThree();
-        };
+        lucide.createIcons();
     </script>
 </body>
 </html>
