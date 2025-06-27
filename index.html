@@ -1,172 +1,1529 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>DEMO | Digital Video Invitation Maker</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CharanX - Digital Marketing & Video Growth</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/ScrollTrigger.min.js"></script>
+    <style>
+        /* Smooth scroll behavior for anchor links */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Base body styling with Inter font and white background */
+        body {
+            background-color: #ffffff; /* Changed to white */
+            color: #1f2937; /* Dark gray text */
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
+        /* Custom color palette */
+        .electric-blue { color: #007BFF; }
+        .bg-electric-blue { background-color: #007BFF; }
+        .hover-bg-electric-blue:hover { background-color: #0056b3; }
+        .border-electric-blue { border-color: #007BFF; }
 
-    <script src="https://unpkg.com/lucide@latest"></script>
+        .vibrant-teal { color: #0D9488; }
+        .bg-vibrant-teal { background-color: #0D9488; }
+        .hover-bg-vibrant-teal:hover { background-color: #0F766E; }
+        .border-vibrant-teal { border-color: #0D9488; }
 
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/main.js" defer></script>
-  </head>
+        /* Hero Section Styling */
+        .hero-section {
+            height: 100vh; /* Full viewport height */
+            min-height: 600px; /* Minimum height for smaller screens */
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden; /* Crucial to contain the video */
+        }
+        .hero-video-background { /* Styling for the background video */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            z-index: 0; /* Video behind overlay and content */
+            opacity: 0; /* Start with video hidden for transition */
+            transition: opacity 2s ease-in-out; /* Slow transition for opacity */
+        }
+        .hero-video-background.loaded { /* Class to trigger video fade-in */
+            opacity: 1;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(27, 38, 59, 0.65); /* Slightly adjusted overlay for video visibility */
+            z-index: 1; /* Ensure overlay is above video */
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2; /* Ensure content is above overlay */
+            color: white;
+            padding: 1.5rem; /* p-6 */
+        }
+        .hero-title {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            letter-spacing: -0.025em; /* tracking-tight */
+            line-height: 1.1;
+        }
+        /* Responsive hero title font sizes */
+        @media (min-width: 768px) { /* md */
+            .hero-title {
+                font-size: 4.5rem; /* md:text-7xl */
+            }
+        }
+        @media (min-width: 1024px) { /* lg */
+            .hero-title {
+                font-size: 5.5rem; /* lg:text-8xl */
+            }
+        }
+        .hero-usp {
+            font-size: 1.125rem; /* text-lg */
+            font-weight: 300; /* font-light */
+            opacity: 0.9;
+            margin-top: 1rem; /* mt-4 */
+            margin-bottom: 2rem; /* mb-8 */
+        }
+        /* Responsive hero USP font sizes */
+        @media (min-width: 768px) { /* md */
+            .hero-usp {
+                font-size: 1.5rem; /* md:text-2xl */
+            }
+        }
 
-  <body>
-    <header class="site-header">
-      <div class="container header-content">
-        <a class="logo" href="#">DEMO</a>
-        <nav class="main-nav">
-          <a class="nav-link" href="#categories">Invitations</a>
-          <a class="nav-link" href="#how-it-works">How It Works</a>
-          <a class="btn btn-primary" href="#video-creator"
-            >Create Your Invitation</a
-          >
-        </nav>
-      </div>
+        /* Side Navigation Styling */
+        #sideNav {
+            position: fixed; /* Keep sideNav fixed */
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 288px; /* Equivalent to w-72 in Tailwind */
+            z-index: 50; /* Ensure sideNav is above other content but below modals if any */
+            padding-top: 5rem; /* pt-20 */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-2xl */
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%); /* Hidden by default */
+            background-color: #111827; /* Dark background */
+        }
+        #sideNav.open {
+            transform: translateX(0); /* Visible when open */
+        }
+        .nav-link {
+            display: block;
+            padding: 1rem 1.5rem; /* py-4 px-6 */
+            color: #9ca3af; /* Gray text */
+            font-weight: 500; /* font-medium */
+            transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            background-color: #1f2937; /* Darker gray on hover/active */
+            color: white;
+            border-left-color: #007BFF; /* Electric blue border */
+            padding-left: 1.75rem; /* Increased padding on hover/active */
+        }
+        .nav-link i {
+            margin-right: 0.75rem; /* mr-3 */
+            width: 20px; /* Fixed width for icon alignment */
+            transition: transform 0.2s ease;
+        }
+        .nav-link:hover i {
+            transform: scale(1.1); /* Slight scale on icon hover */
+        }
+
+        /* Services Section Specific Styles */
+        .service-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            border-top: 5px solid transparent; /* Default border */
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04);
+        }
+        .service-card i {
+            margin-bottom: 1rem;
+            font-size: 3rem;
+        }
+        .service-card.seo { border-top-color: #0D9488; } /* Vibrant Teal for SEO */
+        .service-card.paid-ads { border-top-color: #007BFF; } /* Electric Blue for Paid Ads */
+        
+
+        /* Content Card Styling */
+        .content-card {
+            background-color: #ffffff; /* White background */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); /* shadow-md */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            overflow: hidden;
+        }
+        .content-card:hover {
+            transform: translateY(-6px); /* Lift effect on hover */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04); /* Enhanced shadow on hover */
+        }
+        .card-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .gallery-image {
+            width: 100%;
+            height: 280px; /* Taller for gallery feel */
+            object-fit: cover;
+            border-radius: 0.5rem; /* rounded-lg */
+        }
+
+        /* Keyword Detail Box for "Our Process" */
+        .keyword-detail-box {
+            background-color: #f9fafb; /* Lightest gray background */
+            border-left: 4px solid #007BFF; /* Electric blue left border */
+            max-height: 0; /* Hidden by default */
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out, margin-top 0.5s ease-in-out;
+            padding: 0 1.5rem; /* px-6 */
+            margin-top: 0;
+            border-radius: 0 0 0.375rem 0.375rem; /* rounded-b-md */
+        }
+        .keyword-detail-box.active {
+            max-height: 200px; /* Max height when active */
+            padding: 1rem 1.5rem; /* py-4 px-6 */
+            margin-top: 1rem; /* mt-4 */
+        }
+        .keyword-tag {
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+            background-color: #e5e7eb; /* Light gray background */
+            color: #374151; /* Dark gray text */
+            padding: 0.375rem 0.875rem; /* py-1.5 px-3.5 */
+            font-size: 0.8rem; /* text-sm */
+            border-radius: 9999px; /* rounded-full */
+        }
+        .keyword-tag:hover {
+            background-color: #d1d5db; /* Slightly darker gray on hover */
+            transform: translateY(-2px); /* Lift effect on hover */
+        }
+        .keyword-tag.active {
+            background-color: #007BFF; /* Electric blue when active */
+            color: #FFFFFF; /* White text when active */
+        }
+
+        /* Form Input Styling */
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem; /* py-3.5 px-4 */
+            border: 1px solid #d1d5db; /* Gray border */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            background-color: #f9fafb; /* Lightest gray background */
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #007BFF; /* Electric blue border on focus */
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Focus ring */
+            background-color: #fff; /* White background on focus */
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem; /* mb-2 */
+            font-weight: 500; /* font-medium */
+            color: #374151; /* Dark gray text */
+        }
+
+        /* Section Heading Styles */
+        .section-heading {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700; /* font-bold */
+            color: #111827; /* Very dark gray */
+            margin-bottom: 0.75rem; /* mb-3 */
+        }
+        .section-subheading {
+            font-size: 1.125rem; /* text-lg */
+            color: #4b5563; /* Medium gray */
+            max-width: 42rem; /* max-w-2xl */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 3rem; /* mb-12 */
+        }
+
+        /* Carousel Specific Styles */
+        .carousel-container { overflow: hidden; position: relative; }
+        .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
+        .carousel-slide { min-width: 100%; box-sizing: border-box; }
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.4);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            transition: background-color 0.2s ease;
+        }
+        .carousel-button:hover { background-color: rgba(0,0,0,0.7); }
+        .carousel-button.prev { left: 1rem; }
+        .carousel-button.next { right: 1rem; }
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        .carousel-indicator {
+            width: 10px;
+            height: 10px;
+            background-color: #d1d5db;
+            border-radius: 50%;
+            margin: 0 0.25rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .carousel-indicator.active {
+            background-color: #007BFF;
+        }
+
+        /* Logo Slider Styles */
+        .logo-slider-container { overflow: hidden; position: relative; padding: 1rem 0; }
+        .logo-slider-track {
+            display: flex;
+            animation: scrollLogos 30s linear infinite;
+            width: 200%; /* Adjust based on number of logos and desired scroll speed */
+        }
+        .logo-slide { flex-shrink: 0; width: 150px; margin: 0 20px; display: flex; align-items: center; justify-content: center; }
+        .logo-slide img { max-width: 120px; max-height: 60px; filter: grayscale(100%); opacity: 0.7; transition: filter 0.3s ease, opacity 0.3s ease; }
+        .logo-slide img:hover { filter: grayscale(0%); opacity: 1; }
+        @keyframes scrollLogos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* Scrolls half the track length to loop seamlessly */
+        }
+
+        /* Instagram Grid Styles */
+        .instagram-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem; /* gap-4 */
+        }
+        .instagram-post {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* shadow-sm */
+            transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+        }
+        .instagram-post:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.1);
+        }
+        .instagram-post img,
+        .blog-post-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.3s ease-out;
+        }
+        .instagram-post-caption {
+            padding: 0.75rem 1rem; /* py-3 px-4 */
+            font-size: 0.875rem; /* text-sm */
+            color: #4b5563; /* gray-700 */
+        }
+        .instagram-post-caption p { margin-bottom: 0.5rem; }
+        .instagram-post-caption .likes { font-weight: 600; }
+
+        /* Fade-in Animation for elements on scroll */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+        }
+        .fade-in-element {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .fade-in-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Blog Post Card Styling */
+        .blog-post-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            overflow: hidden;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .blog-post-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04);
+        }
+        .blog-post-card .p-6 { /* Apply padding to content */
+            padding: 1.5rem;
+        }
+        .blog-post-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        .blog-post-card p {
+            font-size: 0.875rem;
+            color: #4b5563;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        /* Custom Scrollbar Styling */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #e5e7eb; }
+        ::-webkit-scrollbar-thumb { background: #0D9488; border-radius: 5px;}
+        ::-webkit-scrollbar-thumb:hover { background: #0F766E; }
+
+        /* Section Backgrounds with Fixed Attachment and Overlay */
+        .section-bg {
+            background-size: cover;
+            background-position: center center;
+            background-attachment: fixed; /* Parallax effect */
+            position: relative;
+        }
+        .section-bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        .section-content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header scroll effect */
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px); /* Frosted glass effect */
+        }
+        .header-hidden { /* Added to hide header on scroll down */
+            transform: translateY(-100%);
+        }
+
+
+        /* Testimonial Card Styling */
+        .testimonial-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 25px -5px rgba(0,0,0,0.1), 0 6px 10px -3px rgba(0,0,0,0.06);
+        }
+        .testimonial-quote {
+            font-size: 1.125rem;
+            font-style: italic;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+        .testimonial-author {
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .testimonial-title {
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header id="mainHeader" class="bg-white shadow-lg fixed w-full z-40 top-0 transition-all duration-300 ease-in-out">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#hero" class="flex items-center space-x-2 text-2xl font-bold text-gray-800 hover:text-electric-blue transition-colors">
+                        <svg width="36" height="36" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 80L50 20L80 80L65 80L50 50L35 80H20Z" fill="#007BFF"/> <path d="M40 70L50 50L60 70H40Z" fill="#0D9488"/> </svg>
+                        <span>CharanX</span>
+                    </a>
+                </div>
+                <div class="md:hidden">
+                    <button id="menuButton" aria-label="Open Menu" class="text-gray-600 hover:text-electric-blue focus:outline-none p-2 rounded-md">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </header>
 
-    <section id="hero" class="hero-section">
-      <div class="hero-3d-animation">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-      </div>
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <h1 class="hero-title">
-            Digital Video Invitation Maker
-          </h1>
-          <p class="hero-subtitle">
-            Create stunning and personalized video invitations and digital cards
-            for your special occasions. Unleash your creativity with our easy to
-            use tools.
-          </p>
-          <a href="#video-creator" class="btn btn-secondary">Get Started</a>
-        </div>
-        <div class="hero-visual">
-          <img src="images/invite-preview.png" alt="Invitation preview" />
-        </div>
-      </div>
-    </section>
-
-    <section id="categories" class="categories-section">
-        <div class="container">
-            <header class="section-header">
-                <h2>Browse Most Loved Categories</h2>
-                <p>Use your own photos, texts, and event details. Download and share it with your loved ones.</p>
-            </header>
-            <div class="category-grid">
-                <div class="category-card">Wedding</div>
-                <div class="category-card">Birthday</div>
-                <div class="category-card">House Warming</div>
-                <div class="category-card">Baby Shower</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="how-it-works" class="how-it-works-section">
-        <div class="container">
-            <header class="section-header">
-                <h2>4 Simple Steps to Create Your Video Invitation</h2>
-            </header>
-            <div class="steps-grid">
-                <div class="step">Select a video from 1000+ beautiful designs.</div>
-                <div class="step">Upload your images.</div>
-                <div class="step">Fill in text and event details.</div>
-                <div class="step">Get your video invitation in minutes.</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="video-creator" class="video-creator-section">
-      <div class="container creator-wrapper">
-        <header class="section-header">
-          <h2>Create Your Own Invitation</h2>
-          <p>
-            Fill in the details below to generate a preview of your animated
-            invitation.
-          </p>
-        </header>
-
-        <form class="creator-form" onsubmit="return false;">
-          <div class="form-group">
-            <label for="bride-name">Name 1</label>
-            <input type="text" id="bride-name" placeholder="Enter first name" />
-          </div>
-
-          <div class="form-group">
-            <label for="groom-name">Name 2</label>
-            <input type="text" id="groom-name" placeholder="Enter second name" />
-          </div>
-
-          <div class="form-group">
-            <label for="event-date">Event Date</label>
-            <input type="text" id="event-date" placeholder="e.g., December 25, 2025" />
-          </div>
-
-          <button id="generate-video-btn" class="btn btn-primary" type="button">
-            <i data-lucide="play"></i> Generate Preview
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <div id="video-modal" class="video-modal" role="dialog" aria-modal="true">
-      <div class="video-screen">
-        <div id="video-text-bride" class="video-text">Name 1</div>
-        <div id="video-text-groom" class="video-text">Name 2</div>
-        <div id="video-text-date" class="video-text video-text-small">
-          December 25, 2025
-        </div>
-
-        <div class="video-progress-bar">
-          <div id="video-progress" class="video-progress"></div>
-        </div>
-
-        <button
-          id="music-control-btn"
-          class="music-control-btn"
-          aria-label="Mute/Unmute Music"
-        >
-          <i data-lucide="volume-2"></i>
+    <nav id="sideNav"> <button id="closeMenuButton" aria-label="Close Menu" class="md:hidden absolute top-5 right-5 text-gray-400 hover:text-white text-3xl p-1 rounded-full">
+            &times;
         </button>
-        <audio
-          id="video-music"
-          src="https://cdn.pixabay.com/audio/2023/02/10/audio_12c6b2b7b6.mp3"
-          preload="auto"
-          loop
-        ></audio>
-      </div>
+        <a href="#hero" class="nav-link active"><i class="fas fa-home"></i>Home</a>
+        <a href="#our-process" class="nav-link"><i class="fas fa-cogs"></i>Our Process</a>
+        <a href="#work-showcase" class="nav-link"><i class="fas fa-briefcase"></i>Case Studies</a>
+        <a href="#guntur-showcase" class="nav-link"><i class="fas fa-camera-retro"></i>Streets of Guntur</a>
+        <a href="#services" class="nav-link"><i class="fas fa-cogs"></i>Services</a>
+        <a href="#testimonials" class="nav-link"><i class="fas fa-users"></i>Testimonials</a>
+        <a href="#instagram-feed" class="nav-link"><i class="fab fa-instagram"></i>Guntur Feed</a>
+        <a href="#about-us" class="nav-link"><i class="fas fa-info-circle"></i>About Us</a>
+        <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i>Contact</a>
+        <a href="#register" class="nav-link"><i class="fas fa-user-plus"></i>Register</a>
+    </nav>
 
-      <div id="modal-controls" class="modal-controls"></div>
+    <main id="mainContent" class="pt-16 transition-transform duration-300 ease-in-out">
+        <section id="hero" class="hero-section">
+            <video autoplay loop muted playsinline class="hero-video-background">
+                <source src="assests/Logo.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title mb-4 fade-in-element">
+                    Charan<span class="electric-blue">X</span>
+                </h1>
+                <p class="hero-usp max-w-3xl mx-auto mb-8 fade-in-element" style="transition-delay: 0.2s;">
+                    We Don't Just Make Videos. <strong class="font-semibold text-vibrant-teal">We Engineer Virality.</strong><br/>
+                    Your complete partner for video concept, creation, editing, and explosive growth in views & followers.
+                </p>
+                <a href="#our-process" class="bg-electric-blue text-white font-semibold py-3 px-8 rounded-lg text-lg hover-bg-electric-blue transition duration-300 transform hover:scale-105 inline-block fade-in-element" style="transition-delay: 0.4s;">
+                    Discover Our Magic
+                </a>
+            </div>
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+                <a href="#our-process" aria-label="Scroll to next section">
+                    <i class="fas fa-chevron-down text-white text-3xl animate-bounce opacity-70 hover:opacity-100"></i>
+                </a>
+            </div>
+        </section>
 
-      <button
-        id="modal-close-btn"
-        class="modal-close-btn"
-        aria-label="Close"
-      >
-        <i data-lucide="x"></i>
-      </button>
-    </div>
+        <section id="our-process" class="py-16 md:py-24 section-bg" style="background-image: url('https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+            <div class="section-bg-overlay" style="background-color: rgba(243, 244, 246, 0.92);"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">How We Craft <span class="electric-blue">Video Magic</span></h2>
+                    <p class="section-subheading">Our streamlined approach ensures your vision is transformed into compelling video content that delivers results. Experience the CharanX difference.</p>
+                </header>
+                <div class="grid md:grid-cols-2 gap-8 lg:gap-10">
+                    <div class="content-card fade-in-element">
+                        <img src="https://images.unsplash.com/photo-1557426272-fc75466827f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Discovery & Strategy Visual - Team collaboration" class="card-image">
+                        <div class="p-6 md:p-8">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-search fa-2x electric-blue mr-3"></i>
+                                <h3 class="text-2xl font-semibold text-gray-800"><span class="vibrant-teal">01.</span> Discovery & Strategy</h3>
+                            </div>
+                            <h4 class="text-xl font-bold electric-blue mb-3">Understanding Your Vision.</h4>
+                            <p class="text-gray-600 mb-4 text-sm">We begin with in-depth meetings to understand your brand, goals, and target audience, laying the foundation for a winning video strategy.</p>
+                            <div class="space-x-1 sm:space-x-2 mb-3 flex flex-wrap gap-y-2">
+                                <span class="keyword-tag inline-block rounded-full" data-step="1" data-keyword="client-brief">#ClientBrief</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="1" data-keyword="goal-setting">#GoalSetting</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="1" data-keyword="market-research">#MarketResearch</span>
+                            </div>
+                            <div id="keyword-detail-step1" class="keyword-detail-box"><p id="keyword-text-step1" class="text-gray-700 text-sm"></p></div>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.1s;">
+                        <img src="https://images.unsplash.com/photo-1504384308090-c899d1297e6f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Concept & Storyboarding Visual - Creative process" class="card-image">
+                        <div class="p-6 md:p-8">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-lightbulb fa-2x vibrant-teal mr-3"></i>
+                                <h3 class="text-2xl font-semibold text-gray-800"><span class="electric-blue">02.</span> Concept & Storyboarding</h3>
+                            </div>
+                            <h4 class="text-xl font-bold vibrant-teal mb-3">Ideas Take Shape.</h4>
+                            <p class="text-gray-600 mb-4 text-sm">We brainstorm creative concepts, develop compelling narratives, and visualize every scene through detailed storyboards and scripts.</p>
+                            <div class="space-x-1 sm:space-x-2 mb-3 flex flex-wrap gap-y-2">
+                                <span class="keyword-tag inline-block rounded-full" data-step="2" data-keyword="creative-ideation">#CreativeIdeation</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="2" data-keyword="scriptwriting">#Scriptwriting</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="2" data-keyword="visual-planning">#VisualPlanning</span>
+                            </div>
+                            <div id="keyword-detail-step2" class="keyword-detail-box"><p id="keyword-text-step2" class="text-gray-700 text-sm"></p></div>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.2s;">
+                        <img src="https://images.unsplash.com/photo-1511978280629-8736a3194a02?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Production & Filming Visual - Professional camera setup" class="card-image">
+                        <div class="p-6 md:p-8">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-camera-retro fa-2x electric-blue mr-3"></i>
+                                <h3 class="text-2xl font-semibold text-gray-800"><span class="vibrant-teal">03.</span> Production & Filming</h3>
+                            </div>
+                            <h4 class="text-xl font-bold electric-blue mb-3">Bringing Vision to Life.</h4>
+                            <p class="text-gray-600 mb-4 text-sm">Our expert crew captures high-quality footage using state-of-the-art equipment, ensuring every shot aligns with the planned narrative.</p>
+                            <div class="space-x-1 sm:space-x-2 mb-3 flex flex-wrap gap-y-2">
+                                <span class="keyword-tag inline-block rounded-full" data-step="3" data-keyword="on-set-filming">#OnSetFilming</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="3" data-keyword="professional-lighting">#ProfessionalLighting</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="3" data-keyword="audio-capture">#AudioCapture</span>
+                            </div>
+                            <div id="keyword-detail-step3" class="keyword-detail-box"><p id="keyword-text-step3" class="text-gray-700 text-sm"></p></div>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.3s;">
+                        <img src="https://images.unsplash.com/photo-1542398471-f925c48b11c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Post-Production & Editing Visual - Video editing suite" class="card-image">
+                        <div class="p-6 md:p-8">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-cut fa-2x vibrant-teal mr-3"></i>
+                                <h3 class="text-2xl font-semibold text-gray-800"><span class="electric-blue">04.</span> Post-Production & Editing</h3>
+                            </div>
+                            <h4 class="text-xl font-bold vibrant-teal mb-3">Crafting the Masterpiece.</h4>
+                            <p class="text-gray-600 mb-4 text-sm">Our editors meticulously transform raw footage into a polished, engaging video with seamless transitions, captivating visuals, and impactful sound design.</p>
+                            <div class="space-x-1 sm:space-x-2 mb-3 flex flex-wrap gap-y-2">
+                                <span class="keyword-tag inline-block rounded-full" data-step="4" data-keyword="video-editing">#VideoEditing</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="4" data-keyword="sound-design">#SoundDesign</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="4" data-keyword="visual-effects">#VisualEffects</span>
+                            </div>
+                            <div id="keyword-detail-step4" class="keyword-detail-box"><p id="keyword-text-step4" class="text-gray-700 text-sm"></p></div>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element md:col-span-2 mx-auto max-w-xl" style="transition-delay: 0.4s;">
+                        <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Launch & Optimization Visual - Digital marketing analytics" class="card-image">
+                        <div class="p-6 md:p-8">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-rocket fa-2x electric-blue mr-3"></i>
+                                <h3 class="text-2xl font-semibold text-gray-800"><span class="vibrant-teal">05.</span> Launch & Optimization</h3>
+                            </div>
+                            <h4 class="text-xl font-bold electric-blue mb-3">Maximizing Your Reach.</h4>
+                            <p class="text-gray-600 mb-4 text-sm">We strategically launch your video across relevant platforms, implementing data-driven optimization techniques to ensure maximum views, engagement, and viral growth.</p>
+                            <div class="space-x-1 sm:space-x-2 mb-3 flex flex-wrap gap-y-2">
+                                <span class="keyword-tag inline-block rounded-full" data-step="5" data-keyword="platform-distribution">#PlatformDistribution</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="5" data-keyword="seo-optimization">#SEOOptimization</span>
+                                <span class="keyword-tag inline-block rounded-full" data-step="5" data-keyword="performance-tracking">#PerformanceTracking</span>
+                            </div>
+                            <div id="keyword-detail-step5" class="keyword-detail-box"><p id="keyword-text-step5" class="text-gray-700 text-sm"></p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <footer class="site-footer" id="about">
-      <div class="container footer-content">
-        <p>© 2025 DEMO — Create memorable moments.</p>
-      </div>
-    </footer>
+        <section id="services" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">Our <span class="electric-blue">Expert Services</span></h2>
+                    <p class="section-subheading">We offer a comprehensive suite of digital marketing services tailored to maximize your online presence and drive tangible results.</p>
+                </header>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
+                    <div class="service-card seo fade-in-up">
+                        <i class="fas fa-search text-vibrant-teal"></i>
+                        <h3 class="text-xl font-semibold mb-2">Search Engine Optimization (SEO)</h3>
+                        <p class="text-gray-600 text-sm">Boost your visibility and ranking on search engines to attract more organic traffic and leads.</p>
+                    </div>
+                    <div class="service-card paid-ads fade-in-up" style="transition-delay: 0.1s;">
+                        <i class="fas fa-bullhorn text-electric-blue"></i>
+                        <h3 class="text-xl font-semibold mb-2">Paid Advertising (PPC)</h3>
+                        <p class="text-gray-600 text-sm">Target potential customers effectively with compelling ad campaigns across various platforms for immediate results.</p>
+                    </div>
+                    <div class="service-card fade-in-up" style="transition-delay: 0.2s; border-top-color: #d97706;">
+                        <i class="fas fa-share-alt text-yellow-600"></i>
+                        <h3 class="text-xl font-semibold mb-2">Social Media Marketing</h3>
+                        <p class="text-gray-600 text-sm">Build a strong brand presence and engage with your audience on popular social media channels.</p>
+                    </div>
+                    <div class="service-card fade-in-up" style="transition-delay: 0.3s; border-top-color: #ef4444;">
+                        <i class="fas fa-film text-red-500"></i>
+                        <h3 class="text-xl font-semibold mb-2">Video Production & Marketing</h3>
+                        <p class="text-gray-600 text-sm">From concept to viral launch, we create videos that capture attention and drive growth.</p>
+                    </div>
+                    <div class="service-card fade-in-up" style="transition-delay: 0.4s; border-top-color: #a78bfa;">
+                        <i class="fas fa-chart-line text-purple-400"></i>
+                        <h3 class="text-xl font-semibold mb-2">Analytics & Reporting</h3>
+                        <p class="text-gray-600 text-sm">We provide clear, data-driven insights to track performance and refine your strategy for continuous improvement.</p>
+                    </div>
+                    <div class="service-card fade-in-up" style="transition-delay: 0.5s; border-top-color: #3b82f6;">
+                        <i class="fas fa-users text-blue-500"></i>
+                        <h3 class="text-xl font-semibold mb-2">Content Marketing</h3>
+                        <p class="text-gray-600 text-sm">Develop valuable content that attracts, engages, and converts your target audience into loyal customers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <script>
-      lucide.createIcons();
-    </script>
-  </body>
+        <section id="why-choose-us" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">Why Partner with <span class="vibrant-teal">CharanX</span>?</h2>
+                    <p class="section-subheading">Our unique blend of creativity, technology, and strategic thinking sets us apart. We are committed to your success and delivering measurable impact.</p>
+                </header>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <div class="fade-in-element p-6 content-card">
+                        <i class="fas fa-award fa-3x electric-blue mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Proven Expertise</h3>
+                        <p class="text-gray-600 text-sm">Years of experience in driving viral content and measurable results for diverse clients.</p>
+                    </div>
+                    <div class="fade-in-element p-6 content-card" style="transition-delay: 0.1s;">
+                        <i class="fas fa-handshake fa-3x vibrant-teal mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Client-Centric Approach</h3>
+                        <p class="text-gray-600 text-sm">Your vision is our priority. We work closely with you from ideation to execution.</p>
+                    </div>
+                    <div class="fade-in-element p-6 content-card" style="transition-delay: 0.2s;">
+                        <i class="fas fa-lightbulb fa-3x electric-blue mb-4"></i>
+                        <h3 class="text-xl font-semibold mb-2">Innovative Strategies</h3>
+                        <p class="text-gray-600 text-sm">Leveraging cutting-edge techniques and trends to keep your content fresh and impactful.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work-showcase" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">Our Recent <span class="vibrant-teal">Case Studies</span></h2>
+                    <p class="section-subheading">Explore how we've helped brands achieve remarkable growth through strategic video content.</p>
+                </header>
+                <div class="carousel-container content-card p-4 sm:p-6 fade-in-element max-w-4xl mx-auto">
+                    <div class="carousel-track">
+                        <div class="carousel-slide p-2">
+                            <img src="https://images.unsplash.com/photo-1517292987820-ff166304f535?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=500" alt="Case Study 1 - Tech Company" class="rounded-lg shadow-md w-full h-auto object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Tech Innovators: 10X Engagement Growth</h3>
+                                <p class="text-gray-600 text-sm mb-3">Developed a series of explainer videos and social ads that boosted user engagement by 1000% in 3 months.</p>
+                                <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read Full Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                            </div>
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://images.unsplash.com/photo-1563013544-824ae1b7c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=500" alt="Case Study 2 - E-commerce Brand" class="rounded-lg shadow-md w-full h-auto object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">E-commerce Boost: 25% Sales Increase</h3>
+                                <p class="text-gray-600 text-sm mb-3">Created compelling product demonstration videos leading to a significant increase in online sales conversions.</p>
+                                <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read Full Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                            </div>
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://images.unsplash.com/photo-1542831371-d1020731a941?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=500" alt="Case Study 3 - Lifestyle Influencer" class="rounded-lg shadow-md w-full h-auto object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Influencer Spotlight: 50K New Followers</h3>
+                                <p class="text-gray-600 text-sm mb-3">Managed content strategy and production for a lifestyle influencer, resulting in massive audience expansion.</p>
+                                <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read Full Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                            </div>
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <img src="https://images.unsplash.com/photo-1521737711867-e3b9751092c9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=500" alt="Case Study 4 - Local Business" class="rounded-lg shadow-md w-full h-auto object-cover">
+                            <div class="p-4">
+                                <h3 class="text-xl font-semibold text-gray-800 mb-2">Local Business Growth: Community Engagement</h3>
+                                <p class="text-gray-600 text-sm mb-3">Produced engaging local stories and ads that significantly increased foot traffic and brand awareness.</p>
+                                <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read Full Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                    <div class="carousel-indicators"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="py-16 md:py-24 bg-gray-200">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading text-gray-900">What Our <span class="electric-blue">Clients Say</span></h2>
+                    <p class="section-subheading text-gray-700">Hearing from our satisfied clients is the best validation of our work. Read their stories of growth and success.</p>
+                </header>
+                <div class="carousel-container content-card p-4 sm:p-6 fade-in-up max-w-3xl mx-auto">
+                    <div class="carousel-track">
+                        <div class="carousel-slide p-2">
+                            <div class="testimonial-card shadow-none bg-transparent p-0">
+                                <p class="testimonial-quote">"Working with CharanX was a game-changer for our online presence. Their strategic approach to video content doubled our engagement in just two months!"</p>
+                                <div class="testimonial-author">- Sarah J., Marketing Director at TechSolutions</div>
+                                <div class="testimonial-title">Tech Industry Client</div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <div class="testimonial-card shadow-none bg-transparent p-0">
+                                <p class="testimonial-quote">"The team at CharanX truly understands what it takes to go viral. Our latest campaign exceeded all expectations, bringing in thousands of new followers."</p>
+                                <div class="testimonial-author">- David L., Founder of FitnessHub</div>
+                                <div class="testimonial-title">Fitness & Lifestyle Brand</div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <div class="testimonial-card shadow-none bg-transparent p-0">
+                                <p class="testimonial-quote">"CharanX provided invaluable insights and execution for our paid advertising strategy. We saw a significant increase in qualified leads and a fantastic ROI."</p>
+                                <div class="testimonial-author">- Emily R., CEO of LocalBites Cafe</div>
+                                <div class="testimonial-title">Local Business Owner</div>
+                            </div>
+                        </div>
+                        <div class="carousel-slide p-2">
+                            <div class="testimonial-card shadow-none bg-transparent p-0">
+                                <p class="testimonial-quote">"Their content marketing expertise helped us position ourselves as thought leaders in our niche. The blog posts and guides they produced were top-notch."</p>
+                                <div class="testimonial-author">- Michael B., Head of Content at SaaS Innovators</div>
+                                <div class="testimonial-title">Software Company</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+            </div>
+        </section>
+
+        <section id="client-logos" class="py-12 bg-gray-100">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <h3 class="text-center text-xl font-semibold text-gray-500 mb-8">Trusted By Brands Big & Small</h3>
+                <div class="logo-slider-container fade-in-element">
+                    <div class="logo-slider-track">
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/007BFF/FFFFFF?text=TechCorp" alt="TechCorp Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/0D9488/FFFFFF?text=EcoSolutions" alt="EcoSolutions Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/1A1A1A/FFFFFF?text=Global+Ventures" alt="Global Ventures Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/007BFF/FFFFFF?text=Innovate+Co" alt="Innovate Co Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/0D9488/FFFFFF?text=Future+Labs" alt="Future Labs Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/1A1A1A/FFFFFF?text=Digital+Hub" alt="Digital Hub Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/007BFF/FFFFFF?text=TechCorp" alt="TechCorp Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/0D9488/FFFFFF?text=EcoSolutions" alt="EcoSolutions Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/1A1A1A/FFFFFF?text=Global+Ventures" alt="Global Ventures Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/007BFF/FFFFFF?text=Innovate+Co" alt="Innovate Co Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/0D9488/FFFFFF?text=Future+Labs" alt="Future Labs Logo"></div>
+                        <div class="logo-slide"><img src="https://placehold.co/150x80/1A1A1A/FFFFFF?text=Digital+Hub" alt="Digital Hub Logo"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">Our Latest <span class="vibrant-teal">Insights</span></h2>
+                    <p class="section-subheading">Stay ahead of the curve with our expert articles on digital marketing trends, video strategy, and growth hacks.</p>
+                </header>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="blog-post-card fade-in-up">
+                        <img src="https://images.unsplash.com/photo-1542744095-6a327299068e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=400" alt="Blog Post 1 - YouTube Engagement">
+                        <div class="p-6">
+                            <h3 class="text-gray-800">5 Ways to Boost Your YouTube Engagement Today</h3>
+                            <p class="text-gray-600">Learn practical tips and tricks to get more likes, comments, and shares on your YouTube videos.</p>
+                            <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="blog-post-card fade-in-up" style="transition-delay: 0.1s;">
+                        <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=400" alt="Blog Post 2 - SEO Analytics">
+                        <div class="p-6">
+                            <h3 class="text-gray-800">Understanding SEO for Video Content: A Beginner's Guide</h3>
+                            <p class="text-gray-600">Demystify video SEO and discover how to optimize your content for higher search rankings.</p>
+                            <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                    <div class="blog-post-card fade-in-up" style="transition-delay: 0.2s;">
+                        <img src="https://images.unsplash.com/photo-1516321318423-df0615de4202?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=400" alt="Blog Post 3 - Social Media Strategy">
+                        <div class="p-6">
+                            <h3 class="text-gray-800">Crafting a Winning Social Media Video Strategy</h3>
+                            <p class="text-gray-600">Tips and strategies for creating video content that resonates with your audience on platforms like TikTok and Instagram.</p>
+                            <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="guntur-showcase" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">The Spirit of <span class="electric-blue">Guntur</span></h2>
+                    <p class="section-subheading">Showcasing the vibrant life and culture through the lens of <a href="https://www.instagram.com/streets.of.guntur/" target="_blank" rel="noopener noreferrer" class="text-vibrant-teal hover:underline font-semibold">@streets.of.guntur</a>.</p>
+                </header>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="content-card fade-in-element">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 1 - Street portrait" class="gallery-image">
+                        <div class="p-4 text-center">
+                            <p class="text-sm text-gray-600">A moment captured on the bustling streets.</p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.1s;">
+                        <img src="https://images.unsplash.com/photo-1587593259469-b1c4b7b3b3a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 2 - Market scene" class="gallery-image">
+                        <div class="p-4 text-center">
+                            <p class="text-sm text-gray-600">Colors and commerce at the local market.</p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element md:col-span-2 lg:col-span-1" style="transition-delay: 0.2s;">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 3 - Culture festival" class="gallery-image">
+                        <div class="p-4 text-center">
+                            <p class="text-sm text-gray-600">The vibrant tapestry of local traditions.</p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.3s;">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 4 - Daily life" class="gallery-image">
+                        <div class="p-4 text-center">
+                            <p class="text-sm text-gray-600">Daily life unfolding with its unique charm.</p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.4s;">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 5 - Architecture" class="gallery-image">
+                        <div class="p-4 text-center">
+                            <p class="text-sm text-gray-600">Architectural whispers from the past.</p>
+                        </div>
+                    </div>
+                    <div class="content-card fade-in-element" style="transition-delay: 0.5s;">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 6 - Food stall" class="gallery-image">
+                        <div class="p-4 text-center">
+                            <p class="text-sm text-gray-600">The irresistible aroma of street delicacies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="instagram-feed" class="py-16 md:py-24 bg-gray-200">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">Guntur Feed <span class="vibrant-teal">Highlights</span></h2>
+                    <p class="section-subheading">More moments from <a href="https://www.instagram.com/streets.of.guntur/" target="_blank" rel="noopener noreferrer" class="text-electric-blue hover:underline font-semibold">@streets.of.guntur</a>. Capturing the everyday extraordinary.</p>
+                </header>
+                <div class="instagram-grid fade-in-element">
+                    <div class="instagram-post">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80" alt="Guntur Market Scene">
+                        <div class="instagram-post-caption">
+                            <p>Exploring the vibrant market life in Guntur. So much color and energy! #GunturDiaries #StreetPhotography</p>
+                            <p class="likes"><i class="fas fa-heart text-red-500"></i> 123 likes</p>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="https://images.unsplash.com/photo-1587593259469-b1c4b7b3b3a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80" alt="Guntur Old City Architecture">
+                        <div class="instagram-post-caption">
+                            <p>Old city charm. Every corner tells a story. #IncredibleIndia #Guntur</p>
+                            <p class="likes"><i class="fas fa-heart text-red-500"></i> 98 likes</p>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80" alt="Guntur Street Food">
+                        <div class="instagram-post-caption">
+                            <p>Can't resist Guntur's famous street food! Spicy and delicious. #Foodie #GunturFood</p>
+                            <p class="likes"><i class="fas fa-heart text-red-500"></i> 210 likes</p>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="https://images.unsplash.com/photo-1587593259469-b1c4b7b3b3a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80" alt="Guntur Sunset Landscape">
+                        <div class="instagram-post-caption">
+                            <p>Golden hour over Guntur. Simply breathtaking. #SunsetLovers #AndhraPradesh</p>
+                            <p class="likes"><i class="fas fa-heart text-red-500"></i> 150 likes</p>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80" alt="Guntur People Portrait">
+                        <div class="instagram-post-caption">
+                            <p>The faces of Guntur. Full of warmth and stories. #PortraitsOfIndia #Culture</p>
+                            <p class="likes"><i class="fas fa-heart text-red-500"></i> 175 likes</p>
+                        </div>
+                    </div>
+                    <div class="instagram-post">
+                        <img src="https://images.unsplash.com/photo-1587593259469-b1c4b7b3b3a3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&h=400&q=80" alt="Guntur Festival Celebration">
+                        <div class="instagram-post-caption">
+                            <p>Festival vibes in the city! The energy is infectious. #FestivalsOfIndia #GunturCelebrates</p>
+                            <p class="likes"><i class="fas fa-heart text-red-500"></i> 192 likes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about-us" class="py-16 md:py-24 section-bg" style="background-image: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');">
+            <div class="section-bg-overlay" style="background-color: rgba(243, 244, 246, 0.95);"></div>
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                    <div class="lg:w-1/2 fade-in-element">
+                        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="CharanX Team discussing ideas" class="rounded-xl shadow-lg w-full">
+                    </div>
+                    <div class="lg:w-1/2 fade-in-element" style="transition-delay: 0.1s;">
+                        <h2 class="section-heading text-left mb-6">About <span class="electric-blue">CharanX</span></h2>
+                        <p class="text-gray-700 text-lg mb-4">
+                            At CharanX, we're more than just a digital marketing agency; we're your strategic partners in achieving video virality and exponential content growth. We believe in the power of compelling storytelling and data-driven strategies to make your brand unforgettable.
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            Our mission is to empower businesses like yours to cut through the noise, connect with their audience on a deeper level, and achieve measurable results through innovative video content. We pride ourselves on a transparent, collaborative, and results-oriented approach.
+                        </p>
+                        <div class="mt-6 space-y-3">
+                            <div class="flex items-start">
+                                <i class="fas fa-rocket text-vibrant-teal text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Innovation at Core</h4>
+                                    <p class="text-gray-600 text-sm">We constantly explore new trends and technologies to keep your content fresh and impactful, ensuring you stay ahead of the curve.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-bullseye text-vibrant-teal text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Results-Driven</h4>
+                                    <p class="text-gray-600 text-sm">Your success is our metric. We focus on strategies that deliver tangible growth, from increased views to higher conversion rates.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <i class="fas fa-handshake text-vibrant-teal text-xl mr-3 mt-1"></i>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800">Partnership Approach</h4>
+                                    <p class="text-gray-600 text-sm">We work hand-in-hand with our clients, providing clear communication and collaborative planning every step of the way.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center">
+                    <h2 class="section-heading">Get In <span class="electric-blue">Touch</span></h2>
+                    <p class="section-subheading">Ready to elevate your video strategy? We'd love to hear from you. Let's create something amazing together.</p>
+                </header>
+                <div class="max-w-4xl mx-auto content-card lg:flex fade-in-element">
+                    <div class="lg:w-1/2 bg-vibrant-teal text-white p-8 md:p-10 rounded-t-xl lg:rounded-tr-none lg:rounded-l-xl">
+                        <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                        <p class="mb-4 flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 w-5"></i><span>123 Creative Lane,<br>Guntur, Andhra Pradesh, India</span></p>
+                        <p class="mb-4 flex items-center"><i class="fas fa-phone-alt mr-3 w-5"></i><span>+91 98765 43210</span></p>
+                        <p class="mb-4 flex items-center"><i class="fas fa-envelope mr-3 w-5"></i><span>hello@charanx.com</span></p>
+                        <h4 class="font-semibold mt-8 mb-3">Follow Us:</h4>
+                        <div class="space-x-4">
+                            <a href="#" class="hover:opacity-75 transition-opacity"><i class="fab fa-youtube fa-lg"></i></a>
+                            <a href="#" class="hover:opacity-75 transition-opacity"><i class="fab fa-instagram fa-lg"></i></a>
+                            <a href="#" class="hover:opacity-75 transition-opacity"><i class="fab fa-tiktok fa-lg"></i></a>
+                            <a href="#" class="hover:opacity-75 transition-opacity"><i class="fab fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 p-8 md:p-10">
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Send Us A Message</h3>
+                        <form id="contactForm">
+                            <div class="mb-5">
+                                <label for="contactName" class="form-label">Your Name</label>
+                                <input type="text" id="contactName" name="contactName" class="form-input" placeholder="Full Name" required>
+                            </div>
+                            <div class="mb-5">
+                                <label for="contactEmail" class="form-label">Your Email</label>
+                                <input type="email" id="contactEmail" name="contactEmail" class="form-input" placeholder="email@example.com" required>
+                            </div>
+                            <div class="mb-5">
+                                <label for="contactSubject" class="form-label">Subject</label>
+                                <input type="text" id="contactSubject" name="contactSubject" class="form-input" placeholder="Video Project Inquiry" required>
+                            </div>
+                            <div class="mb-6">
+                                <label for="contactMessage" class="form-label">Message</label>
+                                <textarea id="contactMessage" name="contactMessage" rows="4" class="form-input" placeholder="Tell us about your project..." required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-electric-blue text-white font-semibold py-3 px-6 rounded-lg hover-bg-electric-blue transition duration-300 text-lg">
+                                Send Message
+                            </button>
+                            <div id="contact-form-status" class="mt-4 text-center"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="register" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+                <header class="text-center mb-12">
+                    <h2 class="section-heading">Join <span class="electric-blue">CharanX</span></h2>
+                    <p class="section-subheading">Create an account to start your journey towards video success and stay updated with our latest insights.</p>
+                </header>
+                <div class="max-w-md mx-auto content-card p-8 md:p-10 fade-in-element">
+                    <form id="registrationForm">
+                        <div class="mb-5">
+                            <label for="fullName" class="form-label">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" class="form-input" placeholder="John Doe" required>
+                        </div>
+                        <div class="mb-5">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
+                        </div>
+                        <div class="mb-5">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" id="password" name="password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="confirmPassword" class="form-label">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="w-full bg-electric-blue text-white font-semibold py-3 px-6 rounded-lg hover-bg-electric-blue transition duration-300 text-lg">
+                            Create Account
+                        </button>
+                        <p class="text-center text-sm text-gray-600 mt-6">
+                            Already have an account? <a href="#login-placeholder" class="text-electric-blue hover:underline font-medium">Login here</a>.
+                        </p>
+                    </form>
+                    <div id="form-status-message" class="mt-4 text-center"></div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="bg-gray-900 text-gray-400 py-16">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="flex justify-center items-center space-x-2 mb-6 text-2xl font-bold text-white">
+                    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 80L50 20L80 65 80L50 50L35 80H20Z" fill="#007BFF"/>
+                        <path d="M40 70L50 50L60 70H40Z" fill="#0D9488"/>
+                    </svg>
+                    <span>CharanX</span>
+                </div>
+                <p class="mb-6 max-w-md mx-auto">Engineering Virality, One Video at a Time. Let's create something unforgettable.</p>
+                <div class="mb-6 space-x-6">
+                    <a href="#hero" class="hover:text-electric-blue transition-colors">Home</a>
+                    <a href="#our-process" class="hover:text-electric-blue transition-colors">Our Process</a>
+                    <a href="#work-showcase" class="hover:text-electric-blue transition-colors">Case Studies</a>
+                    <a href="#about-us" class="hover:text-electric-blue transition-colors">About Us</a>
+                    <a href="#blog" class="hover:text-electric-blue transition-colors">Blog</a>
+                    <a href="#contact" class="hover:text-electric-blue transition-colors">Contact</a>
+                </div>
+                <div class="mb-6 space-x-5">
+                    <a href="#" aria-label="YouTube" class="text-gray-400 hover:text-electric-blue text-xl transition-colors"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.instagram.com/streets.of.guntur/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="text-gray-400 hover:text-electric-blue text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="TikTok" class="text-gray-400 hover:text-electric-blue text-xl transition-colors"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="LinkedIn" class="text-gray-400 hover:text-electric-blue text-xl transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <p class="text-sm text-gray-500">&copy; <span id="currentYear"></span> CharanX. All rights reserved. Designed with <i class="fas fa-heart text-vibrant-teal"></i>.</p>
+            </div>
+        </footer>
+    </main>
+
+<script>
+//========= START: EMBEDDED JAVASCRIPT =========
+
+// ---- Image Preloading (kept if other images are used later) ----
+const images = {
+    // hero: 'assets/images/hero-bg.jpg', // Example, if you had other images
+    about: 'assets/images/about-team.jpg',
+    services: [
+        'assets/images/service1.jpg',
+        'assets/images/service2.jpg',
+        'assets/images/service3.jpg'
+    ],
+    caseStudies: [
+        'assets/images/case1.jpg',
+        'assets/images/case2.jpg',
+        'assets/images/case3.jpg'
+    ],
+    guntur: [
+        'assets/images/guntur1.jpg',
+        'assets/images/guntur2.jpg',
+        'assets/images/guntur3.jpg'
+    ],
+    logos: [
+        'assets/images/client1.png',
+        'assets/images/client2.png',
+        'assets/images/client3.png'
+    ]
+};
+
+const preloadImages = () => {
+    Object.values(images).flat().forEach(src => {
+        const img = new Image();
+        img.src = src; // Preload by setting src
+    });
+};
+
+// ---- Form Handling ----
+const initializeForms = () => {
+    const contactForm = document.getElementById('contactForm');
+    const registrationForm = document.getElementById('registrationForm');
+
+    const handleSubmit = async (e, formType) => {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        formData.append('form_type', formType); // For backend to differentiate
+
+        // Determine status message div
+        const statusDivId = formType === 'contact' ? 'contact-form-status' : 'form-status-message';
+        const statusDiv = document.getElementById(statusDivId);
+
+        if (!statusDiv) {
+            console.error(`Status div with ID '${statusDivId}' not found.`);
+            return;
+        }
+        
+        statusDiv.innerHTML = `<p class="text-blue-500 text-sm">Sending...</p>`;
+
+
+        try {
+            // This is a placeholder for actual form submission.
+            // Replace with your backend endpoint or a service like Formspree/Netlify Forms.
+            // For demonstration, we'll simulate a delay and success/error.
+            await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+            // Simulate a successful response (replace with actual fetch)
+            const mockSuccess = Math.random() > 0.3; // Simulate success/failure
+            const result = {
+                success: mockSuccess,
+                message: mockSuccess ? "Message sent successfully!" : "An error occurred. Please try again."
+            };
+            // const response = await fetch('YOUR_BACKEND_ENDPOINT', {
+            //     method: 'POST',
+            //     body: formData
+            // });
+            // const result = await response.json();
+            
+            statusDiv.innerHTML = `<p class="${result.success ? 'text-green-600' : 'text-red-500'} text-sm">${result.message}</p>`;
+            
+            if (result.success) {
+                form.reset();
+                setTimeout(() => {
+                    statusDiv.innerHTML = '';
+                }, 5000);
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            statusDiv.innerHTML = `<p class="text-red-500 text-sm">Form submission is currently unavailable. This feature requires a backend server or integration.</p>`;
+        }
+    };
+
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => handleSubmit(e, 'contact'));
+    }
+    if (registrationForm) {
+        registrationForm.addEventListener('submit', (e) => handleSubmit(e, 'register'));
+    }
+};
+
+
+// ---- Animations ----
+const initAnimations = () => {
+    // Intersection Observer for fade-in elements
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 // Trigger when 10% of the element is visible
+    };
+
+    const fadeInObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target); // Stop observing once visible
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with fade-in classes
+    document.querySelectorAll('.fade-in-element, .fade-in-up, .fade-in').forEach(
+        element => fadeInObserver.observe(element)
+    );
+
+    // GSAP animations (if ScrollTrigger is loaded)
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero section title animation (example, if .fade-in-element is not sufficient)
+        gsap.from('.hero-title.fade-in-element', { // More specific selector
+            opacity: 0,
+            y: 50, // Start 50px down
+            duration: 1,
+            ease: 'power3.out',
+            delay: 0.2 // Slight delay after page load
+        });
+        gsap.from('.hero-usp.fade-in-element', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out',
+            delay: 0.5
+        });
+         gsap.from('.hero-section a.fade-in-element', {
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.7,
+            ease: 'back.out(1.7)',
+            delay: 0.8
+        });
+
+
+        // Example: Animate service cards with GSAP if needed for more control
+        gsap.utils.toArray('.service-card.fade-in-up').forEach((card, i) => {
+            gsap.from(card, {
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top 85%', // Trigger a bit earlier
+                    toggleActions: 'play none none none', // Only play once
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.6,
+                delay: i * 0.1 // Stagger animation
+            });
+        });
+    }
+};
+
+
+// ---- Carousels ----
+const initCarousels = () => {
+    document.querySelectorAll('.carousel-container').forEach(carousel => {
+        const track = carousel.querySelector('.carousel-track');
+        if (!track) return;
+        
+        const slides = Array.from(track.children);
+        if (slides.length === 0) return;
+
+        const nextButton = carousel.querySelector('.carousel-button.next');
+        const prevButton = carousel.querySelector('.carousel-button.prev');
+        const dotsNav = carousel.querySelector('.carousel-indicators');
+        
+        let currentIndex = 0;
+        let autoplayInterval;
+        const slideWidth = slides[0].offsetWidth; // Use offsetWidth for accurate width
+
+        // Create indicator dots
+        if (dotsNav) {
+            dotsNav.innerHTML = ''; // Clear existing dots
+            slides.forEach((_, index) => {
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-indicator');
+                if (index === 0) dot.classList.add('active');
+                dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+                dot.addEventListener('click', () => moveToSlide(index));
+                dotsNav.appendChild(dot);
+            });
+        }
+        
+        const moveToSlide = (targetIndex) => {
+            // Ensure track and slides are available
+            if (!track || !slides || slides.length === 0) return;
+            const currentSlideWidth = slides[0].offsetWidth; // Recalculate in case of resize
+            track.style.transform = `translateX(-${currentSlideWidth * targetIndex}px)`;
+            currentIndex = targetIndex;
+            updateDots();
+            resetAutoplay();
+        };
+        
+        const updateDots = () => {
+            if (!dotsNav) return;
+            const dots = dotsNav.querySelectorAll('.carousel-indicator');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+        };
+        
+        nextButton?.addEventListener('click', () => {
+            if (slides.length === 0) return;
+            const nextIndex = (currentIndex + 1) % slides.length;
+            moveToSlide(nextIndex);
+        });
+        
+        prevButton?.addEventListener('click', () => {
+             if (slides.length === 0) return;
+            const prevIndex = (currentIndex - 1 + slides.length) % slides.length;
+            moveToSlide(prevIndex);
+        });
+        
+        const startAutoplay = () => {
+            if (slides.length <= 1) return; // No autoplay for single slide
+            clearInterval(autoplayInterval); // Clear existing interval
+            autoplayInterval = setInterval(() => {
+                if (slides.length === 0) return;
+                const nextIndex = (currentIndex + 1) % slides.length;
+                moveToSlide(nextIndex);
+            }, 5000); // Autoplay every 5 seconds
+        };
+        
+        const resetAutoplay = () => {
+            clearInterval(autoplayInterval);
+            startAutoplay();
+        };
+        
+        // Initialize
+        moveToSlide(0); // Set initial position
+        startAutoplay();
+        
+        carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+        carousel.addEventListener('mouseleave', startAutoplay);
+
+        // Recalculate on resize
+        window.addEventListener('resize', () => {
+            if (slides.length > 0) {
+                 const newSlideWidth = slides[0].offsetWidth;
+                 track.style.transition = 'none'; // Disable transition during resize adjustment
+                 track.style.transform = `translateX(-${newSlideWidth * currentIndex}px)`;
+                 requestAnimationFrame(() => { // Re-enable transition after adjustment
+                    track.style.transition = 'transform 0.5s ease-in-out';
+                 });
+            }
+        });
+    });
+};
+
+
+// ---- Main DOMContentLoaded ----
+document.addEventListener('DOMContentLoaded', () => {
+    // No loader element in the provided HTML, so this part is commented out.
+    // const loader = document.getElementById('loader'); 
+    
+    try {
+        preloadImages(); // Preload images if any are defined
+        initializeForms();
+        initAnimations();
+        initCarousels();
+        
+        // Hero Video Fade-in
+        const heroVideo = document.querySelector('.hero-video-background');
+        if (heroVideo) {
+            // Ensure video can play before adding 'loaded' class for transition
+            heroVideo.oncanplaythrough = () => {
+                setTimeout(() => { // Add a slight delay for a smoother perceived load
+                    heroVideo.classList.add('loaded');
+                }, 200);
+            };
+            // Fallback if oncanplaythrough doesn't fire (e.g., video already cached)
+            if (heroVideo.readyState >= 3) { // HAVE_FUTURE_DATA or HAVE_ENOUGH_DATA
+                 setTimeout(() => {
+                    heroVideo.classList.add('loaded');
+                }, 200);
+            }
+        }
+
+
+        // Navigation handling
+        const menuButton = document.getElementById('menuButton');
+        const closeMenuButton = document.getElementById('closeMenuButton');
+        const sideNav = document.getElementById('sideNav');
+        const navLinks = document.querySelectorAll('#sideNav a');
+        const mainHeader = document.getElementById('mainHeader');
+        const mainContent = document.getElementById('mainContent'); // For pushing content
+
+        const openSideNav = () => {
+            sideNav?.classList.add('open');
+            document.body.style.overflow = 'hidden'; 
+            if (mainContent) { // Check if mainContent exists
+                mainContent.style.transition = 'transform 0.3s ease-in-out'; 
+                mainContent.style.transform = 'translateX(288px)'; 
+            }
+        };
+
+        const closeSideNav = () => {
+            sideNav?.classList.remove('open');
+            document.body.style.overflow = ''; 
+            if (mainContent) { // Check if mainContent exists
+                mainContent.style.transform = 'translateX(0)'; 
+            }
+        };
+
+        menuButton?.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            openSideNav();
+        });
+
+        closeMenuButton?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            closeSideNav();
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                closeSideNav();
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+        
+        document.addEventListener('click', (e) => {
+            if (sideNav?.classList.contains('open') && !sideNav.contains(e.target) && e.target !== menuButton) {
+                closeSideNav();
+            }
+        });
+
+
+        // Scroll handling for header
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (mainHeader) {
+                if (currentScroll > 50) {
+                    mainHeader.classList.add('header-scrolled');
+                } else {
+                    mainHeader.classList.remove('header-scrolled');
+                }
+                if (currentScroll > lastScroll && currentScroll > 100) { 
+                    mainHeader.classList.add('header-hidden');
+                } else { 
+                    mainHeader.classList.remove('header-hidden');
+                }
+            }
+            lastScroll = currentScroll <= 0 ? 0 : currentScroll; 
+        }, { passive: true }); 
+
+        // Update current year in footer
+        const currentYearEl = document.getElementById('currentYear');
+        if(currentYearEl) {
+            currentYearEl.textContent = new Date().getFullYear();
+        }
+
+        // Keyword details toggle for "Our Process" section
+        const keywordTags = document.querySelectorAll('.keyword-tag');
+        const keywordDetails = {
+            "client-brief": "We start by thoroughly understanding your project requirements, objectives, and the message you want to convey.",
+            "goal-setting": "Clear goals are defined for the video, whether it's brand awareness, lead generation, or direct sales.",
+            "market-research": "We analyze your target market and competitors to ensure your video stands out and resonates effectively.",
+            "creative-ideation": "Brainstorming unique and engaging concepts that align with your brand and campaign objectives.",
+            "scriptwriting": "Crafting compelling scripts that tell your story clearly and persuasively, optimized for viewer retention.",
+            "visual-planning": "Detailed storyboarding and shot lists are created to visualize the final product and streamline production.",
+            "on-set-filming": "Our professional crew handles all aspects of filming, using high-quality equipment for a polished look.",
+            "professional-lighting": "Expert lighting setups to ensure every scene is perfectly lit, enhancing visual appeal.",
+            "audio-capture": "Crystal-clear audio recording is prioritized for professional sound quality.",
+            "video-editing": "Meticulous editing to assemble footage, refine pacing, and ensure a cohesive narrative flow.",
+            "sound-design": "Adding music, sound effects, and voice-overs to enhance the emotional impact and engagement of the video.",
+            "visual-effects": "Incorporating motion graphics, animations, and other visual effects to elevate the production value.",
+            "platform-distribution": "Strategic distribution across relevant platforms (YouTube, Instagram, TikTok, etc.) to maximize reach.",
+            "seo-optimization": "Optimizing video titles, descriptions, and tags for better discoverability on search engines and platforms.",
+            "performance-tracking": "Monitoring analytics to track views, engagement, and conversions, providing insights for future improvements."
+        };
+
+        keywordTags.forEach(tag => {
+            tag.addEventListener('click', () => {
+                const step = tag.dataset.step;
+                const keyword = tag.dataset.keyword;
+                const detailBoxId = `keyword-detail-step${step}`;
+                const textElementId = `keyword-text-step${step}`;
+                
+                const detailBox = document.getElementById(detailBoxId);
+                const textElement = document.getElementById(textElementId);
+
+                if (detailBox && textElement) {
+                    if (tag.classList.contains('active') && detailBox.classList.contains('active')) {
+                        tag.classList.remove('active');
+                        detailBox.classList.remove('active');
+                    } else {
+                        document.querySelectorAll(`.keyword-tag[data-step="${step}"]`).forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll(`.keyword-detail-box[id^="keyword-detail-step${step}"]`).forEach(b => b.classList.remove('active'));
+                        
+                        tag.classList.add('active');
+                        textElement.textContent = keywordDetails[keyword] || "Details coming soon.";
+                        detailBox.classList.add('active');
+                    }
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error('Initialization error:', error);
+    }
+});
+
+</script>
+
+</body>
 </html>
