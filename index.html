@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CharanX Solutions - Where Strategy Meets Success</title>
+    <title>CharanX Solutions - Your Partner in Digital Growth & Innovation</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -322,57 +322,135 @@
             margin: 0 auto 3rem;
         }
 
-        /* Services Section */
-        #services {
-            background: var(--card-bg); /* Use card background for section */
-            backdrop-filter: blur(10px);
-        }
-        .grid {
-            display: grid;
-            gap: 2rem;
-        }
-        .md\:grid-cols-2 {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .lg\:grid-cols-3 {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .service-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid var(--card-border);
-            opacity: 0; /* Initial state for scroll animation */
-            transform: translateY(30px); /* Initial state for scroll animation */
-        }
-        /* Enhanced Service Card Hover Effect */
-        .service-card:hover {
-            transform: translateY(-15px) scale(1.03); /* More pronounced lift and slight scale */
-            background: rgba(255, 255, 255, 0.2); /* Slightly brighter on hover */
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 20px var(--hover-orange); /* Stronger shadow + subtle glow */
-            border-color: var(--hover-orange); /* Border highlights */
-        }
-        .service-card i {
-            font-size: 3rem;
-            color: var(--hover-orange);
-            margin-bottom: 1rem;
-        }
-        .service-card h3 {
+        /* Dedicated Web Building Section (Now #services) */
+        #services { /* Renamed from #dedicated-web-building */
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
             color: var(--heading-color);
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .service-card p {
-            color: var(--text-color);
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Work Showcase */
-        #work-showcase {
-            background: var(--bg-color); /* Use main background for this section */
+        #services::before { /* Renamed from #dedicated-web-building */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="b" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%23ff4f00" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ff4f00" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="900" r="300" fill="url(%23b)"/><circle cx="900" cy="100" r="400" fill="url(%23b)"/></svg>');
+            opacity: 0.2;
+            z-index: 0;
         }
+
+        #services .container { /* Renamed from #dedicated-web-building */
+            position: relative;
+            z-index: 1;
+        }
+
+        #services .section-heading { /* Renamed from #dedicated-web-building */
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+        }
+
+        #services .section-subheading { /* Renamed from #dedicated-web-building */
+            color: var(--text-color);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .specialist-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .specialist-card {
+            background: rgba(255, 255, 255, 0.15); /* Slightly lighter card background */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            width: calc(33% - 2rem); /* Three cards per row */
+            max-width: 350px;
+            text-align: left;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative; /* For the rotating border */
+            overflow: hidden; /* Hide overflow for border animation */
+        }
+
+        .specialist-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--hover-orange);
+            border-color: var(--hover-orange);
+        }
+
+        /* Animated Glowing Border for Specialist Cards */
+        .specialist-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, var(--hover-orange), transparent);
+            animation: rotateBorder 4s linear infinite;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .specialist-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .specialist-card::after {
+            content: '';
+            position: absolute;
+            inset: 3px; /* Smaller inset for the actual card content */
+            background: var(--card-bg); /* Use current card background for inner fill */
+            border-radius: 9px; /* Slightly smaller radius than parent for border effect */
+            z-index: -1;
+        }
+
+        .specialist-card i {
+            font-size: 2.5rem;
+            color: var(--hover-orange);
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .specialist-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .specialist-card h4 {
+            font-size: 1.3rem;
+            color: var(--heading-color);
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .specialist-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
         .content-card {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -396,65 +474,6 @@
         .content-card p {
             color: var(--text-color);
             margin-bottom: 1rem;
-        }
-        .bold-orange {
-            color: var(--hover-orange);
-        }
-        .bold-orange:hover {
-            text-decoration: underline;
-        }
-
-        /* Testimonials */
-        .testimonial-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 2rem;
-            border: 1px solid var(--card-border);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        .testimonial-quote {
-            color: var(--text-color);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            font-style: italic;
-        }
-        .testimonial-author {
-            color: var(--heading-color);
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-        .testimonial-title {
-            color: var(--hover-orange);
-            font-size: 0.9rem;
-        }
-
-        /* Blog Section */
-        #blog {
-            background: var(--bg-color); /* Use main background for this section */
-        }
-        .blog-post-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid var(--card-border);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        .blog-post-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        .blog-post-card h3 {
-            color: var(--heading-color);
-        }
-        .blog-post-card p {
-            color: var(--text-color);
         }
 
         /* Contact Section */
@@ -593,16 +612,16 @@
             transform: translateY(30px); /* Keep original animation for other elements */
         }
 
-        /* Scroll-triggered animations for #services section */
-        /* Initial state for elements within #services to be animated on scroll */
+        /* Scroll-triggered animations for sections */
+        /* Initial state for elements within sections to be animated on scroll */
         #services .section-heading,
         #services .section-subheading,
-        #services .service-card {
+        #services .specialist-card { /* Target specialist cards for animation */
             opacity: 0;
             transform: translateY(30px);
         }
 
-        /* When the #services section is in view, apply animations */
+        /* When the section is in view, apply animations */
         #services.in-view .section-heading,
         #services.in-view .section-subheading {
             animation: fadeInUp 0.8s ease forwards;
@@ -642,56 +661,17 @@
             }
         }
 
-        /* Apply individual delays and the new popInUp animation to service cards when section is in view */
-        #services.in-view .service-card {
+        /* Apply individual delays and the new popInUp animation to specialist cards when section is in view */
+        #services.in-view .specialist-card {
             animation: popInUp 0.8s ease forwards; /* Apply popInUp animation */
         }
 
-        #services.in-view .service-card:nth-child(1) { animation-delay: 0.2s; }
-        #services.in-view .service-card:nth-child(2) { animation-delay: 0.3s; }
-        #services.in-view .service-card:nth-child(3) { animation-delay: 0.4s; }
-        #services.in-view .service-card:nth-child(4) { animation-delay: 0.5s; }
-        #services.in-view .service-card:nth-child(5) { animation-delay: 0.6s; }
-        #services.in-view .service-card:nth-child(6) { animation-delay: 0.7s; }
-
-        /* Client Logos Section */
-        #client-logos {
-            background: var(--bg-color);
-            padding: 5rem 0;
-        }
-        .logo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
-            justify-items: center;
-            align-items: center;
-        }
-        .logo-item {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-            filter: grayscale(100%); /* Grayscale by default */
-            transition: filter 0.3s ease;
-        }
-        .logo-item:hover {
-            filter: grayscale(0%); /* Color on hover */
-        }
-        .logo-item img {
-            max-width: 150px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        #client-logos.in-view .logo-item {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-        #client-logos.in-view .logo-item:nth-child(1) { animation-delay: 0.1s; }
-        #client-logos.in-view .logo-item:nth-child(2) { animation-delay: 0.2s; }
-        #client-logos.in-view .logo-item:nth-child(3) { animation-delay: 0.3s; }
-        #client-logos.in-view .logo-item:nth-child(4) { animation-delay: 0.4s; }
-        #client-logos.in-view .logo-item:nth-child(5) { animation-delay: 0.5s; }
-        #client-logos.in-view .logo-item:nth-child(6) { animation-delay: 0.6s; }
-
+        #services.in-view .specialist-card:nth-child(1) { animation-delay: 0.2s; }
+        #services.in-view .specialist-card:nth-child(2) { animation-delay: 0.3s; }
+        #services.in-view .specialist-card:nth-child(3) { animation-delay: 0.4s; }
+        #services.in-view .specialist-card:nth-child(4) { animation-delay: 0.5s; }
+        #services.in-view .specialist-card:nth-child(5) { animation-delay: 0.6s; }
+        #services.in-view .specialist-card:nth-child(6) { animation-delay: 0.7s; }
 
         /* Why Choose Us Section */
         #why-choose-us {
@@ -783,8 +763,8 @@
             .hero-main-headline #final-charanx-text {
                 animation: slideDownFadeIn 1s ease forwards; /* Use slideDownFadeIn on mobile too */
             }
-            .logo-grid {
-                grid-template-columns: repeat(1, 1fr); /* Stack logos on mobile */
+            .specialist-card {
+                width: 90%; /* Adjust for mobile single column */
             }
         }
         @media (min-width: 769px) {
@@ -808,8 +788,8 @@
             .lg\:grid-cols-3 {
                 grid-template-columns: repeat(3, 1fr);
             }
-            .logo-grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 columns on larger screens */
+            .specialist-card {
+                width: calc(33% - 2rem); /* Three cards per row */
             }
         }
 
@@ -998,16 +978,14 @@
             </div>
             <nav class="header-nav">
                 <a href="#hero" class="nav-item active">Home</a>
-                <a href="#services" class="nav-item">Services</a>
+                <a href="#services" class="nav-item">Web Solutions</a>
                 <div class="nav-item has-dropdown">
                     <span>Our Work <i class="fas fa-chevron-down text-xs ml-1"></i></span>
                     <div class="dropdown-menu">
-                        <a href="#work-showcase">Case Studies</a>
                         <a href="#">Portfolio (Future)</a>
                     </div>
                 </div>
-                <a href="#about" class="nav-item">About Us</a>
-                <a href="#blog" class="nav-item">Insights</a>
+                <a href="#why-choose-us" class="nav-item">Why Us</a>
                 <a href="#contact" class="nav-item">Contact Us</a>
             </nav>
             <div class="header-actions">
@@ -1020,10 +998,8 @@
     <nav id="mobileNav" class="mobile-nav">
         <button id="closeMobileMenuButton" class="mobile-nav-close">&times;</button>
         <a href="#hero" class="mobile-nav-link">Home</a>
-        <a href="#services" class="mobile-nav-link">Services</a>
-        <a href="#work-showcase" class="mobile-nav-link">Case Studies</a>
-        <a href="#about" class="mobile-nav-link">About Us</a>
-        <a href="#blog" class="mobile-nav-link">Insights</a>
+        <a href="#services" class="mobile-nav-link">Web Solutions</a>
+        <a href="#why-choose-us" class="mobile-nav-link">Why Us</a>
         <a href="#contact" class="mobile-nav-link">Contact Us</a>
     </nav>
     <main>
@@ -1032,70 +1008,61 @@
             <div class="hero-content-wrapper-centered container">
                 <h1 class="hero-main-headline">
                     <span id="strategy-text" style="display: inline-block; overflow: hidden;">Where Strategy&nbsp;</span>
-                    <span id="success-text" class="highlight-text" style="display: inline-block; overflow: hidden;">Meets Success</span>
+                    <span id="success-text" class="highlight-text" style="display: inline-block; overflow: hidden;">Meets Innovation</span>
                 </h1>
                 <p class="hero-supporting-headline">
-                    We build your brand's future on a foundation of transparent, data-driven digital marketing that delivers undeniable growth and lasting impact.
+                    We build your brand's future on a foundation of transparent, data-driven digital marketing and **expert web development** that delivers undeniable growth and lasting impact.
                 </p>
                 <div class="hero-cta-button">
                     <a href="#contact" class="btn btn-primary btn-large">DISCOVER YOUR POTENTIAL <i class="fas fa-arrow-right text-sm ml-2"></i></a>
                 </div>
             </div>
         </section>
+
         <section id="services" class="py-16">
             <div class="container">
                 <header class="text-center">
-                    <h2 class="section-heading">Our <span class="highlight-text">Core Services</span></h2>
-                    <p class="section-subheading">A comprehensive suite of digital services tailored to maximize your online presence and drive tangible results.</p>
+                    <h2 class="section-heading">Your Vision, Our <span class="highlight-text">Web Expertise</span></h2>
+                    <p class="section-subheading">
+                        At CharanX Solutions, we don't just market; we **build**. Our dedicated team of web building specialists brings your digital vision to life with stunning design and robust functionality.
+                    </p>
                 </header>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="service-card">
-                        <i class="fas fa-search"></i>
-                        <h3>Search Engine Optimization</h3>
-                        <p>Boost your organic visibility with our data-driven SEO strategies that deliver sustainable rankings and increased traffic.</p>
+                <div class="specialist-cards">
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.1s;">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Custom Web Development</h4>
+                        <p>Crafting bespoke, scalable websites from the ground up, perfectly aligned with your brand and business goals.</p>
                     </div>
-                    <div class="service-card">
-                        <i class="fas fa-bullhorn"></i>
-                        <h3>PPC Advertising</h3>
-                        <p>Maximize your ROI with targeted pay-per-click campaigns that convert prospects into customers efficiently.</p>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.2s;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h4>E-commerce Powerhouses</h4>
+                        <p>Building high-converting online stores with seamless user experiences, secure payments, and powerful inventory management.</p>
                     </div>
-                    <div class="service-card">
-                        <i class="fas fa-share-alt"></i>
-                        <h3>Social Media Marketing</h3>
-                        <p>Build meaningful connections with your audience through compelling social media strategies that drive engagement.</p>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.3s;">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Responsive & UX-Optimized Design</h4>
+                        <p>Ensuring your site looks flawless and functions intuitively across all devices, from desktops to smartphones.</p>
                     </div>
-                    <div class="service-card">
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.4s;">
                         <i class="fas fa-chart-line"></i>
-                        <h3>Analytics & Reporting</h3>
-                        <p>Make informed decisions with comprehensive analytics and transparent reporting that shows real business impact.</p>
+                        <h4>Integrated Digital Marketing</h4>
+                        <p>Beyond building, we integrate advanced SEO, PPC, and SMM strategies directly into your site's architecture for maximum reach.</p>
                     </div>
-                    <div class="service-card">
-                        <i class="fas fa-palette"></i>
-                        <h3>Brand Strategy</h3>
-                        <p>Develop a compelling brand identity that resonates with your target audience and stands out in the market.</p>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.5s;">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Security & Performance Tuning</h4>
+                        <p>Implementing robust security measures and optimizing site speed to provide a safe, fast, and reliable user experience.</p>
                     </div>
-                    <div class="service-card">
-                        <i class="fas fa-code"></i>
-                        <h3>Web Development</h3>
-                        <p>Create stunning, high-performance websites that convert visitors into customers and drive business growth.</p>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.6s;">
+                        <i class="fas fa-cog"></i>
+                        <h4>Ongoing Support & Evolution</h4>
+                        <p>Your website is a living asset. We provide continuous maintenance, updates, and strategic evolution to keep you ahead.</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <section id="client-logos" class="py-16">
-            <div class="container">
-                <header class="text-center">
-                    <h2 class="section-heading">Trusted by <span class="highlight-text">Leading Brands</span></h2>
-                    <p class="section-subheading">Our commitment to excellence has earned the trust of diverse industry leaders.</p>
-                </header>
-                <div class="logo-grid">
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+A" alt="Client Logo A"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+B" alt="Client Logo B"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+C" alt="Client Logo C"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+D" alt="Client Logo D"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+E" alt="Client Logo E"></div>
-                    <div class="logo-item"><img src="https://placehold.co/150x80/cccccc/000000?text=Client+F" alt="Client Logo F"></div>
+                <div class="text-center mt-8">
+                    <a href="#contact" class="btn btn-primary btn-large">
+                        START YOUR WEB PROJECT <i class="fas fa-arrow-right text-sm ml-2"></i>
+                    </a>
                 </div>
             </div>
         </section>
@@ -1103,119 +1070,28 @@
         <section id="why-choose-us" class="py-16">
             <div class="container">
                 <header class="text-center">
-                    <h2 class="section-heading">Why <span class="highlight-text">Choose Us?</span></h2>
-                    <p class="section-subheading">Experience the difference of partnering with a team dedicated to your success.</p>
+                    <h2 class="section-heading">Why <span class="highlight-text">Partner with Us?</span></h2> <p class="section-subheading">Experience the difference of partnering with a team dedicated to your growth, from strategy to digital execution.</p>
                 </header>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <div class="feature-card">
                         <i class="fas fa-lightbulb"></i>
-                        <h3>Innovative Strategies</h3>
-                        <p>We craft cutting-edge digital strategies that keep you ahead of the competition.</p>
+                        <h3>Strategic Innovation</h3>
+                        <p>We blend cutting-edge digital marketing with innovative web development to ensure your online presence is future-proof.</p>
                     </div>
                     <div class="feature-card">
                         <i class="fas fa-handshake"></i>
-                        <h3>Client-Centric Approach</h3>
-                        <p>Your goals are our priority. We work closely with you to achieve measurable results.</p>
+                        <h3>Holistic Partnership</h3>
+                        <p>More than just vendors, we're your dedicated digital growth partners, working collaboratively for measurable success.</p>
                     </div>
                     <div class="feature-card">
-                        <i class="fas fa-chart-pie"></i>
-                        <h3>Transparent Reporting</h3>
-                        <p>Gain clear insights into your campaign performance with our detailed and honest reports.</p>
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Results-Driven & Transparent</h3>
+                        <p>Our focus is on tangible outcomes, backed by clear reporting and open communication every step of the way.</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section id="work-showcase" class="py-16 bg-white">
-            <div class="container">
-                <header class="text-center">
-                    <h2 class="section-heading">Proof, Not <span class="highlight-text">Promises</span></h2>
-                    <p class="section-subheading">Explore how we've helped brands like yours achieve remarkable growth. Our results speak for themselves.</p>
-                </header>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="content-card fade-in-up">
-                        <div class="p-6">
-                            <h3>E-commerce Growth Success</h3>
-                            <p class="mb-3">Increased online sales by 300% for a fashion retailer through strategic SEO and PPC campaigns.</p>
-                            <a href="#" class="bold-orange hover:underline text-sm font-medium">Read Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="content-card fade-in-up" style="animation-delay: 0.1s;">
-                        <div class="p-6">
-                            <h3>SaaS Lead Generation</h3>
-                            <p class="mb-3">Generated 500+ qualified leads monthly for a B2B software company using targeted content marketing.</p>
-                            <a href="#" class="bold-orange hover:underline text-sm font-medium">Read Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="content-card fade-in-up" style="animation-delay: 0.2s;">
-                        <div class="p-6">
-                            <h3>Local Business Transformation</h3>
-                            <p class="mb-3">Helped a local restaurant chain increase foot traffic by 150% through local SEO and social media.</p>
-                            <a href="#" class="bold-orange hover:underline text-sm font-medium">Read Case Study <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="testimonials" class="py-16">
-            <div class="container">
-                <header class="text-center">
-                    <h2 class="section-heading">What Our <span class="highlight-text">Clients Say</span></h2>
-                    <p class="section-subheading">Don't just take our word for it. Hear from our satisfied clients who've experienced real growth.</p>
-                </header>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="testimonial-card fade-in-up">
-                        <p class="testimonial-quote">"CharanX Solutions transformed our online presence. Their SEO expertise led to a significant increase in organic traffic and conversions. Highly recommend their transparent and results-driven approach!"</p>
-                        <p class="testimonial-author">Jane Doe</p>
-                        <p class="testimonial-title">CEO, InnovateTech</p>
-                    </div>
-                    <div class="testimonial-card fade-in-up" style="animation-delay: 0.1s;">
-                        <p class="testimonial-quote">"The team at CharanX is exceptional. Their PPC campaigns delivered an incredible ROI, far exceeding our expectations. They truly understand digital marketing."</p>
-                        <p class="testimonial-author">John Smith</p>
-                        <p class="testimonial-title">Marketing Director, Global Retail Co.</p>
-                    </div>
-                    <div class="testimonial-card fade-in-up" style="animation-delay: 0.2s;">
-                        <p class="testimonial-quote">"We've seen remarkable growth since partnering with CharanX Solutions. Their strategic insights and execution in social media marketing have built a strong community around our brand."</p>
-                        <p class="testimonial-author">Emily White</p>
-                        <p class="testimonial-title">Founder, Artisan Crafts</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="blog" class="py-16 bg-white">
-            <div class="container">
-                <header class="text-center">
-                    <h2 class="section-heading">Insights from Our <span class="highlight-text">Blog</span></h2>
-                    <p class="section-subheading">Stay ahead with the latest trends, tips, and strategies in digital marketing from our experts.</p>
-                </header>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="blog-post-card fade-in-up">
-                        <div class="p-6">
-                            <h3>The Future of SEO: What You Need to Know in 2025</h3>
-                            <p class="text-gray-400 text-sm mb-3">May 28, 2025 | SEO, Trends</p>
-                            <p class="mb-3">Discover the key shifts and strategies to keep your website ranking high in the evolving search landscape.</p>
-                            <a href="#" class="bold-orange hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-post-card fade-in-up" style="animation-delay: 0.1s;">
-                        <div class="p-6">
-                            <h3>Mastering Social Media Ads: A Beginner's Guide</h3>
-                            <p class="text-gray-400 text-sm mb-3">May 20, 2025 | Social Media, Advertising</p>
-                            <p class="mb-3">Learn how to create effective social media advertising campaigns that drive engagement and conversions.</p>
-                            <a href="#" class="bold-orange hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                        </div>
-                    </div>
-                    <div class="blog-post-card fade-in-up" style="animation-delay: 0.2s;">
-                        <div class="p-6">
-                            <h3>Data-Driven Decisions: Unlocking Growth with Analytics</h3>
-                            <p class="text-gray-400 text-sm mb-3">May 15, 2025 | Analytics, Strategy</p>
-                            <p class="mb-3">Understand how to leverage your data to make informed marketing decisions and accelerate business growth.</p>
-                            <a href="#" class="bold-orange hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        
         <section id="contact" class="py-16">
             <div class="container">
                 <header class="text-center">
@@ -1229,23 +1105,21 @@
                         <div class="space-y-4">
                             <div class="flex items-center">
                                 <i class="fas fa-map-marker-alt text-bold-orange mr-3"></i>
-                                <p>123 Digital Way, Suite 456, Hyderabad, India</p>
+                                <p>2/14 Brodipeta SBI Bank, Guntur, India</p>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-phone-alt text-bold-orange mr-3"></i>
-                                <p>+91 98765 43210</p>
+                                <p>+91 9677303310</p>
                             </div>
                             <div class="flex items-center">
                                 <i class="fas fa-envelope text-bold-orange mr-3"></i>
-                                <p>info@charanxsolutions.com</p>
+                                <p>info@charanx.com</p>
                             </div>
                         </div>
                         <div class="mt-8">
                             <h4 class="text-lg font-semibold mb-3">Follow Us</h4>
                             <div class="flex space-x-4">
                                 <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-twitter"></i></a>
-                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-linkedin-in"></i></a>
                                 <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
@@ -1423,8 +1297,7 @@
 
             // --- Intersection Observers for Scroll-Triggered Animations ---
             const sectionsToAnimate = [
-                { id: 'services', elements: document.querySelectorAll('#services .service-card') },
-                { id: 'client-logos', elements: document.querySelectorAll('#client-logos .logo-item') },
+                { id: 'services', elements: document.querySelectorAll('#services .specialist-card') },
                 { id: 'why-choose-us', elements: document.querySelectorAll('#why-choose-us .feature-card') }
             ];
 
@@ -1449,10 +1322,8 @@
 
                                 // Apply specific animations to child elements
                                 sectionData.elements.forEach((el, index) => {
-                                    if (sectionData.id === 'services' || sectionData.id === 'why-choose-us') {
+                                    if (sectionData.id === 'services' || sectionData.id === 'why-choose-us') { // Apply popInUp to specialist cards too
                                         el.style.animation = `popInUp 0.8s ease forwards ${0.2 + (index * 0.1)}s`;
-                                    } else if (sectionData.id === 'client-logos') {
-                                        el.style.animation = `fadeInUp 0.8s ease forwards ${0.1 + (index * 0.1)}s`;
                                     }
                                 });
                                 observer.unobserve(entry.target); // Stop observing once animated
