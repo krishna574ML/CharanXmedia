@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>CharanX - Digital Marketing & Video Growth</title>
     <script src="https://cdn.tailwindcss.com"></script>
+=======
+    <title>CharanX Solutions - Your Partner in Digital Growth & Innovation</title>
+>>>>>>> final-code
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -148,6 +152,7 @@
             transform: scale(1.1); /* Slight scale on icon hover */
         }
 
+<<<<<<< HEAD
         /* Services Section Specific Styles */
         .service-card {
             background-color: #ffffff;
@@ -165,12 +170,163 @@
         .service-card i {
             margin-bottom: 1rem;
             font-size: 3rem;
+=======
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+        .section-heading {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .section-subheading {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Dedicated Web Building Section (Now #services) */
+        #services { /* Renamed from #dedicated-web-building */
+            background: linear-gradient(135deg, #0f3460 0%, #16213e 50%, #1a1a2e 100%);
+            color: var(--heading-color);
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+>>>>>>> final-code
         }
         .service-card.seo { border-top-color: #0D9488; } /* Vibrant Teal for SEO */
         .service-card.paid-ads { border-top-color: #007BFF; } /* Electric Blue for Paid Ads */
         
 
+<<<<<<< HEAD
         /* Content Card Styling */
+=======
+        #services::before { /* Renamed from #dedicated-web-building */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="b" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="%23ff4f00" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ff4f00" stop-opacity="0"/></radialGradient></defs><circle cx="100" cy="900" r="300" fill="url(%23b)"/><circle cx="900" cy="100" r="400" fill="url(%23b)"/></svg>');
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        #services .container { /* Renamed from #dedicated-web-building */
+            position: relative;
+            z-index: 1;
+        }
+
+        #services .section-heading { /* Renamed from #dedicated-web-building */
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+        }
+
+        #services .section-subheading { /* Renamed from #dedicated-web-building */
+            color: var(--text-color);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        .specialist-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .specialist-card {
+            background: rgba(255, 255, 255, 0.15); /* Slightly lighter card background */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 2rem;
+            width: calc(33% - 2rem); /* Three cards per row */
+            max-width: 350px;
+            text-align: left;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative; /* For the rotating border */
+            overflow: hidden; /* Hide overflow for border animation */
+        }
+
+        .specialist-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--hover-orange);
+            border-color: var(--hover-orange);
+        }
+
+        /* Animated Glowing Border for Specialist Cards */
+        .specialist-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, transparent, var(--hover-orange), transparent);
+            animation: rotateBorder 4s linear infinite;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .specialist-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotateBorder {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .specialist-card::after {
+            content: '';
+            position: absolute;
+            inset: 3px; /* Smaller inset for the actual card content */
+            background: var(--card-bg); /* Use current card background for inner fill */
+            border-radius: 9px; /* Slightly smaller radius than parent for border effect */
+            z-index: -1;
+        }
+
+        .specialist-card i {
+            font-size: 2.5rem;
+            color: var(--hover-orange);
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .specialist-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .specialist-card h4 {
+            font-size: 1.3rem;
+            color: var(--heading-color);
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .specialist-card p {
+            font-size: 1rem;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+>>>>>>> final-code
         .content-card {
             background-color: #ffffff; /* White background */
             border-radius: 0.75rem; /* rounded-xl */
@@ -187,6 +343,7 @@
             height: 220px;
             object-fit: cover;
         }
+<<<<<<< HEAD
         .gallery-image {
             width: 100%;
             height: 280px; /* Taller for gallery feel */
@@ -226,6 +383,11 @@
         .keyword-tag.active {
             background-color: #007BFF; /* Electric blue when active */
             color: #FFFFFF; /* White text when active */
+=======
+        .content-card p {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+>>>>>>> final-code
         }
 
         /* Form Input Styling */
@@ -266,11 +428,112 @@
             margin-bottom: 3rem; /* mb-12 */
         }
 
+<<<<<<< HEAD
         /* Carousel Specific Styles */
         .carousel-container { overflow: hidden; position: relative; }
         .carousel-track { display: flex; transition: transform 0.5s ease-in-out; }
         .carousel-slide { min-width: 100%; box-sizing: border-box; }
         .carousel-button {
+=======
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Headline specific animations */
+        @keyframes slideInLeft {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* New animation for CharanX Solutions to slide down and fade in */
+        @keyframes slideDownFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* New animation for service cards to pop up and fade in */
+        @keyframes popInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            75% {
+                transform: translateY(-10px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Apply animations to headline parts */
+        #strategy-text {
+            animation: slideInLeft 1.5s ease-out 0.5s forwards; /* Slower duration */
+            opacity: 0; /* Initially hidden */
+        }
+
+        #success-text {
+            animation: slideInRight 1.5s ease-out 0.8s forwards; /* Slower duration and slightly delayed */
+            opacity: 0; /* Initially hidden */
+        }
+
+        /* Hide the original main headline until the new one appears */
+        .hero-main-headline .fade-in-element {
+            opacity: 0;
+            transform: translateY(30px); /* Keep original animation for other elements */
+        }
+
+        /* Scroll-triggered animations for sections */
+        /* Initial state for elements within sections to be animated on scroll */
+        #services .section-heading,
+        #services .section-subheading,
+        #services .specialist-card { /* Target specialist cards for animation */
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* When the section is in view, apply animations */
+        #services.in-view .section-heading,
+        #services.in-view .section-subheading {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Specific styling for the line under highlight-text in #services */
+        #services .section-heading .highlight-text {
+            position: relative; /* Needed for pseudo-element positioning */
+            display: inline-block; /* Ensure it wraps content properly */
+        }
+
+        #services .section-heading .highlight-text::after {
+            content: '';
+>>>>>>> final-code
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
@@ -319,6 +582,7 @@
             100% { transform: translateX(-50%); } /* Scrolls half the track length to loop seamlessly */
         }
 
+<<<<<<< HEAD
         /* Instagram Grid Styles */
         .instagram-grid {
             display: grid;
@@ -353,6 +617,43 @@
 
         /* Fade-in Animation for elements on scroll */
         .fade-in-up {
+=======
+        /* Animation for expanding line */
+        @keyframes expandLine {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+            100% {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        /* Apply individual delays and the new popInUp animation to specialist cards when section is in view */
+        #services.in-view .specialist-card {
+            animation: popInUp 0.8s ease forwards; /* Apply popInUp animation */
+        }
+
+        #services.in-view .specialist-card:nth-child(1) { animation-delay: 0.2s; }
+        #services.in-view .specialist-card:nth-child(2) { animation-delay: 0.3s; }
+        #services.in-view .specialist-card:nth-child(3) { animation-delay: 0.4s; }
+        #services.in-view .specialist-card:nth-child(4) { animation-delay: 0.5s; }
+        #services.in-view .specialist-card:nth-child(5) { animation-delay: 0.6s; }
+        #services.in-view .specialist-card:nth-child(6) { animation-delay: 0.7s; }
+
+        /* Why Choose Us Section */
+        #why-choose-us {
+            background: var(--card-bg);
+            padding: 5rem 0;
+        }
+        .feature-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+>>>>>>> final-code
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease-out, transform 0.6s ease-out;
@@ -378,6 +679,7 @@
             transform: translateY(0);
         }
 
+<<<<<<< HEAD
         /* Blog Post Card Styling */
         .blog-post-card {
             background-color: #ffffff;
@@ -385,12 +687,99 @@
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
             overflow: hidden;
             transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+=======
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-nav {
+                display: none;
+            }
+            .md\:hidden {
+                display: block;
+            }
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-main-headline {
+                font-size: 2.5rem;
+                white-space: normal; /* Allow wrapping on small screens */
+            }
+            .hero-supporting-headline {
+                font-size: 1.1rem;
+            }
+            #contact .content-card {
+                flex-direction: column;
+            }
+            .contact-info {
+                border-radius: 12px 12px 0 0;
+            }
+            #strategy-text, #success-text {
+                display: block; /* Ensure they stack if needed on small screens */
+                text-align: center;
+                /* Adjust transform for mobile if needed for better stacking */
+                transform: translateX(0) !important; /* Override slide animation for stacking */
+                opacity: 1 !important; /* Ensure visibility if stacking */
+                animation: none !important; /* Disable slide animation on small screens */
+            }
+            /* Re-enable a simple fade-in for the combined headline on mobile */
+            .hero-main-headline #final-charanx-text {
+                animation: slideDownFadeIn 1s ease forwards; /* Use slideDownFadeIn on mobile too */
+            }
+            .specialist-card {
+                width: 90%; /* Adjust for mobile single column */
+            }
+>>>>>>> final-code
         }
         .blog-post-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.04);
         }
+<<<<<<< HEAD
         .blog-post-card .p-6 { /* Apply padding to content */
+=======
+        @media (min-width: 1024px) {
+            .lg\:grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .specialist-card {
+                width: calc(33% - 2rem); /* Three cards per row */
+            }
+        }
+
+        /* Utility Classes */
+        .bg-white {
+            background: var(--card-bg); /* Adjusted to use variable */
+        }
+        .text-center {
+            text-align: center;
+        }
+        .max-w-4xl {
+            max-width: 56rem;
+        }
+        .max-w-3xl {
+            max-width: 48rem;
+        }
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .mb-2 {
+            margin-bottom: 0.5rem;
+        }
+        .mb-3 {
+            margin-bottom: 0.75rem;
+        }
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+        .mb-5 {
+            margin-bottom: 1.25rem;
+        }
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+        .p-6 {
+>>>>>>> final-code
             padding: 1.5rem;
         }
         .blog-post-card h3 {
@@ -472,6 +861,7 @@
     </style>
 </head>
 <body class="antialiased">
+<<<<<<< HEAD
 
     <header id="mainHeader" class="bg-white shadow-lg fixed w-full z-40 top-0 transition-all duration-300 ease-in-out">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -505,10 +895,48 @@
         <a href="#about-us" class="nav-link"><i class="fas fa-info-circle"></i>About Us</a>
         <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i>Contact</a>
         <a href="#register" class="nav-link"><i class="fas fa-user-plus"></i>Register</a>
+=======
+    <header id="mainHeader">
+        <div class="header-container container">
+            <div class="header-logo">
+                <a href="#hero" class="flex items-center space-x-2">
+                    <svg width="32" height="32" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 80L50 20L80 80L65 80L50 50L35 80H20Z" fill="currentColor"/> <path d="M40 70L50 50L60 70H40Z" fill="#FF4F00"/>
+                    </svg>
+                    <span class="text-xl font-bold">CharanX Solutions</span>
+                </a>
+            </div>
+            <nav class="header-nav">
+                <a href="#hero" class="nav-item active">Home</a>
+                <a href="#services" class="nav-item">Web Solutions</a>
+                <div class="nav-item has-dropdown">
+                    <span>Our Work <i class="fas fa-chevron-down text-xs ml-1"></i></span>
+                    <div class="dropdown-menu">
+                        <a href="#">Portfolio (Future)</a>
+                    </div>
+                </div>
+                <a href="#why-choose-us" class="nav-item">Why Us</a>
+                <a href="#contact" class="nav-item">Contact Us</a>
+            </nav>
+            <div class="header-actions">
+                <button class="action-icon" aria-label="Search"><i class="fas fa-search"></i></button>
+                <button id="themeToggle" aria-label="Toggle Day/Night Mode"><i class="fas fa-moon"></i></button>
+                <button id="mobileMenuButton" class="action-icon md:hidden" aria-label="Open Menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+    <nav id="mobileNav" class="mobile-nav">
+        <button id="closeMobileMenuButton" class="mobile-nav-close">&times;</button>
+        <a href="#hero" class="mobile-nav-link">Home</a>
+        <a href="#services" class="mobile-nav-link">Web Solutions</a>
+        <a href="#why-choose-us" class="mobile-nav-link">Why Us</a>
+        <a href="#contact" class="mobile-nav-link">Contact Us</a>
+>>>>>>> final-code
     </nav>
 
     <main id="mainContent" class="pt-16 transition-transform duration-300 ease-in-out">
         <section id="hero" class="hero-section">
+<<<<<<< HEAD
             <video autoplay loop muted playsinline class="hero-video-background">
                 <source src="assests/Logo.mp4" type="video/mp4">
                 Your browser does not support the video tag.
@@ -521,11 +949,22 @@
                 <p class="hero-usp max-w-3xl mx-auto mb-8 fade-in-element" style="transition-delay: 0.2s;">
                     We Don't Just Make Videos. <strong class="font-semibold text-vibrant-teal">We Engineer Virality.</strong><br/>
                     Your complete partner for video concept, creation, editing, and explosive growth in views & followers.
+=======
+            <canvas id="robot3DCanvas"></canvas>
+            <div class="hero-content-wrapper-centered container">
+                <h1 class="hero-main-headline">
+                    <span id="strategy-text" style="display: inline-block; overflow: hidden;">Where Strategy&nbsp;</span>
+                    <span id="success-text" class="highlight-text" style="display: inline-block; overflow: hidden;">Meets Innovation</span>
+                </h1>
+                <p class="hero-supporting-headline">
+                    We build your brand's future on a foundation of transparent, data-driven digital marketing and **expert web development** that delivers undeniable growth and lasting impact.
+>>>>>>> final-code
                 </p>
                 <a href="#our-process" class="bg-electric-blue text-white font-semibold py-3 px-8 rounded-lg text-lg hover-bg-electric-blue transition duration-300 transform hover:scale-105 inline-block fade-in-element" style="transition-delay: 0.4s;">
                     Discover Our Magic
                 </a>
             </div>
+<<<<<<< HEAD
             <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
                 <a href="#our-process" aria-label="Scroll to next section">
                     <i class="fas fa-chevron-down text-white text-3xl animate-bounce opacity-70 hover:opacity-100"></i>
@@ -626,10 +1065,59 @@
                             <div id="keyword-detail-step5" class="keyword-detail-box"><p id="keyword-text-step5" class="text-gray-700 text-sm"></p></div>
                         </div>
                     </div>
+=======
+        </section>
+
+        <section id="services" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Your Vision, Our <span class="highlight-text">Web Expertise</span></h2>
+                    <p class="section-subheading">
+                        At CharanX Solutions, we don't just market; we **build**. Our dedicated team of web building specialists brings your digital vision to life with stunning design and robust functionality.
+                    </p>
+                </header>
+                <div class="specialist-cards">
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.1s;">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Custom Web Development</h4>
+                        <p>Crafting bespoke, scalable websites from the ground up, perfectly aligned with your brand and business goals.</p>
+                    </div>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.2s;">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h4>E-commerce Powerhouses</h4>
+                        <p>Building high-converting online stores with seamless user experiences, secure payments, and powerful inventory management.</p>
+                    </div>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.3s;">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>Responsive & UX-Optimized Design</h4>
+                        <p>Ensuring your site looks flawless and functions intuitively across all devices, from desktops to smartphones.</p>
+                    </div>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.4s;">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Integrated Digital Marketing</h4>
+                        <p>Beyond building, we integrate advanced SEO, PPC, and SMM strategies directly into your site's architecture for maximum reach.</p>
+                    </div>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.5s;">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Security & Performance Tuning</h4>
+                        <p>Implementing robust security measures and optimizing site speed to provide a safe, fast, and reliable user experience.</p>
+                    </div>
+                    <div class="specialist-card fade-in-up" style="animation-delay: 0.6s;">
+                        <i class="fas fa-cog"></i>
+                        <h4>Ongoing Support & Evolution</h4>
+                        <p>Your website is a living asset. We provide continuous maintenance, updates, and strategic evolution to keep you ahead.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="#contact" class="btn btn-primary btn-large">
+                        START YOUR WEB PROJECT <i class="fas fa-arrow-right text-sm ml-2"></i>
+                    </a>
+>>>>>>> final-code
                 </div>
             </div>
         </section>
 
+<<<<<<< HEAD
         <section id="services" class="py-16 md:py-24">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
                 <header class="text-center">
@@ -840,17 +1328,46 @@
                             <p class="text-gray-600">Tips and strategies for creating video content that resonates with your audience on platforms like TikTok and Instagram.</p>
                             <a href="#" class="text-electric-blue hover:underline text-sm font-medium">Read More <i class="fas fa-arrow-right text-xs ml-1"></i></a>
                         </div>
+=======
+        <section id="why-choose-us" class="py-16">
+            <div class="container">
+                <header class="text-center">
+                    <h2 class="section-heading">Why <span class="highlight-text">Partner with Us?</span></h2> <p class="section-subheading">Experience the difference of partnering with a team dedicated to your growth, from strategy to digital execution.</p>
+                </header>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="feature-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Strategic Innovation</h3>
+                        <p>We blend cutting-edge digital marketing with innovative web development to ensure your online presence is future-proof.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>Holistic Partnership</h3>
+                        <p>More than just vendors, we're your dedicated digital growth partners, working collaboratively for measurable success.</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Results-Driven & Transparent</h3>
+                        <p>Our focus is on tangible outcomes, backed by clear reporting and open communication every step of the way.</p>
+>>>>>>> final-code
                     </div>
                 </div>
             </div>
         </section>
+<<<<<<< HEAD
 
         <section id="guntur-showcase" class="py-16 md:py-24">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 section-content-wrapper">
+=======
+        
+        <section id="contact" class="py-16">
+            <div class="container">
+>>>>>>> final-code
                 <header class="text-center">
                     <h2 class="section-heading">The Spirit of <span class="electric-blue">Guntur</span></h2>
                     <p class="section-subheading">Showcasing the vibrant life and culture through the lens of <a href="https://www.instagram.com/streets.of.guntur/" target="_blank" rel="noopener noreferrer" class="text-vibrant-teal hover:underline font-semibold">@streets.of.guntur</a>.</p>
                 </header>
+<<<<<<< HEAD
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="content-card fade-in-element">
                         <img src="https://images.unsplash.com/photo-1596752763659-3310034608c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=800&q=80" alt="Streets of Guntur Scene 1 - Street portrait" class="gallery-image">
@@ -981,6 +1498,31 @@
                                     <h4 class="font-semibold text-gray-800">Partnership Approach</h4>
                                     <p class="text-gray-600 text-sm">We work hand-in-hand with our clients, providing clear communication and collaborative planning every step of the way.</p>
                                 </div>
+=======
+                <div class="content-card mx-auto max-w-4xl flex-col md:flex-row">
+                    <div class="contact-info p-6 md:w-1/2">
+                        <h3 class="text-2xl font-bold mb-4">Get in Touch</h3>
+                        <p class="text-gray-400 mb-6">We're here to answer your questions and help you start your journey to digital success.</p>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <i class="fas fa-map-marker-alt text-bold-orange mr-3"></i>
+                                <p>2/14 Brodipeta SBI Bank, Guntur, India</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone-alt text-bold-orange mr-3"></i>
+                                <p>+91 9677303310</p>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-bold-orange mr-3"></i>
+                                <p>info@charanx.com</p>
+                            </div>
+                        </div>
+                        <div class="mt-8">
+                            <h4 class="text-lg font-semibold mb-3">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="action-icon text-2xl hover:text-bold-orange"><i class="fab fa-instagram"></i></a>
+>>>>>>> final-code
                             </div>
                         </div>
                     </div>
@@ -1161,11 +1703,19 @@ const initializeForms = () => {
         statusDiv.innerHTML = `<p class="text-blue-500 text-sm">Sending...</p>`;
 
 
+<<<<<<< HEAD
         try {
             // This is a placeholder for actual form submission.
             // Replace with your backend endpoint or a service like Formspree/Netlify Forms.
             // For demonstration, we'll simulate a delay and success/error.
             await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+=======
+            // --- Intersection Observers for Scroll-Triggered Animations ---
+            const sectionsToAnimate = [
+                { id: 'services', elements: document.querySelectorAll('#services .specialist-card') },
+                { id: 'why-choose-us', elements: document.querySelectorAll('#why-choose-us .feature-card') }
+            ];
+>>>>>>> final-code
 
             // Simulate a successful response (replace with actual fetch)
             const mockSuccess = Math.random() > 0.3; // Simulate success/failure
@@ -1173,6 +1723,7 @@ const initializeForms = () => {
                 success: mockSuccess,
                 message: mockSuccess ? "Message sent successfully!" : "An error occurred. Please try again."
             };
+<<<<<<< HEAD
             // const response = await fetch('YOUR_BACKEND_ENDPOINT', {
             //     method: 'POST',
             //     body: formData
@@ -1186,6 +1737,56 @@ const initializeForms = () => {
                 setTimeout(() => {
                     statusDiv.innerHTML = '';
                 }, 5000);
+=======
+
+            sectionsToAnimate.forEach(sectionData => {
+                const section = document.getElementById(sectionData.id);
+                if (section) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('in-view');
+                                // Apply animations to heading and subheading if they exist in this section
+                                const heading = entry.target.querySelector('.section-heading');
+                                const subheading = entry.target.querySelector('.section-subheading');
+                                if (heading) heading.style.animation = 'fadeInUp 0.8s ease forwards';
+                                if (subheading) subheading.style.animation = 'fadeInUp 0.8s ease forwards 0.2s';
+
+                                // Apply specific animations to child elements
+                                sectionData.elements.forEach((el, index) => {
+                                    if (sectionData.id === 'services' || sectionData.id === 'why-choose-us') { // Apply popInUp to specialist cards too
+                                        el.style.animation = `popInUp 0.8s ease forwards ${0.2 + (index * 0.1)}s`;
+                                    }
+                                });
+                                observer.unobserve(entry.target); // Stop observing once animated
+                            }
+                        });
+                    }, observerOptions);
+                    observer.observe(section);
+                }
+            });
+
+            // --- Sticky CTA Button Logic ---
+            const stickyCta = document.querySelector('.sticky-cta');
+            const heroSection = document.getElementById('hero');
+
+            const stickyCtaObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        stickyCta.classList.add('show');
+                    } else {
+                        stickyCta.classList.remove('show');
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0 // As soon as hero leaves view
+            });
+
+            if (heroSection && stickyCta) {
+                stickyCtaObserver.observe(heroSection);
+>>>>>>> final-code
             }
         } catch (error) {
             console.error('Form submission error:', error);
