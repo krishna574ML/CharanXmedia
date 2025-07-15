@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KuttyInvites - Your Perfect Digital Invitations</title>
+  <meta name="description" content="Create beautiful, personalized digital invitations and e-invites for weddings, birthdays, housewarmings, and all your special occasions. Easy to design, customize, and share instantly.">
+  <title>KuttyInvites - Beautiful Digital Invitations for Every Occasion</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     body {
@@ -14,6 +15,18 @@
     }
     h1, h2, h3 {
       font-family: 'Playfair Display', serif;
+    }
+    .subtle-pattern-bg {
+      background-image: url('https://www.transparenttextures.com/patterns/light-sketch.png');
+    }
+    .fade-in-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in-section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
     .hamburger-menu {
       display: none;
@@ -29,21 +42,19 @@
       border-radius: 2px;
       transition: all 0.3s ease-in-out;
     }
-    /* Hamburger menu animation */
     .hamburger-menu.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger-menu.open span:nth-child(2) { opacity: 0; }
     .hamburger-menu.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
     .dropdown-menu {
       display: none;
       position: absolute;
       background-color: white;
       min-width: 180px;
-      box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.1); /* Slightly softer shadow */
+      box-shadow: 0px 8px 20px 0px rgba(0,0,0,0.1);
       z-index: 10;
-      top: calc(100% + 5px); /* Position slightly below parent */
+      top: calc(100% + 5px);
       left: 0;
-      border-radius: 0.5rem; /* rounded-lg */
+      border-radius: 0.5rem;
       padding: 0.5rem 0;
       opacity: 0;
       transform: translateY(10px);
@@ -55,7 +66,7 @@
       transform: translateY(0);
     }
     .dropdown-menu a {
-      color: #4B5563; /* gray-700 */
+      color: #4B5563;
       padding: 10px 16px;
       text-decoration: none;
       display: block;
@@ -64,26 +75,22 @@
       transition: background-color 0.2s, color 0.2s;
     }
     .dropdown-menu a:hover {
-      background-color: #FEF3C7; /* yellow-100 */
-      color: #D97706; /* amber-600 */
+      background-color: #FEF3C7;
+      color: #D97706;
     }
-
-    /* Custom scrollbar for aesthetics */
     ::-webkit-scrollbar {
       width: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: #f0f0f0;
-      border-radius: 10px;
+      background: #f1f5f9; /* gray-100 */
     }
     ::-webkit-scrollbar-thumb {
-      background: #c0c0c0;
+      background: #cbd5e1; /* gray-300 */
       border-radius: 10px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: #a0a0a0;
+      background: #94a3b8; /* gray-400 */
     }
-
     @media (max-width: 767px) {
       .hamburger-menu {
         display: flex;
@@ -94,13 +101,13 @@
         width: 100%;
         background-color: white;
         position: absolute;
-        top: 64px; /* Height of the header */
+        top: 72px; /* Adjusted for new header height */
         left: 0;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        padding-bottom: 10px;
+        padding: 10px 0;
         z-index: 20;
         overflow-y: auto;
-        max-height: calc(100vh - 64px);
+        max-height: calc(100vh - 72px);
       }
       .nav-links.active {
         display: flex;
@@ -114,16 +121,14 @@
       .nav-links a:last-child {
         border-bottom: none;
       }
-      .header-buttons {
-        display: none;
+      .nav-links .login-button-mobile {
+        margin: 10px 24px 0;
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #F59E0B;
+        border-radius: 0.375rem; /* rounded-md */
+        color: #F59E0B;
       }
-      .header-buttons.active {
-        display: block;
-        position: absolute;
-        top: 10px;
-        right: 20px;
-      }
-      /* Adjust dropdowns for mobile */
       .dropdown-menu {
         position: static;
         box-shadow: none;
@@ -132,253 +137,317 @@
         padding: 0;
         opacity: 1;
         transform: translateY(0);
+        display: none;
+      }
+      .dropdown.open .dropdown-menu {
+        display: block;
       }
       .dropdown-menu a {
         padding-left: 50px;
         background-color: #f9f9f9;
       }
     }
+
+    /* Custom Keyframe Animations for Hero Images */
+    @keyframes heroImageRotateCentral {
+      0%, 100% {
+        transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+        z-index: 30; /* Bring to front when central */
+      }
+      33% {
+        transform: translate(-50%, -50%) scale(0.9) rotate(3deg);
+        z-index: 20;
+      }
+      66% {
+        transform: translate(-50%, -50%) scale(0.9) rotate(-3deg);
+        z-index: 20;
+      }
+    }
+
+    /* Adjusted translate values for larger images */
+    @keyframes heroImageRotateLeft {
+      0% {
+        transform: translate(0, 0) rotate(-6deg) scale(0.8);
+        z-index: 10;
+      }
+      33% {
+        transform: translateX(180px) translateY(-20px) rotate(0deg) scale(1.1); /* Adjusted for larger center */
+        z-index: 30;
+      }
+      66% {
+        transform: translateX(360px) translateY(80px) rotate(6deg) scale(0.8); /* Adjusted for larger right */
+        z-index: 10;
+      }
+      100% {
+        transform: translate(0, 0) rotate(-6deg) scale(0.8); /* Back to original left position */
+      }
+    }
+
+    /* Adjusted translate values for larger images */
+    @keyframes heroImageRotateRight {
+      0% {
+        transform: translate(0, 0) rotate(6deg) scale(0.8);
+        z-index: 10;
+      }
+      33% {
+        transform: translateX(-180px) translateY(-20px) rotate(0deg) scale(1.1); /* Adjusted for larger center */
+        z-index: 30;
+      }
+      66% {
+        transform: translateX(-360px) translateY(80px) rotate(-6deg) scale(0.8); /* Adjusted for larger left */
+        z-index: 10;
+      }
+      100% {
+        transform: translate(0, 0) rotate(6deg) scale(0.8); /* Back to original right position */
+      }
+    }
+
+    /* Assign animations to specific image positions */
+    .hero-image-left {
+      animation: heroImageRotateLeft 15s ease-in-out infinite; /* Adjust duration as needed */
+    }
+    .hero-image-center {
+      animation: heroImageRotateCentral 15s ease-in-out infinite; /* Adjust duration as needed */
+    }
+    .hero-image-right {
+      animation: heroImageRotateRight 15s ease-in-out infinite; /* Adjust duration as needed */
+    }
+
   </style>
 </head>
-<body class="bg-gradient-to-b from-white to-gray-50 min-h-screen antialiased">
+<body class="bg-gray-50 min-h-screen antialiased">
 
-  <header class="bg-white shadow-md py-4 px-6 md:px-10 flex justify-between items-center sticky top-0 z-40">
+  <header class="bg-white shadow-sm py-3 px-6 md:px-10 flex justify-between items-center sticky top-0 z-40">
     <div class="flex items-center space-x-4">
       <a href="#" class="flex items-center space-x-2 group">
-        <img src="https://placehold.co/40x40/FFD700/fff?text=KI" alt="KuttyInvites Logo" class="rounded-full transition-transform group-hover:scale-105" />
-        <h1 class="text-2xl font-bold text-yellow-600 group-hover:text-yellow-700 transition-colors">KuttyInvites</h1>
+        <img src="https://placehold.co/40x30/F59E0B/fff?text=IC" alt="KuttyInvites Logo" class="rounded-sm" />
+        <h1 class="text-2xl font-bold text-gray-800">KuttyInvites</h1>
       </a>
-      <a href="#" class="text-green-600 font-bold text-lg hover:text-green-700 transition-colors hidden md:block border-l border-gray-200 pl-4">Cards</a>
+      <a href="#" class="text-blue-600 font-bold text-2xl hover:text-blue-700 transition-colors hidden md:block border-l border-gray-200 pl-4">Cards</a>
     </div>
-    <nav class="nav-links hidden md:flex space-x-7 items-center">
-      <div class="relative dropdown group">
-        <a href="#categories" class="text-gray-700 hover:text-yellow-600 font-semibold flex items-center transition-colors">
-          Wedding <i class="fas fa-chevron-down ml-1 text-xs transition-transform group-hover:rotate-180"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#">Traditional Invites</a>
-          <a href="#">Modern Designs</a>
-          <a href="#">E-Invites & Videos</a>
-          <a href="#">Save the Date Cards</a>
+
+    <div class="flex items-center">
+      <nav class="nav-links hidden md:flex items-center space-x-7">
+        <div class="relative dropdown group">
+          <a href="#" class="text-gray-700 hover:text-yellow-600 flex items-center transition-colors">
+            Wedding <i class="fas fa-chevron-down ml-1 text-xs"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#">Traditional Invites</a>
+            <a href="#">Modern & Minimalist</a>
+            <a href="#">Caricature & Fun</a>
+            <a href="#">Save the Date Cards</a>
+          </div>
         </div>
-      </div>
-      <a href="#categories" class="text-gray-700 hover:text-yellow-600 font-semibold transition-colors">Birthday</a>
-      <a href="#categories" class="text-gray-700 hover:text-yellow-600 font-semibold transition-colors">House Warming</a>
-      <div class="relative dropdown group">
-        <a href="#" class="text-gray-700 hover:text-yellow-600 font-semibold flex items-center transition-colors">
-          More <i class="fas fa-chevron-down ml-1 text-xs transition-transform group-hover:rotate-180"></i>
-        </a>
-        <div class="dropdown-menu">
-          <a href="#">Anniversary</a>
-          <a href="#">Baby Shower</a>
-          <a href="#">Engagement</a>
-          <a href="#">Inauguration</a>
-          <a href="#">Farewell & Retirement</a>
-          <a href="#">Custom Events</a>
+        <a href="#categories" class="text-gray-700 hover:text-yellow-600 transition-colors">Birthday</a>
+        <a href="#categories" class="text-gray-700 hover:text-yellow-600 transition-colors">House Warming</a>
+        <div class="relative dropdown group">
+          <a href="#" class="text-gray-700 hover:text-yellow-600 flex items-center transition-colors">
+            More <i class="fas fa-chevron-down ml-1 text-xs"></i>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#">Engagement / Roka</a>
+            <a href="#">Baby Shower</a>
+            <a href="#">Anniversary</a>
+            <a href="#">Inauguration</a>
+            <a href="#">Retirement Party</a>
+          </div>
         </div>
+        <a href="#" class="border border-yellow-500 text-yellow-600 px-5 py-1.5 rounded-md font-semibold hover:bg-yellow-50 hover:text-yellow-700 transition-colors">Login Now</a>
+      </nav>
+
+      <div class="hamburger-menu md:hidden" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <a href="#how-it-works" class="text-gray-700 hover:text-yellow-600 font-semibold transition-colors">How It Works</a>
-      <a href="#about-us" class="text-gray-700 hover:text-yellow-600 font-semibold transition-colors">About Us</a>
-      <a href="#testimonials" class="text-gray-700 hover:text-yellow-600 font-semibold transition-colors">Reviews</a>
-      <a href="#blog" class="text-gray-700 hover:text-yellow-600 font-semibold transition-colors">Blog</a>
-    </nav>
-    <button class="header-buttons border-2 border-yellow-600 text-yellow-600 px-5 py-2 rounded-full font-semibold hover:bg-yellow-600 hover:text-white transition-all duration-300 hidden md:block shadow-sm hover:shadow-md">Login Now</button>
-    <div class="hamburger-menu md:hidden" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
     </div>
   </header>
 
-  <section id="hero" class="bg-gradient-to-br from-yellow-50 to-orange-100 py-16 md:py-28 px-6 text-center relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-    <div class="max-w-4xl mx-auto relative z-10">
-      <p class="text-lg md:text-xl text-yellow-800 font-semibold mb-3 tracking-wide">Your Moments, Beautifully Invited.</p>
-      <h2 class="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight drop-shadow-sm">Craft Unforgettable Invitations with <span class="text-yellow-700">KuttyInvites</span></h2>
-      <p class="text-lg md:text-xl text-gray-700 mb-10 max-w-2xl mx-auto">Design stunning digital invitations effortlessly for every special occasion – from grand weddings to intimate celebrations. Simple, beautiful, and shareable with a single tap.</p>
-      <a href="#categories" class="inline-block bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3.5 px-10 rounded-full shadow-xl hover:shadow-2xl transition transform hover:scale-105 duration-300 text-lg">Start Designing Today! <i class="fas fa-arrow-right ml-2"></i></a>
-    </div>
-    <div class="mt-12 md:mt-16 relative z-10">
-      <img src="https://placehold.co/700x450/FEEBC8/D97706?text=Elegant+Digital+Invite+Mockup" alt="Digital Invitation Mockup" class="rounded-3xl shadow-2xl border-4 border-white mx-auto w-full max-w-xl md:max-w-3xl">
+  <section id="hero" class="bg-gradient-to-br from-yellow-50 to-orange-100 py-16 md:py-20 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/subtle-prism.png')] opacity-70"></div>
+    <div class="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-12 relative z-10">
+        <div class="text-center md:text-left">
+            <p class="text-lg font-semibold text-yellow-700">CHOOSE YOUR</p>
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-900 my-3 leading-tight">INVITATION <br> VIDEO</h2>
+            <div class="flex items-center justify-center md:justify-start space-x-4 my-6">
+                <span class="font-semibold text-gray-700 flex items-center"><span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Choose</span>
+                <span class="font-semibold text-gray-700 flex items-center"><span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Customize</span>
+                <span class="font-semibold text-gray-700 flex items-center"><span class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Download</span>
+            </div>
+            <a href="#categories" class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition transform hover:scale-105 duration-300 text-lg">
+                Explore Now <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+        <div class="relative h-112 hidden md:block"> 
+            <div class="absolute top-10 left-10 w-56 hero-image-left"> 
+                <img src="assets/bday.avif" alt="Birthday Invitation" class="w-full rounded-xl shadow-lg border-4 border-white">
+            </div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 hero-image-center" style="transform: translate(-50%, -50%) scale(1.1) rotate(0deg); z-index: 30;">
+                <img src="assets/wedding.jpg" alt="Wedding Invitation" class="w-full rounded-xl shadow-lg border-4 border-white">
+            </div>
+            <div class="absolute bottom-10 right-10 w-56 hero-image-right"> 
+                <img src="assets/3569846.jpg" alt="House Warming Invitation" class="w-full rounded-xl shadow-lg border-4 border-white">
+            </div>
+        </div>
     </div>
   </section>
-
   <div class="bg-white border-b border-gray-200 px-6 py-4 text-center shadow-sm">
-    <p class="mb-3 text-red-600 font-bold text-xl md:text-2xl animate-pulse">🎉 Get 50% OFF on all designs! Use coupon <span class="font-extrabold text-red-700 tracking-wide">INVITE50</span> 🎉</p>
+    <p class="mb-3 text-red-600 font-bold text-xl md:text-2xl animate-pulse">🎉 Festive Flash Sale! Get 50% OFF on all premium designs! Use: <span class="font-extrabold text-red-700 tracking-wide">FESTIVE50</span> 🎉</p>
     <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 text-gray-600 text-base font-semibold">
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Marathi</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Hindi</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Jain</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Rajasthani</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Punjabi</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Tilak</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Engagement</span>
+      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Marathi Wedding</span>
+      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Hindi Shubh Vivah</span>
       <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">South Indian</span>
-      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Christian</span>
+      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Sikh / Anand Karaj</span>
+      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Muslim / Nikah</span>
+      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Rajasthani</span>
+      <span class="hover:text-yellow-600 cursor-pointer transition-colors duration-200">Christian Wedding</span>
     </div>
   </div>
 
-  <section id="how-it-works" class="py-20 px-6 bg-white">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16 text-gray-900">Your Journey to a Perfect Invite in 3 Simple Steps</h2>
+  <section id="how-it-works" class="py-20 px-6 bg-white fade-in-section subtle-pattern-bg">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16 text-gray-900">A Perfect Invite in 3 Simple Steps</h2>
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-16">
-      <div class="text-center p-8 bg-yellow-50 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-yellow-100 group">
+      <div class="text-center p-8 bg-yellow-50/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-yellow-100 group">
         <div class="w-20 h-20 bg-yellow-600 text-white rounded-full flex items-center justify-center text-4xl font-bold mx-auto mb-6 shadow-md group-hover:bg-yellow-700 transition-colors">
-          <i class="fas fa-clipboard-list"></i>
+          <i class="fas fa-images"></i>
         </div>
-        <h3 class="font-bold text-2xl mb-4 text-gray-800">1. Choose Your Template</h3>
-        <p class="text-gray-700 leading-relaxed">Explore our diverse gallery of pre-designed templates tailored for every occasion and style. Find your perfect starting point.</p>
+        <h3 class="font-bold text-2xl mb-4 text-gray-800">1. Select a Design</h3>
+        <p class="text-gray-700 leading-relaxed">Browse our rich library of culturally diverse and modern templates. Find the perfect design that speaks to your heart.</p>
       </div>
-      <div class="text-center p-8 bg-green-50 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-green-100 group">
+      <div class="text-center p-8 bg-green-50/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-green-100 group">
         <div class="w-20 h-20 bg-green-600 text-white rounded-full flex items-center justify-center text-4xl font-bold mx-auto mb-6 shadow-md group-hover:bg-green-700 transition-colors">
-          <i class="fas fa-pencil-ruler"></i>
+          <i class="fas fa-pencil-alt"></i>
         </div>
-        <h3 class="font-bold text-2xl mb-4 text-gray-800">2. Customize & Personalize</h3>
-        <p class="text-gray-700 leading-relaxed">Add your unique event details, cherished photos, custom text, and choose from our wide range of fonts and colors. Make it truly yours.</p>
+        <h3 class="font-bold text-2xl mb-4 text-gray-800">2. Personalize with Joy</h3>
+        <p class="text-gray-700 leading-relaxed">Add your event details, upload photos, change music, and customize text. Our editor makes it easy and fun to make it truly yours.</p>
       </div>
-      <div class="text-center p-8 bg-blue-50 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-blue-100 group">
+      <div class="text-center p-8 bg-blue-50/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-blue-100 group">
         <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center text-4xl font-bold mx-auto mb-6 shadow-md group-hover:bg-blue-700 transition-colors">
-          <i class="fas fa-share-nodes"></i>
+          <i class="fab fa-whatsapp"></i>
         </div>
-        <h3 class="font-bold text-2xl mb-4 text-gray-800">3. Download & Share Instantly</h3>
-        <p class="text-gray-700 leading-relaxed">Receive your high-resolution digital invitation. Share it seamlessly with your loved ones via WhatsApp, email, or your favorite social media platforms.</p>
+        <h3 class="font-bold text-2xl mb-4 text-gray-800">3. Share with a Tap</h3>
+        <p class="text-gray-700 leading-relaxed">Download your high-resolution invitation or video and share it instantly via WhatsApp, email, or social media. It's that simple!</p>
       </div>
     </div>
   </section>
 
-  <section id="categories" class="text-center py-20 px-6 bg-gray-100">
+  <section id="categories" class="text-center py-20 px-6 bg-gray-100 fade-in-section subtle-pattern-bg">
     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900">Explore Our Curated Collections</h2>
-    <p class="text-lg font-semibold text-gray-800 mb-8 tracking-wide uppercase">Your Perfect Invitation Awaits in Our Most Loved Categories</p>
-    <p class="max-w-3xl mx-auto text-gray-600 text-lg mb-16">Unlock a world of creativity! Use your own photos, personalize texts, and add all event details effortlessly. Download your stunning invite and share the joy on WhatsApp, Facebook, and more in just minutes.</p>
-
+    <p class="max-w-3xl mx-auto text-gray-600 text-lg mb-16">From the sacred rituals of a wedding to the cheerful celebration of a birthday, we have a lovingly crafted design for every milestone.</p>
     <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8 max-w-7xl mx-auto">
-      <div class="group bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
-        <img src="https://placehold.co/200x200/FFF0DC/8B0000?text=Wedding" alt="Wedding Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
-        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Wedding Invitation</h3>
+      <div class="group bg-white/95 p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
+        <img src="https://source.unsplash.com/200x200/?indian-wedding" alt="Traditional Wedding Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
+        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Traditional Wedding</h3>
       </div>
-      <div class="group bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
-        <img src="https://placehold.co/200x200/6A0DAD/fff?text=Marathi" alt="Marathi Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
-        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Marathi Invitation</h3>
+      <div class="group bg-white/95 p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
+        <img src="https://source.unsplash.com/200x200/?birthday-cake" alt="Birthday Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
+        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Birthday Celebration</h3>
       </div>
-      <div class="group bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
-        <img src="https://placehold.co/200x200/FFDAB9/8B0000?text=Hindi" alt="Hindi Shubh Vivah Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
-        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Shubh Vivah</h3>
+      <div class="group bg-white/95 p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
+        <img src="https://source.unsplash.com/200x200/?engagement-ring" alt="Engagement Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
+        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Engagement & Roka</h3>
       </div>
-      <div class="group bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
-        <img src="https://placehold.co/200x200/800080/FFD700?text=Jain" alt="Jain Wedding Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
-        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Jain Wedding</h3>
+      <div class="group bg-white/95 p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
+        <img src="https://source.unsplash.com/200x200/?new-house,keys" alt="Gruha Pravesh Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
+        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Gruha Pravesh</h3>
       </div>
-      <div class="group bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
-        <img src="https://placehold.co/200x200/FFA07A/000?text=Rajasthani" alt="Rajasthani Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
-        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Rajasthani Invitation</h3>
+      <div class="group bg-white/95 p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
+        <img src="https://source.unsplash.com/200x200/?baby-shower" alt="Baby Shower Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
+        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Baby Shower</h3>
       </div>
-      <div class="group bg-white p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
-        <img src="https://placehold.co/200x200/FFB6C1/fff?text=Birthday" alt="Birthday Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
-        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Birthday Invitation</h3>
+      <div class="group bg-white/95 p-4 rounded-xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 duration-300 border border-gray-100">
+        <img src="https://source.unsplash.com/200x200/?corporate-event" alt="Inauguration Invitation Category" class="rounded-lg mb-3 mx-auto w-full h-auto object-cover transition-transform group-hover:scale-105">
+        <h3 class="font-bold text-base md:text-lg text-gray-800 group-hover:text-yellow-600 transition-colors">Inauguration Event</h3>
       </div>
     </div>
-
     <div class="mt-14">
       <button class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3.5 px-10 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl text-lg md:text-xl">View All Categories <i class="fas fa-tags ml-2"></i></button>
     </div>
   </section>
 
-  <section id="testimonials" class="py-20 px-6 bg-white">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16 text-gray-900">Hear From Our Happy Customers</h2>
+  <section class="py-12 px-6 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-8 text-gray-900">Your Saved Invitations</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      <div class="shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="assets/bday.avif" alt="Birthday Invite" class="w-full h-auto object-cover">
+      </div>
+      <div class="shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="assets/wedding.jpg" alt="Wedding Invite" class="w-full h-auto object-cover">
+      </div>
+      <div class="shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition duration-300">
+        <img src="assets/3569846.jpg" alt="Housewarming Invite" class="w-full h-auto object-cover">
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="py-20 px-6 bg-white fade-in-section subtle-pattern-bg">
+    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16 text-gray-900">Loved by Families Across India</h2>
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <div class="bg-yellow-50 p-8 rounded-2xl shadow-xl border border-yellow-100 flex flex-col items-center text-center">
-        <img src="https://placehold.co/80x80/FFD700/fff?text=PS" alt="Priya S. Avatar" class="rounded-full mb-4 ring-2 ring-yellow-400">
-        <p class="text-lg text-gray-700 mb-5 italic leading-relaxed">"KuttyInvites made designing our wedding invitation so incredibly easy and delightful! The templates are breathtaking, and the customization options are incredibly flexible. An absolute lifesaver, highly recommend!"</p>
+      <div class="bg-yellow-50/95 p-8 rounded-2xl shadow-xl border border-yellow-100 flex flex-col items-center text-center">
+        <img src="https://source.unsplash.com/80x80/?indian-couple" alt="Aishwarya and Rohan Avatar" class="rounded-full mb-4 ring-2 ring-yellow-400">
+        <p class="text-lg text-gray-700 mb-5 italic leading-relaxed">"The caricature wedding invite was a huge hit! Our families loved the personal touch. The process was so simple, and sharing it on WhatsApp with RSVP tracking saved us so much time. Thank you, KuttyInvites!"</p>
         <div class="text-yellow-500 text-xl mb-3">
           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
         </div>
-        <p class="font-bold text-yellow-700 text-lg">- Priya S.</p>
-        <p class="text-sm text-gray-500">Bangalore, India</p>
+        <p class="font-bold text-yellow-700 text-lg">- Aishwarya & Rohan</p>
+        <p class="text-sm text-gray-500">Pune, Maharashtra</p>
       </div>
-      <div class="bg-green-50 p-8 rounded-2xl shadow-xl border border-green-100 flex flex-col items-center text-center">
-        <img src="https://placehold.co/80x80/6A0DAD/fff?text=RM" alt="Rahul M. Avatar" class="rounded-full mb-4 ring-2 ring-green-400">
-        <p class="text-lg text-gray-700 mb-5 italic leading-relaxed">"I needed a quick birthday invite for my son's party, and KuttyInvites delivered beyond expectations! The process was incredibly fast, and the quality of the final design was superb. I will definitely be using it again for future events."</p>
+      <div class="bg-green-50/95 p-8 rounded-2xl shadow-xl border border-green-100 flex flex-col items-center text-center">
+        <img src="https://source.unsplash.com/80x80/?indian-man" alt="Sandeep Verma Avatar" class="rounded-full mb-4 ring-2 ring-green-400">
+        <p class="text-lg text-gray-700 mb-5 italic leading-relaxed">"I needed a last-minute invitation for my daughter's first birthday. I was amazed by how quickly I could create a beautiful video invite with her photos and favorite music. The final quality was fantastic. Highly recommended!"</p>
         <div class="text-yellow-500 text-xl mb-3">
           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
         </div>
-        <p class="font-bold text-green-700 text-lg">- Rahul M.</p>
-        <p class="text-sm text-gray-500">Mumbai, India</p>
+        <p class="font-bold text-green-700 text-lg">- Sandeep Verma</p>
+        <p class="text-sm text-gray-500">Delhi, India</p>
       </div>
-      <div class="bg-blue-50 p-8 rounded-2xl shadow-xl border border-blue-100 flex flex-col items-center text-center">
-        <img src="https://placehold.co/80x80/800080/FFD700?text=AD" alt="Anjali D. Avatar" class="rounded-full mb-4 ring-2 ring-blue-400">
-        <p class="text-lg text-gray-700 mb-5 italic leading-relaxed">"The variety of regional invitations at KuttyInvites is simply outstanding. I effortlessly found the perfect Rajasthani invitation for our family's celebration. A heartfelt thank you, KuttyInvites, for making it so special!"</p>
+      <div class="bg-blue-50/95 p-8 rounded-2xl shadow-xl border border-blue-100 flex flex-col items-center text-center">
+        <img src="https://source.unsplash.com/80x80/?indian-woman" alt="The Sharma Family Avatar" class="rounded-full mb-4 ring-2 ring-blue-400">
+        <p class="text-lg text-gray-700 mb-5 italic leading-relaxed">"We found the perfect Gruha Pravesh invitation that matched our traditions. It was so easy to add details in Hindi and send it to all our relatives. KuttyInvites truly understands the importance of our culture."</p>
         <div class="text-yellow-500 text-xl mb-3">
           <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
         </div>
-        <p class="font-bold text-blue-700 text-lg">- Anjali D.</p>
-        <p class="text-sm text-gray-500">Jaipur, India</p>
+        <p class="font-bold text-blue-700 text-lg">- The Sharma Family</p>
+        <p class="text-sm text-gray-500">Jaipur, Rajasthan</p>
       </div>
     </div>
   </section>
 
-  <section id="about-us" class="bg-gray-50 py-20 px-6 text-center">
+  <section id="about-us" class="bg-gray-50 py-20 px-6 text-center fade-in-section subtle-pattern-bg">
     <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Our Story & Our Promise</h2>
     <p class="max-w-3xl mx-auto text-gray-700 leading-relaxed text-lg mb-14">
-      At KuttyInvites, we are passionate about making your celebrations more vibrant and less stressful. We believe every special moment, big or small, deserves a beautifully crafted invitation that resonates with your unique style. Our mission is to provide an intuitive, feature-rich platform that empowers you to create personalized digital invitations with ease, allowing you to focus on the joy of your milestones.
+      KuttyInvites was born from a simple idea: celebrating our traditions shouldn't be complicated. After struggling with coordinating traditional invitation printing and distribution for a family wedding, we knew there had to be a better way. Our mission is to blend India's rich cultural heritage with the convenience of modern technology, empowering you to create beautiful, heartfelt digital invitations with ease and joy.
     </p>
     <div class="flex flex-wrap justify-center gap-8 max-w-6xl mx-auto">
-      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
-        <i class="fas fa-magic text-5xl text-yellow-600 mb-5"></i>
-        <h3 class="font-bold text-xl mb-3 text-gray-800">Effortless Customization</h3>
-        <p class="text-gray-600 leading-relaxed">Our intuitive drag-and-drop editor makes personalizing your invite a joyous experience for everyone.</p>
+      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
+        <i class="fas fa-palette text-5xl text-yellow-600 mb-5"></i>
+        <h3 class="font-bold text-xl mb-3 text-gray-800">Authentic Designs</h3>
+        <p class="text-gray-600 leading-relaxed">Designs that respect and celebrate the diversity of Indian cultures and traditions.</p>
       </div>
-      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
-        <i class="fas fa-photo-film text-5xl text-green-600 mb-5"></i>
-        <h3 class="font-bold text-xl mb-3 text-gray-800">Stunning Visuals</h3>
-        <p class="text-gray-600 leading-relaxed">Choose from a vast collection of unique, high-quality templates and vibrant design elements.</p>
+      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
+        <i class="fas fa-magic-wand-sparkles text-5xl text-green-600 mb-5"></i>
+        <h3 class="font-bold text-xl mb-3 text-gray-800">Simple & Intuitive</h3>
+        <p class="text-gray-600 leading-relaxed">An effortless creation process, so you can focus on the celebration, not the tool.</p>
       </div>
-      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
-        <i class="fas fa-share-nodes text-5xl text-blue-600 mb-5"></i>
-        <h3 class="font-bold text-xl mb-3 text-gray-800">Instant Global Share</h3>
-        <p class="text-gray-600 leading-relaxed">Share your creations instantly via WhatsApp, email, or social media, connecting globally.</p>
+      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
+        <i class="fas fa-heart text-5xl text-blue-600 mb-5"></i>
+        <h3 class="font-bold text-xl mb-3 text-gray-800">Made with Love</h3>
+        <p class="text-gray-600 leading-relaxed">Every feature is crafted with care, ensuring your special moments are honored.</p>
       </div>
-      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
+      <div class="w-full sm:w-5/12 lg:w-[23%] p-8 bg-white/95 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100">
         <i class="fas fa-headset text-5xl text-purple-600 mb-5"></i>
-        <h3 class="font-bold text-xl mb-3 text-gray-800">24/7 Dedicated Support</h3>
-        <p class="text-gray-600 leading-relaxed">Our friendly team is always here to help you every step of the way, ensuring a smooth experience.</p>
+        <h3 class="font-bold text-xl mb-3 text-gray-800">Dedicated Support</h3>
+        <p class="text-gray-600 leading-relaxed">Our friendly team is always here to help you every step of the way.</p>
       </div>
     </div>
   </section>
 
-  <section id="blog" class="py-20 px-6 bg-white">
-    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-16 text-gray-900">Insights & Inspiration from Our Blog</h2>
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-gray-50 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100 overflow-hidden">
-        <img src="https://placehold.co/400x250/E5E7EB/4B5563?text=Wedding+Trends" alt="Blog Post: Wedding Invitation Trends" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-300">
-        <div class="p-6">
-          <h3 class="font-bold text-xl md:text-2xl mb-2 text-gray-800 group-hover:text-yellow-700 transition-colors">Top 10 Wedding Invitation Trends of 2025</h3>
-          <p class="text-gray-700 text-base mb-4 leading-relaxed">Discover the latest styles and themes shaping wedding invitations this year. Get inspired to make your invite truly memorable.</p>
-          <a href="#" class="text-yellow-600 hover:text-yellow-700 font-semibold text-lg flex items-center">Read More <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-        </div>
-      </div>
-      <div class="bg-gray-50 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100 overflow-hidden">
-        <img src="https://placehold.co/400x250/E5E7EB/4B5563?text=Birthday+Ideas" alt="Blog Post: Birthday Invitation Ideas" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-300">
-        <div class="p-6">
-          <h3 class="font-bold text-xl md:text-2xl mb-2 text-gray-800 group-hover:text-yellow-700 transition-colors">Birthday Bash: Fun Invitation Ideas for All Ages</h3>
-          <p class="text-gray-700 text-base mb-4 leading-relaxed">From whimsical kids' parties to elegant milestone celebrations, find the perfect invite inspiration and design tips.</p>
-          <a href="#" class="text-yellow-600 hover:text-yellow-700 font-semibold text-lg flex items-center">Read More <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-        </div>
-      </div>
-      <div class="bg-gray-50 rounded-2xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 duration-300 border border-gray-100 overflow-hidden">
-        <img src="https://placehold.co/400x250/E5E7EB/4B5563?text=Housewarming+Tips" alt="Blog Post: Housewarming Invite Tips" class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-300">
-        <div class="p-6">
-          <h3 class="font-bold text-xl md:text-2xl mb-2 text-gray-800 group-hover:text-yellow-700 transition-colors">Warm Welcomes: The Art of Housewarming Invites</h3>
-          <p class="text-gray-700 text-base mb-4 leading-relaxed">Expert tips and creative ideas for crafting a truly warm and inviting message for your new home's inaugural celebration.</p>
-          <a href="#" class="text-yellow-600 hover:text-yellow-700 font-semibold text-lg flex items-center">Read More <i class="fas fa-arrow-right ml-2 text-sm"></i></a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-gradient-to-br from-yellow-600 to-amber-700 py-20 px-6 text-center text-white relative overflow-hidden">
-    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-15"></div>
+  <section class="bg-gradient-to-br from-yellow-600 to-amber-700 py-20 px-6 text-center text-white relative overflow-hidden fade-in-section">
+    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/gplay.png')] opacity-25"></div>
     <div class="relative z-10">
-      <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">Your Next Celebration Starts Here!</h2>
-      <p class="text-xl md:text-2xl lg:text-3xl mb-10 max-w-4xl mx-auto opacity-95">Join thousands of joyous hosts who have created stunning, shareable invitations with unparalleled ease using KuttyInvites.</p>
+      <h2 class="text-3xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight drop-shadow-lg">Ready to Announce Your Big Day?</h2>
+      <p class="text-xl md:text-2xl lg:text-3xl mb-10 max-w-4xl mx-auto opacity-95">Join thousands of happy customers who have started their celebrations with a beautiful invite from KuttyInvites.</p>
       <a href="#hero" class="inline-block bg-white text-yellow-700 hover:bg-gray-100 font-bold py-4 px-12 rounded-full shadow-2xl hover:shadow-3xl transition transform hover:scale-105 duration-300 text-lg md:text-xl">Design My Invite Now! <i class="fas fa-magic ml-2"></i></a>
     </div>
   </section>
@@ -387,19 +456,17 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-700 pb-12 mb-10">
       <div>
         <h3 class="text-white text-3xl font-bold mb-5 flex items-center">
-          <img src="https://placehold.co/40x40/FFD700/fff?text=KI" alt="KuttyInvites Logo" class="rounded-full mr-2" />
+          <img src="https://placehold.co/40x40/FFD700/fff?text=IC" alt="KuttyInvites Logo" class="rounded-sm mr-2" />
           KuttyInvites
         </h3>
-        <p class="text-sm leading-relaxed mb-6">Simplifying your celebrations, one beautiful invitation at a time. Crafted with love, shared with ease.</p>
+        <p class="text-sm leading-relaxed mb-6">Simplifying your celebrations, one beautiful invitation at a time. Crafted with love in India, for the world.</p>
         <div class="flex space-x-5">
-          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="text-gray-400 hover:text-yellow-500 text-2xl transition-colors" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
         </div>
       </div>
-
       <div>
         <h4 class="text-white font-bold text-xl mb-5">Quick Links</h4>
         <ul class="space-y-3">
@@ -407,11 +474,9 @@
           <li><a href="#categories" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> Categories</a></li>
           <li><a href="#how-it-works" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> How It Works</a></li>
           <li><a href="#about-us" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> About Us</a></li>
-          <li><a href="#testimonials" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> Customer Reviews</a></li>
-          <li><a href="#blog" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> Our Blog</a></li>
+          <li><a href="#testimonials" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> Reviews</a></li>
         </ul>
       </div>
-
       <div>
         <h4 class="text-white font-bold text-xl mb-5">Support & Legal</h4>
         <ul class="space-y-3">
@@ -422,13 +487,11 @@
           <li><a href="#" class="hover:text-yellow-500 transition text-base flex items-center"><i class="fas fa-chevron-right text-yellow-500 text-xs mr-2"></i> Refund Policy</a></li>
         </ul>
       </div>
-
       <div>
         <h4 class="text-white font-bold text-xl mb-5">Get in Touch</h4>
-        <p class="text-base flex items-center mb-4"><i class="fas fa-map-marker-alt mr-3 text-yellow-500 text-xl"></i> Hyderabad, Telangana, India</p>
-        <p class="text-base flex items-center mb-4"><i class="fas fa-envelope mr-3 text-yellow-500 text-xl"></i> support@kuttyinvites.com</p>
-        <p class="text-base flex items-center mb-4"><i class="fas fa-phone-alt mr-3 text-yellow-500 text-xl"></i> +91 98765 43210</p>
-        <p class="text-base flex items-center"><i class="fas fa-clock mr-3 text-yellow-500 text-xl"></i> Mon - Sat: 9 AM - 6 PM (IST)</p>
+        <p class="text-base flex items-start mb-4"><i class="fas fa-map-marker-alt mr-3 text-yellow-500 text-lg mt-1"></i> Hitech City, Hyderabad,<br>Telangana, India - 500081</p>
+        <p class="text-base flex items-center mb-4"><i class="fas fa-envelope mr-3 text-yellow-500 text-lg"></i> support@kuttyinvites.com</p>
+        <p class="text-base flex items-center"><i class="fas fa-headset mr-3 text-yellow-500 text-lg"></i> Mon - Sat: 9 AM - 7 PM (IST)</p>
       </div>
     </div>
     <div class="pt-8 text-center text-sm text-gray-500">
@@ -437,7 +500,7 @@
   </footer>
 
   <div class="fixed bottom-6 right-6 z-50">
-    <a href="https://wa.me/1234567890" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110 flex items-center justify-center w-16 h-16 text-3xl">
+    <a href="https://wa.me/919876543210?text=Hello%2C%20I%20have%20a%20question%20about%20KuttyInvites." target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110 flex items-center justify-center w-16 h-16 text-3xl">
       <i class="fab fa-whatsapp"></i>
     </a>
   </div>
@@ -445,15 +508,12 @@
   <script>
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
-      const headerButtons = document.querySelector('.header-buttons');
       const hamburger = document.querySelector('.hamburger-menu');
-
       navLinks.classList.toggle('active');
-      headerButtons.classList.toggle('active');
-      hamburger.classList.toggle('open'); // Toggle hamburger animation
+      hamburger.classList.toggle('open');
     }
+    document.getElementById('current-year').textContent = new Date().getFullYear();
 
-    // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -461,25 +521,44 @@
         const targetElement = document.querySelector(targetId);
 
         if (targetElement) {
-          // Close mobile menu if open
           const navLinks = document.querySelector('.nav-links');
-          const headerButtons = document.querySelector('.header-buttons');
           const hamburger = document.querySelector('.hamburger-menu');
           if (navLinks.classList.contains('active')) {
             navLinks.classList.remove('active');
-            headerButtons.classList.remove('active');
             hamburger.classList.remove('open');
           }
-
-          targetElement.scrollIntoView({
-            behavior: 'smooth'
-          });
+          targetElement.scrollIntoView({ behavior: 'smooth' });
         }
       });
     });
+    
+    document.querySelectorAll('.nav-links .dropdown').forEach(dropdown => {
+        dropdown.addEventListener('click', function(e) {
+            if (window.innerWidth < 768) {
+                e.preventDefault();
+                this.classList.toggle('open');
+            }
+        });
+    });
 
-    // Update current year in footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
+    const sections = document.querySelectorAll('.fade-in-section');
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.15
+    };
+    const observer = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
   </script>
 
 </body>
