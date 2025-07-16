@@ -118,9 +118,18 @@ img {
 .hero-section {
   padding: 80px 0;
   text-align: center;
-  background: linear-gradient(135deg, #e0f2f1, #c8e6c9);
+  background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
   position: relative;
   overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/traditional-indian.png');
+  opacity: 0.08;
+  z-index: 1;
 }
 
 .hero-grid {
@@ -154,6 +163,36 @@ img {
   margin-top: 40px;
   max-width: 400px;
   margin-inline: auto;
+}
+
+/* Enhanced Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, 
+        rgba(255, 247, 237, 1) 0%,
+        rgba(254, 243, 199, 0.9) 50%,
+        rgba(255, 237, 213, 1) 100%
+    );
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-image-left, 
+.hero-image-center, 
+.hero-image-right {
+    transition: all 0.5s ease-in-out;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+}
+
+.hero-image-center {
+    transform: translateY(-50%) translateX(-50%) scale(1.1);
+    z-index: 3;
+}
+
+.hero-image-left:hover,
+.hero-image-center:hover,
+.hero-image-right:hover {
+    transform: scale(1.1);
+    z-index: 4;
 }
 
 /* New 3D Hero Animation */
@@ -234,12 +273,45 @@ img {
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
     transition: all var(--transition);
     cursor: pointer;
+    border: 1px solid rgba(255, 152, 0, 0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 225, 0.95));
+}
+
+.category-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/indian-flower.png');
+  opacity: 0.05;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .category-card:hover {
     transform: translateY(-5px);
     background-color: var(--primary);
     color: white;
+}
+
+/* Enhanced Category Card */
+.category-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95), 
+        rgba(255, 248, 225, 0.95)
+    );
+}
+
+.category-card img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+}
+
+.category-card:hover img {
+    transform: scale(1.1);
+    filter: brightness(1.1);
 }
 
 /* How It Works Section */
@@ -408,6 +480,11 @@ img {
   gap: 16px;
   margin-top: 20px;
   align-items: center;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  flex-direction: row;
+  justify-content: center;
 }
 
 /* Music & Close Button */
@@ -439,11 +516,21 @@ img {
 
 /* Footer */
 .site-footer {
-  background: var(--secondary);
+  background: linear-gradient(135deg, #2C3E50, #1a252f);
   text-align: center;
   padding: 40px 0;
   font-size: 0.9rem;
   color: rgba(255,255,255,0.7);
+  position: relative;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/indian-pattern.png');
+  opacity: 0.05;
+  pointer-events: none;
 }
 
 /* Alert */
@@ -472,17 +559,72 @@ img {
   }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-    }
-    .main-nav {
-        display: none; /* Example: Hide nav on small screens */
-    }
+/* Indian Pattern Overlays */
+.indian-pattern-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+      url('https://www.transparenttextures.com/patterns/rangoli.png'),
+      url('https://www.transparenttextures.com/patterns/paisley.png');
+  background-blend-mode: overlay;
+  opacity: 0.07;
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
-/* ADD these new styles to the end of your style.css file */
+/* Mandala Decorations */
+.mandala-bg {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background-image: url('https://www.transparenttextures.com/patterns/mandala.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.05;
+  pointer-events: none;
+  animation: rotateSlowly 30s linear infinite;
+}
+
+@keyframes rotateSlowly {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.mandala-top-right {
+  top: -100px;
+  right: -100px;
+}
+
+.mandala-bottom-left {
+  bottom: -100px;
+  left: -100px;
+  transform: rotate(180deg);
+}
+
+/* Testimonial Cards with Indian Patterns */
+.testimonial-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 248, 225, 0.95));
+  border: 1px solid rgba(255, 152, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('https://www.transparenttextures.com/patterns/paisley.png');
+  opacity: 0.05;
+  z-index: 0;
+}
+
+.testimonial-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
 /* Final Screen Styling */
 .video-screen.is-finished {
@@ -551,11 +693,85 @@ img {
   max-width: 200px;
 }
 
-/* Make modal controls container transparent for the new layout */
-.modal-controls {
-  background: none;
-  box-shadow: none;
-  padding: 0;
-  flex-direction: row; /* Ensure it doesn't conflict with other layouts */
-  justify-content: center;
+/* Gradient text for headings */
+.gradient-text {
+  background: linear-gradient(90deg,#ff9800,#ffb300,#ffd54f 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Scroll Down Indicator */
+.scroll-down-indicator {
+  /* see inline style in HTML for animation */
+}
+
+/* Demo Modal */
+.demo-modal-bg {
+  /* see inline style in HTML */
+}
+.demo-modal-content {
+  /* see inline style in HTML */
+}
+.demo-modal-close {
+  /* see inline style in HTML */
+}
+
+/* Floating Help Button */
+.floating-help-btn {
+  /* see inline style in HTML */
+}
+.floating-help-btn:hover {
+  /* see inline style in HTML */
+}
+.help-popover {
+  /* see inline style in HTML */
+}
+.help-popover.active {
+  /* see inline style in HTML */
+}
+.help-popover a {
+  /* see inline style in HTML */
+}
+.help-popover a:hover {
+  /* see inline style in HTML */
+}
+
+/* Hero image polish */
+.hero-image-left img,
+.hero-image-center img,
+.hero-image-right img {
+  box-shadow: 0 8px 32px rgba(255,152,0,0.09), 0 2px 8px rgba(0,0,0,0.08);
+  border: 3px solid #fffbe7;
+  background: #fffbe7;
+}
+
+/* Card hover polish */
+.category-card,
+.testimonial-card {
+  box-shadow: 0 4px 24px rgba(255,152,0,0.07), 0 2px 8px rgba(0,0,0,0.06);
+  border: 1.5px solid #ffe0b2;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+.category-card:hover,
+.testimonial-card:hover {
+  box-shadow: 0 8px 32px rgba(255,152,0,0.13), 0 4px 16px rgba(0,0,0,0.10);
+  border-color: #ffb300;
+}
+
+/* Modal and popover border/shadow */
+.demo-modal-content,
+.help-popover {
+  border: 1.5px solid #ffe0b2;
+  box-shadow: 0 8px 32px rgba(255,152,0,0.11), 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+    }
+    .main-nav {
+        display: none; /* Example: Hide nav on small screens */
+    }
 }
